@@ -1,5 +1,5 @@
 /***************************************************************
- * Name:      frameMain.h
+ * Name:      signinMain.h
  * Purpose:   Defines Application Frame
  * Author:    sunzhenbao (suzhenbao@live.com)
  * Created:   2018-04-19
@@ -7,10 +7,10 @@
  * License:
  **************************************************************/
 
-#ifndef FRAMEMAIN_H
-#define FRAMEMAIN_H
+#ifndef SIGNINMAIN_H
+#define SIGNINMAIN_H
 
-//(*Headers(frameFrame)
+//(*Headers(signinFrame)
 #include <wx/frame.h>
 class wxBoxSizer;
 class wxButton;
@@ -27,22 +27,22 @@ class wxStatusBar;
 class wxTextCtrl;
 //*)
 
-class frameFrame: public wxFrame
+class signinFrame: public wxFrame
 {
     public:
 
-        frameFrame(wxWindow* parent,wxWindowID id = -1);
-        virtual ~frameFrame();
+        signinFrame(wxWindow* parent,wxWindowID id = -1);
+        virtual ~signinFrame();
 
     private:
 
-        //(*Handlers(frameFrame)
+        //(*Handlers(signinFrame)
         void OnQuit(wxCommandEvent& event);
         void OnAbout(wxCommandEvent& event);
         void OnTextCtrl2Text(wxCommandEvent& event);
         //*)
 
-        //(*Identifiers(frameFrame)
+        //(*Identifiers(signinFrame)
         static const long ID_STATICBITMAP1;
         static const long ID_STATICBITMAP2;
         static const long ID_STATICBITMAP3;
@@ -68,7 +68,7 @@ class frameFrame: public wxFrame
         static const long idMenuAbout;
         //*)
 
-        //(*Declarations(frameFrame)
+        //(*Declarations(signinFrame)
         wxButton* Button1;
         wxPanel* Panel1;
         wxPanel* Panel2;
@@ -96,4 +96,4 @@ class frameFrame: public wxFrame
         DECLARE_EVENT_TABLE()
 };
 
-#endif // FRAMEMAIN_H
+#endif // SIGNINMAIN_H

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <wxsmith>
-	<object class="wxFrame" name="frameFrame">
+	<object class="wxFrame" name="signinFrame">
 		<centered>1</centered>
 		<size>1156,544</size>
 		<minsize>-1,-1</minsize>

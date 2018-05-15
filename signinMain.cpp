@@ -1,5 +1,5 @@
 /***************************************************************
- * Name:      frameMain.cpp
+ * Name:      signinMain.cpp
  * Purpose:   Code for Application Frame
  * Author:    sunzhenbao (suzhenbao@live.com)
  * Created:   2018-04-19
@@ -7,7 +7,7 @@
  * License:
  **************************************************************/
 
-#include "frameMain.h"
+#include "signinMain.h"
 #include <wx/msgdlg.h>
 #include <opencv2/opencv.hpp>
 #include <wx/wx.h>
@@ -21,7 +21,7 @@ using namespace std;
 using namespace cv;
 
 
-//(*InternalHeaders(frameFrame)
+//(*InternalHeaders(signinFrame)
 #include <wx/button.h>
 #include <wx/menu.h>
 #include <wx/panel.h>
@@ -62,34 +62,34 @@ wxString wxbuildinfo(wxbuildinfoformat format)
     return wxbuild;
 }
 
-//(*IdInit(frameFrame)
-const long frameFrame::ID_STATICBITMAP1 = wxNewId();
-const long frameFrame::ID_STATICBITMAP2 = wxNewId();
-const long frameFrame::ID_STATICBITMAP3 = wxNewId();
-const long frameFrame::ID_STATICBITMAP4 = wxNewId();
-const long frameFrame::ID_STATICBITMAP5 = wxNewId();
-const long frameFrame::ID_STATICBITMAP6 = wxNewId();
-const long frameFrame::ID_STATICTEXT2 = wxNewId();
-const long frameFrame::ID_TEXTCTRL2 = wxNewId();
-const long frameFrame::ID_STATICTEXT3 = wxNewId();
-const long frameFrame::ID_RADIOBUTTON1 = wxNewId();
-const long frameFrame::ID_RADIOBUTTON2 = wxNewId();
-const long frameFrame::ID_STATICTEXT4 = wxNewId();
-const long frameFrame::ID_TEXTCTRL3 = wxNewId();
-const long frameFrame::ID_STATICTEXT5 = wxNewId();
-const long frameFrame::ID_TEXTCTRL4 = wxNewId();
-const long frameFrame::ID_STATICTEXT6 = wxNewId();
-const long frameFrame::ID_TEXTCTRL5 = wxNewId();
-const long frameFrame::ID_STATICBITMAP7 = wxNewId();
-const long frameFrame::ID_PANEL1 = wxNewId();
-const long frameFrame::ID_BUTTON1 = wxNewId();
-const long frameFrame::ID_PANEL2 = wxNewId();
-const long frameFrame::idMenuQuit = wxNewId();
-const long frameFrame::idMenuAbout = wxNewId();
+//(*IdInit(signinFrame)
+const long signinFrame::ID_STATICBITMAP1 = wxNewId();
+const long signinFrame::ID_STATICBITMAP2 = wxNewId();
+const long signinFrame::ID_STATICBITMAP3 = wxNewId();
+const long signinFrame::ID_STATICBITMAP4 = wxNewId();
+const long signinFrame::ID_STATICBITMAP5 = wxNewId();
+const long signinFrame::ID_STATICBITMAP6 = wxNewId();
+const long signinFrame::ID_STATICTEXT2 = wxNewId();
+const long signinFrame::ID_TEXTCTRL2 = wxNewId();
+const long signinFrame::ID_STATICTEXT3 = wxNewId();
+const long signinFrame::ID_RADIOBUTTON1 = wxNewId();
+const long signinFrame::ID_RADIOBUTTON2 = wxNewId();
+const long signinFrame::ID_STATICTEXT4 = wxNewId();
+const long signinFrame::ID_TEXTCTRL3 = wxNewId();
+const long signinFrame::ID_STATICTEXT5 = wxNewId();
+const long signinFrame::ID_TEXTCTRL4 = wxNewId();
+const long signinFrame::ID_STATICTEXT6 = wxNewId();
+const long signinFrame::ID_TEXTCTRL5 = wxNewId();
+const long signinFrame::ID_STATICBITMAP7 = wxNewId();
+const long signinFrame::ID_PANEL1 = wxNewId();
+const long signinFrame::ID_BUTTON1 = wxNewId();
+const long signinFrame::ID_PANEL2 = wxNewId();
+const long signinFrame::idMenuQuit = wxNewId();
+const long signinFrame::idMenuAbout = wxNewId();
 //*)
 
-BEGIN_EVENT_TABLE(frameFrame,wxFrame)
-    //(*EventTable(frameFrame)
+BEGIN_EVENT_TABLE(signinFrame,wxFrame)
+    //(*EventTable(signinFrame)
     //*)
 END_EVENT_TABLE()
 
@@ -106,9 +106,9 @@ wxImage wx_from_mat(Mat &img) {
     return wx;
 }
 
-frameFrame::frameFrame(wxWindow* parent,wxWindowID id)
+signinFrame::signinFrame(wxWindow* parent,wxWindowID id)
 {
-    //(*Initialize(frameFrame)
+    //(*Initialize(signinFrame)
     wxBoxSizer* BoxSizer1;
     wxBoxSizer* BoxSizer2;
     wxBoxSizer* BoxSizer3;
@@ -230,8 +230,8 @@ frameFrame::frameFrame(wxWindow* parent,wxWindowID id)
     Layout();
     Center();
 
-    Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&frameFrame::OnQuit);
-    Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&frameFrame::OnAbout);
+    Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&signinFrame::OnQuit);
+    Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&signinFrame::OnAbout);
     //*)
 
      //From opencv to wx
@@ -245,23 +245,23 @@ frameFrame::frameFrame(wxWindow* parent,wxWindowID id)
      StaticBitmap1->SetBitmap(imwx1);
 }
 
-frameFrame::~frameFrame()
+signinFrame::~signinFrame()
 {
-    //(*Destroy(frameFrame)
+    //(*Destroy(signinFrame)
     //*)
 }
 
-void frameFrame::OnQuit(wxCommandEvent& event)
+void signinFrame::OnQuit(wxCommandEvent& event)
 {
     Close();
 }
 
-void frameFrame::OnAbout(wxCommandEvent& event)
+void signinFrame::OnAbout(wxCommandEvent& event)
 {
     wxString msg = wxbuildinfo(long_f);
     wxMessageBox(msg, _("Welcome to..."));
 }
 
-void frameFrame::OnTextCtrl2Text(wxCommandEvent& event)
+void signinFrame::OnTextCtrl2Text(wxCommandEvent& event)
 {
 }
