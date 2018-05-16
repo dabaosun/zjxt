@@ -1,5 +1,5 @@
 /***************************************************************
- * Name:      signinApp.cpp
+ * Name:      SigninApp.cpp
  * Purpose:   Code for Application Class
  * Author:    sunzhenbao (suzhenbao@live.com)
  * Created:   2018-04-19
@@ -7,25 +7,25 @@
  * License:
  **************************************************************/
 
-#include "signinApp.h"
+#include "SigninApp.h"
 
 //(*AppHeaders
-#include "signinMain.h"
+#include "SigninMain.h"
 #include <wx/image.h>
 //*)
 
-IMPLEMENT_APP(signinApp);
+IMPLEMENT_APP(SigninApp);
 
-bool signinApp::OnInit()
+bool SigninApp::OnInit()
 {
     //(*AppInitialize
     bool wxsOK = true;
     wxInitAllImageHandlers();
     if ( wxsOK )
     {
-    	signinFrame* Frame = new signinFrame(0);
-    	//Frame->Show();
-    	Frame->ShowFullScreen(true);
+    	SigninFrame* Frame = new SigninFrame(0);
+    	Frame->Show();
+    	//Frame->ShowFullScreen(true);
 
     	SetTopWindow(Frame);
     }

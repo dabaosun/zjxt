@@ -1,5 +1,5 @@
 /***************************************************************
- * Name:      signinApp.h
+ * Name:      SigninApp.h
  * Purpose:   Defines Application Class
  * Author:    sunzhenbao (suzhenbao@live.com)
  * Created:   2018-04-19
@@ -12,7 +12,7 @@
 
 #include <wx/app.h>
 
-class signinApp : public wxApp
+class SigninApp : public wxApp
 {
     public:
         virtual bool OnInit();

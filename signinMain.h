@@ -1,5 +1,5 @@
 /***************************************************************
- * Name:      signinMain.h
+ * Name:      SigninMain.h
  * Purpose:   Defines Application Frame
  * Author:    sunzhenbao (suzhenbao@live.com)
  * Created:   2018-04-19
@@ -10,7 +10,9 @@
 #ifndef SIGNINMAIN_H
 #define SIGNINMAIN_H
 
-//(*Headers(signinFrame)
+#include "camera/CameraView.h"
+
+//(*Headers(SigninFrame)
 #include <wx/frame.h>
 class wxBoxSizer;
 class wxButton;
@@ -26,71 +28,62 @@ class wxStaticText;
 class wxStatusBar;
 class wxTextCtrl;
 //*)
-
-class signinFrame: public wxFrame
+#define ID_CAMERA_CONNECT 101
+#define ID_VIEW 102
+class SigninFrame: public wxFrame
 {
     public:
-
-        signinFrame(wxWindow* parent,wxWindowID id = -1);
-        virtual ~signinFrame();
+        CameraView* m_view;
+        void OnConnect(wxCommandEvent &event);
+        void OnQuit(wxCommandEvent &event);
+        void OnClose(wxCloseEvent &event);
+        SigninFrame(wxWindow* parent,wxWindowID id = -1);
+        virtual ~SigninFrame();
 
     private:
 
-        //(*Handlers(signinFrame)
-        void OnQuit(wxCommandEvent& event);
+        //(*Handlers(SigninFrame)
         void OnAbout(wxCommandEvent& event);
-        void OnTextCtrl2Text(wxCommandEvent& event);
         //*)
 
-        //(*Identifiers(signinFrame)
-        static const long ID_STATICBITMAP1;
-        static const long ID_STATICBITMAP2;
-        static const long ID_STATICBITMAP3;
-        static const long ID_STATICBITMAP4;
-        static const long ID_STATICBITMAP5;
-        static const long ID_STATICBITMAP6;
-        static const long ID_STATICTEXT2;
-        static const long ID_TEXTCTRL2;
-        static const long ID_STATICTEXT3;
-        static const long ID_RADIOBUTTON1;
-        static const long ID_RADIOBUTTON2;
-        static const long ID_STATICTEXT4;
-        static const long ID_TEXTCTRL3;
-        static const long ID_STATICTEXT5;
-        static const long ID_TEXTCTRL4;
-        static const long ID_STATICTEXT6;
+        //(*Identifiers(SigninFrame)
+        static const long ID_STATICTEXT_NAME;
+        static const long ID_TEXTCTRL_NAME;
+        static const long ID_STATICTEXT_GENDER;
+        static const long ID_RADIOBUTTON_MALE;
+        static const long ID_RADIOBUTTON_FEMALE;
+        static const long ID_STATICTEXT_BIRTH;
+        static const long ID_TEXTCTRL_BIRTH;
+        static const long ID_STATICTEXT_IDNUMBER;
+        static const long ID_TEXTCTRL_IDNUMBER;
+        static const long ID_STATICTEXT_ADDRESS;
         static const long ID_TEXTCTRL5;
         static const long ID_STATICBITMAP7;
-        static const long ID_PANEL1;
-        static const long ID_BUTTON1;
-        static const long ID_PANEL2;
-        static const long idMenuQuit;
-        static const long idMenuAbout;
+        static const long ID_PANEL_TOP;
+        static const long ID_BUTTON_CHECK;
+        static const long ID_PANEL_Buttom;
+        static const long idMenuConnect;
+        static const long idMenuExit;
         //*)
 
-        //(*Declarations(signinFrame)
-        wxButton* Button1;
-        wxPanel* Panel1;
-        wxPanel* Panel2;
-        wxRadioButton* RadioButton1;
-        wxRadioButton* RadioButton2;
-        wxStaticBitmap* StaticBitmap1;
-        wxStaticBitmap* StaticBitmap2;
-        wxStaticBitmap* StaticBitmap3;
-        wxStaticBitmap* StaticBitmap4;
-        wxStaticBitmap* StaticBitmap5;
-        wxStaticBitmap* StaticBitmap6;
-        wxStaticBitmap* StaticBitmap7;
-        wxStaticBoxSizer* StaticBoxSizer2;
-        wxStaticText* StaticText2;
-        wxStaticText* StaticText3;
-        wxStaticText* StaticText4;
-        wxStaticText* StaticText5;
-        wxStaticText* StaticText6;
-        wxTextCtrl* TextCtrl2;
-        wxTextCtrl* TextCtrl3;
-        wxTextCtrl* TextCtrl4;
+        //(*Declarations(SigninFrame)
+        wxButton* Button_Check;
+        wxMenuItem* MenuItem3;
+        wxPanel* PanelTop;
+        wxPanel* Panel_Buttom;
+        wxRadioButton* RadioButton_Female;
+        wxRadioButton* RadioButton_Male;
+        wxStaticBitmap* StaticBitmap_IDImage;
+        wxStaticBoxSizer* StaticBoxSizer_Identify;
+        wxStaticText* StaticText_Address;
+        wxStaticText* StaticText_Birth;
+        wxStaticText* StaticText_Gender;
+        wxStaticText* StaticText_IDNumber;
+        wxStaticText* StaticText_Name;
         wxTextCtrl* TextCtrl5;
+        wxTextCtrl* TextCtrl_Birth;
+        wxTextCtrl* TextCtrl_IDNumber;
+        wxTextCtrl* TextCtrl_Name;
         //*)
 
         DECLARE_EVENT_TABLE()

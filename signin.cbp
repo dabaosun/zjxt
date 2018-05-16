@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/signin" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/Signin" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
@@ -74,7 +74,7 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/signin" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/Signin" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
@@ -175,22 +175,25 @@
 			<Add directory="wxWidgets-3.1.1/lib/gcc_lib" />
 			<Add directory="opencv-3.4.1/build/x64/mingw/bin" />
 		</Linker>
+		<Unit filename="SigninApp.cpp" />
+		<Unit filename="SigninApp.h" />
+		<Unit filename="SigninMain.cpp" />
+		<Unit filename="SigninMain.h" />
+		<Unit filename="camera/CameraView.cpp" />
+		<Unit filename="camera/CameraView.h" />
 		<Unit filename="resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
-		<Unit filename="signinApp.cpp" />
-		<Unit filename="signinApp.h" />
-		<Unit filename="signinMain.cpp" />
-		<Unit filename="signinMain.h" />
-		<Unit filename="wxsmith/signinframe.wxs" />
+		<Unit filename="wxsmith/Signinframe.wxs" />
 		<Extensions>
 			<code_completion />
 			<envvars />
 			<debugger />
 			<wxsmith version="1">
-				<gui name="wxWidgets" src="signinApp.cpp" main="signinFrame" init_handlers="necessary" language="CPP" />
+				<gui name="wxWidgets" src="SigninApp.cpp" main="SigninFrame" init_handlers="necessary" language="CPP" />
 				<resources>
-					<wxFrame wxs="wxsmith/signinframe.wxs" src="signinMain.cpp" hdr="signinMain.h" fwddecl="1" i18n="0" name="signinFrame" language="CPP" />
+					<wxFrame wxs="wxsmith/Signinframe.wxs" src="SigninMain.cpp" hdr="SigninMain.h" fwddecl="1" i18n="0" name="SigninFrame" language="CPP" />
+					<wxPanel wxs="wxsmith/CameraPanel.wxs" src="CameraPanel.cpp" hdr="CameraPanel.h" fwddecl="0" i18n="1" name="CameraPanel" language="CPP" />
 				</resources>
 			</wxsmith>
 		</Extensions>
