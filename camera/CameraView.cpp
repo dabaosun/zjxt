@@ -96,7 +96,7 @@ void CameraView::Start()
     wxPuts(wxT("Camera Open Success!"));
     m_is_display = true;
 
-    ((wxFrame*)GetParent())->SetSize(wxSize(m_width, m_height));
+    //((wxFrame*)GetParent())->SetSize(wxSize(m_width, m_height));
 
     m_timer->Start(1000 / 30);
 }

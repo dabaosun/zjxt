@@ -249,6 +249,7 @@ void SigninFrame::OnConnect(wxCommandEvent &event)
     else
     {
         m_CameraView->Start();
+        Layout();
     }
 
 }
