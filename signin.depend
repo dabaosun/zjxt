@@ -14478,16 +14478,17 @@
 	"wx/dcclient.h"
 	"wx/window.h"
 
-1526513934 source:c:\projects\signin\camera\cameraview.cpp
+1526565504 source:c:\projects\signin\camera\cameraview.cpp
 	"CameraView.h"
+
+1526565504 c:\projects\signin\camera\cameraview.h
 	<wx/wx.h>
 	<wx/dcbuffer.h>
 	<wx/event.h>
-
-1526513857 c:\projects\signin\camera\cameraview.h
 	<wx/timer.h>
 	<wx/panel.h>
 	<opencv2/highgui.hpp>
+	"../detector/Detector.h"
 
 1518960630 c:\projects\signin\wxwidgets-3.1.1\include\wx\timer.h
 	"wx/defs.h"
@@ -17877,7 +17878,7 @@
 	"wx/dcclient.h"
 	"wx/window.h"
 
-1526356164 source:c:\projects\signin\resource.rc
+1526514111 source:c:\projects\signin\resource.rc
 	"wx/msw/wx.rc"
 
 1518960630 c:\projects\signin\wxwidgets-3.1.1\include\wx\msw\wx.rc
@@ -17886,19 +17887,19 @@
 
 1518960630 c:\projects\signin\wxwidgets-3.1.1\include\wx\msw\rcdefs.h
 
-1526513030 source:c:\projects\signin\signinapp.cpp
+1526514217 source:c:\projects\signin\signinapp.cpp
 	"SigninApp.h"
 	"SigninMain.h"
 	<wx/image.h>
 
-1526512783 c:\projects\signin\signinapp.h
+1526514083 c:\projects\signin\signinapp.h
 	<wx/app.h>
 
-1526513898 c:\projects\signin\signinmain.h
+1526565504 c:\projects\signin\signinmain.h
 	"camera/CameraView.h"
 	<wx/frame.h>
 
-1526513955 source:c:\projects\signin\signinmain.cpp
+1526565504 source:c:\projects\signin\signinmain.cpp
 	"SigninMain.h"
 	<wx/msgdlg.h>
 	<opencv2/opencv.hpp>
@@ -21366,4 +21367,12 @@
 	<wx/statusbr.h>
 	<wx/string.h>
 	<wx/textctrl.h>
+
+1526565504 c:\projects\signin\detector\detector.h
+	"opencv2/objdetect.hpp"
+	"opencv2/highgui.hpp"
+	"opencv2/imgproc.hpp"
+
+1526565618 source:c:\projects\signin\detector\detector.cpp
+	"Detector.h"
 

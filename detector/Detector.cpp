@@ -12,10 +12,10 @@
 Detector::Detector()
 {
     //ctor
-    this->eyes_cascade_name="./data/haarcascades/haarcascade_frontalface_alt.xml";
-    this->face_cascade_name="./data/haarcascades/haarcascade_eye_tree_eyeglasses.xml";
-    this->face_cascade.load(face_cascade_name);
-    this->eyes_cascade.load(eyes_cascade_name);
+    this->eyes_cascade_name="./data/haarcascades/haarcascade_eye_tree_eyeglasses.xml";
+    this->face_cascade_name="./data/haarcascades/haarcascade_frontalface_default.xml";
+    bool faceloaded = this->face_cascade.load(face_cascade_name);
+    bool eyesloaded = this->eyes_cascade.load(eyes_cascade_name);
 }
 
 Detector::~Detector()
