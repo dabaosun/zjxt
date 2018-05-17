@@ -199,7 +199,6 @@
 				<gui name="wxWidgets" src="SigninApp.cpp" main="SigninFrame" init_handlers="necessary" language="CPP" />
 				<resources>
 					<wxFrame wxs="wxsmith/Signinframe.wxs" src="SigninMain.cpp" hdr="SigninMain.h" fwddecl="1" i18n="0" name="SigninFrame" language="CPP" />
-					<wxPanel wxs="wxsmith/CameraPanel.wxs" src="CameraPanel.cpp" hdr="CameraPanel.h" fwddecl="0" i18n="1" name="CameraPanel" language="CPP" />
 				</resources>
 			</wxsmith>
 		</Extensions>

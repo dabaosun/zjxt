@@ -81,7 +81,6 @@ void CameraView::Start()
         m_is_display = false;
         delete m_p_cap;
         delete[] m_p_picture;
-
     }
 
     m_p_cap = new cv::VideoCapture(0);
