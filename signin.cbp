@@ -16,6 +16,8 @@
 					<Add option="-g" />
 					<Add directory="wxWidgets-3.1.1/lib/gcc_lib/mswud" />
 					<Add directory="opencv/build/install/include" />
+					<Add directory="detector" />
+					<Add directory="include" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add directory="wxWidgets-3.1.1/lib/gcc_lib/mswud" />
@@ -83,6 +85,8 @@
 					<Add option="-O2" />
 					<Add directory="wxWidgets-3.1.1/lib/gcc_lib/mswu" />
 					<Add directory="opencv/build/install/include" />
+					<Add directory="detector" />
+					<Add directory="include" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add directory="wxWidgets-3.1.1/lib/gcc_lib/mswu" />
@@ -181,6 +185,8 @@
 		<Unit filename="SigninMain.h" />
 		<Unit filename="camera/CameraView.cpp" />
 		<Unit filename="camera/CameraView.h" />
+		<Unit filename="detector/Detector.cpp" />
+		<Unit filename="detector/Detector.h" />
 		<Unit filename="resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>

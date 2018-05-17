@@ -1,9 +1,13 @@
-#include "CameraView.h"
-//#include "SigninMain.h"
+/***************************************************************
+ * Name:      CameraView.cpp
+ * Purpose:   Defines Camera capture and displays
+ * Author:    sunzhenbao (suzhenbao@live.com)
+ * Created:   2018-04-19
+ * Copyright: sunzhenbao ()
+ * License:
+ **************************************************************/
 
-#include <wx/wx.h>
-#include <wx/dcbuffer.h>
-#include <wx/event.h>
+#include "CameraView.h"
 
 CameraView::CameraView(wxFrame *parent, wxWindowID winid) : wxPanel(parent, winid, wxPoint(0, 0), wxSize(640, 480))
 {
@@ -30,20 +34,27 @@ void CameraView::OnPaint(wxPaintEvent &event)
     }
 
     cv::Mat capture;
-    *m_p_cap >> capture;
-
-    bool ret = SetPicture(capture);
-    if (!ret)
+    if (m_p_cap->read(capture))
     {
-        wxPuts(wxT("Error: can't get picture data."));
-        return;
+        bool foundFace = this->m_Detector.DetectAndDisplay(&capture);
+
+        //if you only want to refresh and display face, then please add check the value of foundFace.
+
+        bool ret = SetPicture(capture);
+        if (!ret)
+        {
+            wxPuts(wxT("Error: can't get picture data."));
+            return;
+        }
+
+        wxImage image(m_width, m_height, m_p_picture, true);
+        wxBitmap current_capture(image);
+
+        wxBufferedPaintDC dc(this);
+        dc.DrawBitmap(current_capture, wxPoint(0, 0));
+
+        //here, you can add image compare and save.
     }
-
-    wxImage image(m_width, m_height, m_p_picture, true);
-    wxBitmap current_capture(image);
-
-    wxBufferedPaintDC dc(this);
-    dc.DrawBitmap(current_capture, wxPoint(0, 0));
 }
 
 void CameraView::OnTimer(wxTimerEvent &event)
@@ -93,11 +104,14 @@ void CameraView::Start()
 
 bool CameraView::SetPicture(cv::Mat &mat)
 {
-    if (mat.rows != m_height) return false;
-    if (mat.cols != m_width) return false;
+    if (mat.rows != m_height)
+        return false;
+    if (mat.cols != m_width)
+        return false;
 
 
-    if (NULL == m_p_picture) return false;
+    if (NULL == m_p_picture)
+        return false;
 
     for (int i = 0; i < m_width * m_height * 3 - 2; i += 3)
     {

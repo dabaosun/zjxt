@@ -15,7 +15,7 @@
 							<object class="wxStaticBoxSizer" variable="StaticBoxSizer_Camera" member="no">
 								<label>照片录入</label>
 							</object>
-							<flag>wxALL|wxEXPAND</flag>
+							<flag>wxALL|wxEXPAND|wxFIXED_MINSIZE</flag>
 							<border>5</border>
 							<option>1</option>
 						</object>

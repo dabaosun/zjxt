@@ -33,7 +33,7 @@ class wxTextCtrl;
 class SigninFrame: public wxFrame
 {
     public:
-        CameraView* m_view;
+        CameraView* m_CameraView;
         void OnConnect(wxCommandEvent &event);
         void OnQuit(wxCommandEvent &event);
         void OnClose(wxCloseEvent &event);

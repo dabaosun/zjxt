@@ -126,7 +126,7 @@ SigninFrame::SigninFrame(wxWindow* parent,wxWindowID id)
     PanelTop = new wxPanel(this, ID_PANEL_TOP, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL_TOP"));
     BoxSizer_Top = new wxBoxSizer(wxHORIZONTAL);
     StaticBoxSizer_Camera = new wxStaticBoxSizer(wxHORIZONTAL, PanelTop, _T("照片录入"));
-    BoxSizer_Top->Add(StaticBoxSizer_Camera, 1, wxALL|wxEXPAND, 5);
+    BoxSizer_Top->Add(StaticBoxSizer_Camera, 1, wxALL|wxEXPAND|wxFIXED_MINSIZE, 5);
     StaticBoxSizer_Identify = new wxStaticBoxSizer(wxHORIZONTAL, PanelTop, _T("身份证信息"));
     BoxSizer_IDInfoMain = new wxBoxSizer(wxVERTICAL);
     BoxSizer_IDInfoTop = new wxBoxSizer(wxHORIZONTAL);
@@ -208,9 +208,9 @@ SigninFrame::SigninFrame(wxWindow* parent,wxWindowID id)
     Connect(idMenuConnect,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&SigninFrame::OnConnect);
     Connect(wxEVT_CLOSE_WINDOW, wxCloseEventHandler(SigninFrame::OnClose));
 
-    m_view = new CameraView(this,ID_VIEW);
-    m_view->SetBackgroundColour(wxColour(wxT("#000000")));
-    StaticBoxSizer_Camera->Add(m_view, 1, wxALL|wxEXPAND|wxFIXED_MINSIZE, 0);
+    m_CameraView = new CameraView(this,ID_VIEW);
+    m_CameraView->SetBackgroundColour(wxColour(wxT("#000000")));
+    StaticBoxSizer_Camera->Add(m_CameraView, 1, wxALL|wxEXPAND|wxFIXED_MINSIZE, 0);
 
     Layout();
     Center();
@@ -242,13 +242,13 @@ void SigninFrame::OnAbout(wxCommandEvent& event)
 
 void SigninFrame::OnConnect(wxCommandEvent &event)
 {
-    if (m_view->m_is_display)
+    if (m_CameraView->m_is_display)
     {
-        m_view->Stop();
+        m_CameraView->Stop();
     }
     else
     {
-        m_view->Start();
+        m_CameraView->Start();
     }
 
 }
@@ -260,6 +260,6 @@ void SigninFrame::OnQuit(wxCommandEvent &event)
 
 void SigninFrame::OnClose(wxCloseEvent &event)
 {
-    m_view->Stop();
+    m_CameraView->Stop();
     Destroy();
 }
