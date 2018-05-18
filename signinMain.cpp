@@ -2,7 +2,6 @@
  * Name:      SigninMain.cpp
  * Purpose:   Code for Application Frame
  * Author:    sunzhenbao (suzhenbao@live.com)
- * Created:   2018-04-19
  * Copyright: sunzhenbao ()
  * License:
  **************************************************************/

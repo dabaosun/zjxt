@@ -2,7 +2,6 @@
  * Name:      CameraView.h
  * Purpose:   Defines Camera capture and displays
  * Author:    sunzhenbao (suzhenbao@live.com)
- * Created:   2018-04-19
  * Copyright: sunzhenbao ()
  * License:
  **************************************************************/

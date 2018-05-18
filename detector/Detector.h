@@ -2,7 +2,6 @@
  * Name:      Detector.h
  * Purpose:   Defines camera detection on face , eye , etc
  * Author:    sunzhenbao (suzhenbao@live.com)
- * Created:   2018-04-19
  * Copyright: sunzhenbao ()
  * License:
  **************************************************************/
