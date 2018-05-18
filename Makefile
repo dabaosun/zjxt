@@ -55,6 +55,12 @@ before_debug:
 	cmd /c if not exist $(OBJDIR_DEBUG)\\detector md $(OBJDIR_DEBUG)\\detector
 
 after_debug: 
+	cp wxWidgets-3.1.1/lib/gcc_lib/wxbase311u_gcc510TDM_x64.dll bin/Debug/
+	cp wxWidgets-3.1.1/lib/gcc_lib/wxmsw311u_core_gcc510TDM_x64.dll bin/Debug/
+	cp opencv/build/install/x64/mingw/bin/libopencv_world341.dll bin/Debug/
+	cp opencv/build/install/x64/mingw/bin/libopencv_world341.dll bin/Debug/
+	cp opencv/build/install/x64/mingw/bin/libopencv_img_hash341.dll bin/Debug/
+	cp opencv/build/install/x64/mingw/bin/opencv_ffmpeg341_64.dll bin/Debug/
 
 debug: before_debug out_debug after_debug
 
@@ -90,7 +96,13 @@ before_release:
 	cmd /c if not exist $(OBJDIR_RELEASE)\\detector md $(OBJDIR_RELEASE)\\detector
 
 after_release: 
-
+	cp wxWidgets-3.1.1/lib/gcc_lib/wxbase311u_gcc510TDM_x64.dll bin/Release/
+	cp wxWidgets-3.1.1/lib/gcc_lib/wxmsw311u_core_gcc510TDM_x64.dll bin/Release/
+	cp opencv/build/install/x64/mingw/bin/libopencv_world341.dll bin/Release/
+	cp opencv/build/install/x64/mingw/bin/libopencv_world341.dll bin/Release/
+	cp opencv/build/install/x64/mingw/bin/libopencv_img_hash341.dll bin/Release/
+	cp opencv/build/install/x64/mingw/bin/opencv_ffmpeg341_64.dll bin/Release/
+	
 release: before_release out_release after_release
 
 out_release: before_release $(OBJ_RELEASE) $(DEP_RELEASE)
