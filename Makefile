@@ -16,7 +16,7 @@ WINDRES = windres.exe
 
 INC = -IwxWidgets-3.1.1\\include -Iopencv-3.4.1\\build\\x64\\mingw\\include
 CFLAGS = -Wall -std=c++11 -pipe -mthreads -D__GNUWIN32__ -D__WXMSW__ -DwxUSE_UNICODE
-RESINC = 
+RESINC =
 LIBDIR = -LwxWidgets-3.1.1\\lib\\gcc_lib -Lopencv-3.4.1\\build\\x64\\mingw\\bin
 LIB = -lkernel32 -luser32 -lgdi32 -lwinspool -lcomdlg32 -ladvapi32 -lshell32 -lole32 -loleaut32 -luuid -lcomctl32 -lwsock32 -lodbc32 -lshlwapi -lversion
 LDFLAGS = -mthreads
@@ -26,10 +26,10 @@ CFLAGS_DEBUG = $(CFLAGS) -std=c++11 -g
 RESINC_DEBUG = $(RESINC) -IwxWidgets-3.1.1\lib\gcc_lib\mswud
 RCFLAGS_DEBUG = $(RCFLAGS)
 LIBDIR_DEBUG = $(LIBDIR) -LwxWidgets-3.1.1\lib\gcc_lib -Lopencv\build\install\x64\mingw\bin -Lopencv\build\install\x64\mingw\lib
-LIB_DEBUG = $(LIB)-lwxmsw31u_core -lwxbase31u -lwxpng -lwxzlib -lopencv_img_hash341.dll -lopencv_world341.dll
+LIB_DEBUG = $(LIB) -lwxmsw31u_core -lwxbase31u -lwxpng -lwxzlib -lopencv_img_hash341.dll -lopencv_world341.dll
 LDFLAGS_DEBUG = $(LDFLAGS)
 OBJDIR_DEBUG = obj\\Debug
-DEP_DEBUG = 
+DEP_DEBUG =
 OUT_DEBUG = bin\\Debug\\Signin.exe
 
 INC_RELEASE = $(INC) -IwxWidgets-3.1.1\lib\gcc_lib\mswu -Iopencv\build\install\include -Idetector -Iinclude
@@ -37,10 +37,10 @@ CFLAGS_RELEASE = $(CFLAGS) -O2 -std=c++11
 RESINC_RELEASE = $(RESINC) -IwxWidgets-3.1.1\lib\gcc_lib\mswu
 RCFLAGS_RELEASE = $(RCFLAGS)
 LIBDIR_RELEASE = $(LIBDIR) -LwxWidgets-3.1.1\lib\gcc_lib -Lopencv\build\install\x64\mingw\lib -Lopencv\build\install\x64\mingw\bin
-LIB_RELEASE = $(LIB)-lwxmsw31u_core -lwxbase31u -lwxpng -lwxzlib -lopencv_world341.dll -lopencv_img_hash341.dll
+LIB_RELEASE = $(LIB) -lwxmsw31u_core -lwxbase31u -lwxpng -lwxzlib -lopencv_world341.dll -lopencv_img_hash341.dll
 LDFLAGS_RELEASE =  -s $(LDFLAGS)
 OBJDIR_RELEASE = obj\\Release
-DEP_RELEASE = 
+DEP_RELEASE =
 OUT_RELEASE = bin\\Release\\Signin.exe
 
 OBJ_DEBUG = $(OBJDIR_DEBUG)\\SigninApp.o $(OBJDIR_DEBUG)\\SigninMain.o $(OBJDIR_DEBUG)\\camera\\CameraView.o $(OBJDIR_DEBUG)\\detector\\Detector.o $(OBJDIR_DEBUG)\\resource.o
