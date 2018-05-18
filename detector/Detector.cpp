@@ -8,18 +8,40 @@
 
 #include "Detector.h"
 
+Detector* Detector::m_instance = NULL;
+pthread_mutex_t Detector::mutex = NULL;
+
 Detector::Detector()
 {
     //ctor
+    pthread_mutex_init(&mutex,NULL);
     this->eyes_cascade_name="./data/haarcascades/haarcascade_eye_tree_eyeglasses.xml";
     this->face_cascade_name="./data/haarcascades/haarcascade_frontalface_default.xml";
-    bool faceloaded = this->face_cascade.load(face_cascade_name);
-    bool eyesloaded = this->eyes_cascade.load(eyes_cascade_name);
 }
 
 Detector::~Detector()
 {
     //dtor
+}
+
+Detector* Detector::GetInstance()
+{
+    if (NULL == m_instance)
+    {
+        pthread_mutex_lock(&mutex);
+        if (NULL == m_instance)
+        {
+            m_instance = new Detector();
+        }
+        pthread_mutex_unlock(&mutex);
+    }
+    return m_instance;
+}
+
+bool Detector::LoadCascadeClassifier()
+{
+    return this->face_cascade.load(face_cascade_name) && this->eyes_cascade.load(eyes_cascade_name);
+
 }
 
 bool Detector::DetectAndDisplay( Mat* frame )

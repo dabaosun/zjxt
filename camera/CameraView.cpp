@@ -10,19 +10,23 @@
 
 CameraView::CameraView(wxFrame *parent, wxWindowID winid) : wxPanel(parent, winid, wxPoint(0, 0), wxSize(640, 480))
 {
-    m_p_cap = NULL;
     m_p_picture = NULL;
+    std::auto_ptr<wxTimer> m_timer(new wxTimer(this, -1));
+
     m_width = 640;
     m_height = 480;
     m_is_display = false;
-    m_timer = new wxTimer(this, -1);
+
     Connect(wxEVT_TIMER, wxTimerEventHandler(CameraView::OnTimer));
     Connect(wxEVT_PAINT, wxPaintEventHandler(CameraView::OnPaint));
 }
 
 CameraView::~CameraView()
 {
-    delete m_timer;
+    if (NULL != m_p_picture)
+    {
+        delete[] m_p_picture;
+    };
 }
 
 void CameraView::OnPaint(wxPaintEvent &event)
@@ -35,7 +39,7 @@ void CameraView::OnPaint(wxPaintEvent &event)
     cv::Mat capture;
     if (m_p_cap->read(capture))
     {
-        bool foundFace = this->m_Detector.DetectAndDisplay(&capture);
+        bool foundFace = this->m_Detector->DetectAndDisplay(&capture);
 
         //if you only want to refresh and display face, then please add check the value of foundFace.
 
@@ -67,31 +71,37 @@ void CameraView::Stop()
     {
         m_timer->Stop();
         m_is_display = false;
-        delete m_p_cap;
-        delete[] m_p_picture;
     }
     Refresh();
 }
 
-void CameraView::Start()
+void CameraView::Start() throw(string)
 {
     if (m_is_display)
     {
         m_is_display = false;
-        delete m_p_cap;
-        delete[] m_p_picture;
     }
 
-    m_p_cap = new cv::VideoCapture(0);
+    m_p_cap.reset(new cv::VideoCapture(0));
     if (!m_p_cap->isOpened())
     {
         wxPuts(wxT("Camera Open Error!"));
-        delete m_p_cap;
         return;
     }
 
-    m_p_picture = new unsigned char[m_width * m_height * 3];
+    this->m_Detector = Detector::GetInstance();
+    if (!this->m_Detector->LoadCascadeClassifier())
+    {
+        wxPuts(wxT("Camera Open Error!"));
+        return;
+    }
 
+    if (NULL!= m_p_picture)
+    {
+        delete[] m_p_picture;
+
+    }
+    m_p_picture = new unsigned char[m_width * m_height * 3];
     wxPuts(wxT("Camera Open Success!"));
     m_is_display = true;
 

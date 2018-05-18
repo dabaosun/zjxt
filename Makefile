@@ -1,10 +1,10 @@
-/***************************************************************
- * Name:      Makefile
- * Purpose:   Manage buidling process
- * Author:    sunzhenbao (suzhenbao@live.com)
- * Copyright: sunzhenbao ()
- * License:
- **************************************************************/
+#/***************************************************************
+# * Name:      Makefile
+# * Purpose:   Manage buidling process
+# * Author:    sunzhenbao (suzhenbao@live.com)
+# * Copyright: sunzhenbao ()
+# * License:
+# **************************************************************/
 
 WORKDIR = %cd%
 

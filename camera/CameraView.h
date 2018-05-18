@@ -9,6 +9,7 @@
 #ifndef CAMERAVIEW_H
 #define CAMERAVIEW_H
 
+#include <auto_ptr.h>
 #include <wx/wx.h>
 #include <wx/dcbuffer.h>
 #include <wx/event.h>
@@ -26,15 +27,16 @@ public:
     void OnEraseBackground(wxEraseEvent &event);
     void OnTimer(wxTimerEvent &event);
     void Stop();
-    void Start();
+    void Start() throw(string);
     bool SetPicture(cv::Mat &mat);
 
-    cv::VideoCapture *m_p_cap;
-    Detector m_Detector;
-    unsigned char *m_p_picture;
+    std::auto_ptr<cv::VideoCapture> m_p_cap;
+    std::auto_ptr<wxTimer> m_timer;
+    unsigned char* m_p_picture;
+
+    Detector* m_Detector;
     int m_width;
     int m_height;
     bool m_is_display;
-    wxTimer *m_timer;
 };
 #endif // CAMERAVIEW_H

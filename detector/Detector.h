@@ -19,18 +19,24 @@ using namespace cv;
 class Detector
 {
     public:
-        Detector();
+        static pthread_mutex_t mutex;
+        static Detector* GetInstance();
+
         virtual ~Detector();
 
+        bool LoadCascadeClassifier();
         bool DetectAndDisplay( Mat* frame );
 
     protected:
 
     private:
+
+        static Detector* m_instance;
         string face_cascade_name,eyes_cascade_name;
         CascadeClassifier face_cascade;
         CascadeClassifier eyes_cascade;
 
+        Detector();
 };
 
 #endif // DETECTOR_H
