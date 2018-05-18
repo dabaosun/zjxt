@@ -8,8 +8,7 @@
 
 #ifndef CAMERAVIEW_H
 #define CAMERAVIEW_H
-
-#include <auto_ptr.h>
+#include <memory>
 #include <wx/wx.h>
 #include <wx/dcbuffer.h>
 #include <wx/event.h>
@@ -30,9 +29,9 @@ public:
     void Start() throw(string);
     bool SetPicture(cv::Mat &mat);
 
-    std::auto_ptr<cv::VideoCapture> m_p_cap;
-    std::auto_ptr<wxTimer> m_timer;
-    unsigned char* m_p_picture;
+    std::shared_ptr<cv::VideoCapture> m_p_cap;
+    std::shared_ptr<wxTimer> m_timer;
+    std::shared_ptr<unsigned char> m_p_picture;
 
     Detector* m_Detector;
     int m_width;

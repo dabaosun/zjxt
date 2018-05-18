@@ -23,10 +23,7 @@ CameraView::CameraView(wxFrame *parent, wxWindowID winid) : wxPanel(parent, wini
 
 CameraView::~CameraView()
 {
-    if (NULL != m_p_picture)
-    {
-        delete[] m_p_picture;
-    };
+
 }
 
 void CameraView::OnPaint(wxPaintEvent &event)
@@ -50,7 +47,7 @@ void CameraView::OnPaint(wxPaintEvent &event)
             return;
         }
 
-        wxImage image(m_width, m_height, m_p_picture, true);
+        wxImage image(m_width, m_height, m_p_picture.get(), true);
         wxBitmap current_capture(image);
 
         wxBufferedPaintDC dc(this);
@@ -96,12 +93,7 @@ void CameraView::Start() throw(string)
         return;
     }
 
-    if (NULL!= m_p_picture)
-    {
-        delete[] m_p_picture;
-
-    }
-    m_p_picture = new unsigned char[m_width * m_height * 3];
+    m_p_picture.reset(new unsigned char[m_width * m_height * 3]);
     wxPuts(wxT("Camera Open Success!"));
     m_is_display = true;
 
@@ -123,9 +115,9 @@ bool CameraView::SetPicture(cv::Mat &mat)
 
     for (int i = 0; i < m_width * m_height * 3 - 2; i += 3)
     {
-        m_p_picture[i] = mat.data[i + 2];
-        m_p_picture[i + 1] = mat.data[i + 1];
-        m_p_picture[i + 2] = mat.data[i];
+        m_p_picture.get()[i] = mat.data[i + 2];
+        m_p_picture.get()[i + 1] = mat.data[i + 1];
+        m_p_picture.get()[i + 2] = mat.data[i];
     }
     return true;
 }
