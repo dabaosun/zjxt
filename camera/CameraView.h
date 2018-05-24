@@ -26,7 +26,7 @@ public:
     void OnEraseBackground(wxEraseEvent &event);
     void OnTimer(wxTimerEvent &event);
     void Stop();
-    void Start() throw(string);
+    void Start();
     bool SetPicture(cv::Mat &mat);
 
     std::shared_ptr<cv::VideoCapture> m_p_cap;

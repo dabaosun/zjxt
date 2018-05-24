@@ -8,34 +8,24 @@
 
 #include "Detector.h"
 
-Detector* Detector::m_instance = NULL;
-pthread_mutex_t Detector::mutex = NULL;
-
+Detector* Detector::m_instance = new Detector();
 Detector::Detector()
 {
     //ctor
-    pthread_mutex_init(&mutex,NULL);
     this->eyes_cascade_name="./data/haarcascades/haarcascade_eye_tree_eyeglasses.xml";
     this->face_cascade_name="./data/haarcascades/haarcascade_frontalface_default.xml";
+	InitSDK();
 }
 
 Detector::~Detector()
 {
     //dtor
+	DelSDK();
 }
 
 Detector* Detector::GetInstance()
 {
-    if (NULL == m_instance)
-    {
-        pthread_mutex_lock(&mutex);
-        if (NULL == m_instance)
-        {
-            m_instance = new Detector();
-        }
-        pthread_mutex_unlock(&mutex);
-    }
-    return m_instance;
+	return m_instance; 
 }
 
 bool Detector::LoadCascadeClassifier()
@@ -78,4 +68,27 @@ bool Detector::DetectAndDisplay( Mat* frame )
     //-- Show what you got
     //imshow( window_name, frame );
     //return frame;
+}
+
+bool Detector::DetectAndDisplayWithSDK(Mat* frame)
+{
+	FaceCheckInfo fileFace1;//分配要检查人脸信息结构
+	memset(&fileFace1, 0, sizeof(FaceCheckInfo));//初始化结构
+	return DetectFace(frame->data, frame->cols * frame->rows * frame->elemSize1(), &fileFace1) && fileFace1.nFacesize >0;//从图片中检出人脸信息
+}
+
+
+bool Detector::CalcFeatureMatch(Mat* srcFame, Mat* dstFrame)
+{
+	FaceCheckInfo face1;//分配要检查人脸信息结构
+	memset(&face1, 0, sizeof(FaceCheckInfo));//初始化结构
+	DetectFace(srcFame->data, srcFame->cols * srcFame->rows * srcFame->elemSize1(), &face1);
+
+	FaceCheckInfo face2;//分配要检查人脸信息结构
+	memset(&face2, 0, sizeof(FaceCheckInfo));//初始化结构
+	DetectFace(dstFrame->data, dstFrame->cols * dstFrame->rows * srcFame->elemSize1(), &face2);
+
+	float pFxd;
+	CalcModel(&face1.faceModelInfo[0], &face2.faceModelInfo[0],&pFxd);
+	return 0;
 }

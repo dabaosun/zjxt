@@ -12,6 +12,8 @@
 #include "opencv2/objdetect.hpp"
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
+#include "windows.h"
+#include "../sdk-64/sdk/FaceSDK.h"
 
 using namespace std;
 using namespace cv;
@@ -19,13 +21,15 @@ using namespace cv;
 class Detector
 {
     public:
-        static pthread_mutex_t mutex;
         static Detector* GetInstance();
 
         virtual ~Detector();
 
         bool LoadCascadeClassifier();
         bool DetectAndDisplay( Mat* frame );
+		bool DetectAndDisplayWithSDK(Mat* frame);
+
+		bool CalcFeatureMatch(Mat* srcFame, Mat* dstFrame);
 
     protected:
 

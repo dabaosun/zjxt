@@ -7,6 +7,7 @@
  **************************************************************/
 
 #include "CameraView.h"
+#include "../detector/Detector.h"
 
 CameraView::CameraView(wxFrame *parent, wxWindowID winid) : wxPanel(parent, winid, wxPoint(0, 0), wxSize(640, 480))
 {
@@ -36,10 +37,10 @@ void CameraView::OnPaint(wxPaintEvent &event)
     cv::Mat capture;
     if (m_p_cap->read(capture))
     {
-        bool foundFace = this->m_Detector->DetectAndDisplay(&capture);
+        //bool foundFace = this->m_Detector->DetectAndDisplay(&capture);
+		bool foundFace = Detector::GetInstance()->DetectAndDisplayWithSDK(&capture);
 
         //if you only want to refresh and display face, then please add check the value of foundFace.
-
         bool ret = SetPicture(capture);
         if (!ret)
         {
@@ -72,7 +73,7 @@ void CameraView::Stop()
     Refresh();
 }
 
-void CameraView::Start() throw(string)
+void CameraView::Start()
 {
     if (m_is_display)
     {

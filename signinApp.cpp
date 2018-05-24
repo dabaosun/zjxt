@@ -23,7 +23,7 @@ bool SigninApp::OnInit()
     wxInitAllImageHandlers();
     if ( wxsOK )
     {
-    	SigninFrame* Frame = new SigninFrame(0);
+    	SigninMain* Frame = new SigninMain(0);
     	Frame->Show();
     	//Frame->ShowFullScreen(true);
 
