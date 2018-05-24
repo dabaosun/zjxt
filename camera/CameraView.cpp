@@ -12,7 +12,7 @@
 CameraView::CameraView(wxFrame *parent, wxWindowID winid) : wxPanel(parent, winid, wxPoint(0, 0), wxSize(640, 480))
 {
     m_p_picture = NULL;
-    std::auto_ptr<wxTimer> m_timer(new wxTimer(this, -1));
+    m_timer=std::make_shared<wxTimer> (new wxTimer(this, -1));
 
     m_width = 640;
     m_height = 480;

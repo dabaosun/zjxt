@@ -20,16 +20,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera\CameraView.cpp" />
+    <ClCompile Include="certcard\CertCard.cpp" />
     <ClCompile Include="detector\Detector.cpp" />
-    <ClCompile Include="identitycard\IdentifyCard.cpp" />
     <ClCompile Include="SigninApp.cpp" />
     <ClCompile Include="SigninFrame.cpp" />
     <ClCompile Include="SigninMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\CameraView.h" />
+    <ClInclude Include="certcard\CertCard.h" />
+    <ClInclude Include="certcard\CertCardObserver.h" />
     <ClInclude Include="detector\Detector.h" />
-    <ClInclude Include="IdentifyCard.h" />
     <ClInclude Include="SigninApp.h" />
     <ClInclude Include="SigninFrame.h" />
     <ClInclude Include="SigninMain.h" />

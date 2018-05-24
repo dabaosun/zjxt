@@ -19,7 +19,7 @@
     <Filter Include="Detector">
       <UniqueIdentifier>{e9bccb44-914d-4244-bdff-13da5e627df3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="IdentifyCard">
+    <Filter Include="CertCard">
       <UniqueIdentifier>{7a55f8c2-0513-43bd-a916-28f0baaf6654}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -39,8 +39,8 @@
     <ClCompile Include="SigninFrame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="identitycard\IdentifyCard.cpp">
-      <Filter>IdentifyCard</Filter>
+    <ClCompile Include="certcard\CertCard.cpp">
+      <Filter>CertCard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -59,8 +59,11 @@
     <ClInclude Include="SigninFrame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IdentifyCard.h">
-      <Filter>IdentifyCard</Filter>
+    <ClInclude Include="certcard\CertCard.h">
+      <Filter>CertCard</Filter>
+    </ClInclude>
+    <ClInclude Include="certcard\CertCardObserver.h">
+      <Filter>CertCard</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
