@@ -72,6 +72,25 @@ bool Detector::DetectAndDisplay( Mat* frame )
 
 bool Detector::DetectAndDisplayWithSDK(Mat* frame)
 {
+	/*
+	FaceCheckInfo fileFace1;//分配要检查人脸信息结构
+	memset(&fileFace1, 0, sizeof(FaceCheckInfo));//初始化结构
+	fileFace1.bNeedPhoto = TRUE;
+
+	Mat capture =imread("d:\\2.jpg");
+	int result =  DetectFace(capture.data, capture.cols * capture.rows * capture.elemSize(), &fileFace1) && fileFace1.nFacesize > 0;
+	char * buffer;
+	long size;
+	ifstream in("D:\\2.jpg", ios::in | ios::binary | ios::ate);
+	size = in.tellg();
+	in.seekg(0, ios::beg);
+	buffer = new char[size];
+	in.read(buffer, size);
+	in.close();
+	result= DetectFace((BYTE*)buffer, size, &fileFace1) && fileFace1.nFacesize >0;
+	delete[] buffer;
+
+	*/
 	FaceCheckInfo fileFace1;//分配要检查人脸信息结构
 	memset(&fileFace1, 0, sizeof(FaceCheckInfo));//初始化结构
 	return DetectFace(frame->data, frame->cols * frame->rows * frame->elemSize1(), &fileFace1) && fileFace1.nFacesize >0;//从图片中检出人脸信息

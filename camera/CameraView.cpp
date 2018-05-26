@@ -7,12 +7,15 @@
  **************************************************************/
 
 #include "CameraView.h"
+#include <fstream>
+#include <iostream>  
+
 #include "../detector/Detector.h"
 
 CameraView::CameraView(wxFrame *parent, wxWindowID winid) : wxPanel(parent, winid, wxPoint(0, 0), wxSize(640, 480))
 {
     m_p_picture = NULL;
-    m_timer=std::make_shared<wxTimer> (new wxTimer(this, -1));
+    m_timer.reset(new wxTimer(this, -1));
 
     m_width = 640;
     m_height = 480;
@@ -73,8 +76,56 @@ void CameraView::Stop()
     Refresh();
 }
 
+wxImage wx_from_mat(Mat &img) {
+	Mat im2;
+	if (img.channels() == 1) { cvtColor(img, im2, CV_GRAY2RGB); }
+	else if (img.channels() == 4) { cvtColor(img, im2, CV_BGRA2RGB); }
+	else { cvtColor(img, im2, CV_BGR2RGB); }
+	long imsize = im2.rows*im2.cols*im2.channels();
+	wxImage wx(im2.cols, im2.rows, (unsigned char*)malloc(imsize), false);
+	unsigned char* s = im2.data;
+	unsigned char* d = wx.GetData();
+	for (long i = 0; i < imsize; i++) { d[i] = s[i]; }
+	
+	return wx;
+}
+
+byte * matToBytes(Mat image)
+{
+	int size = image.total() * image.elemSize();
+	byte * bytes = new byte[size];  // you will have to delete[] that later
+	std::memcpy(bytes, image.data, size * sizeof(byte));
+	return bytes;
+}
+
 void CameraView::Start()
 {
+	FaceCheckInfo fileFace1;//分配要检查人脸信息结构
+	memset(&fileFace1, 0, sizeof(FaceCheckInfo));//初始化结构
+	fileFace1.bNeedPhoto = TRUE;
+
+	Mat mat1, mat2;
+	mat1 = imread("d:\\2.jpg");
+	cvtColor(mat1, mat2, CV_RGB2BGR);
+	byte* data1 = matToBytes(mat1);
+	byte* data2 = matToBytes(mat2);
+
+	int result = DetectFace(data1, mat1.total() * mat1.elemSize(), &fileFace1) && fileFace1.nFacesize >0;
+	int result1 = DetectFace(data2, mat2.total() * mat2.elemSize(), &fileFace1) && fileFace1.nFacesize >0;
+	
+/*
+	char * buffer;
+	long size;
+	ifstream in("D:\\2.jpg", ios::in | ios::binary | ios::ate);
+	size = in.tellg();
+	in.seekg(0, ios::beg);
+	buffer = new char[size];
+	in.read(buffer, size);
+	in.close();
+	result = DetectFace((BYTE*)buffer, size, &fileFace1) && fileFace1.nFacesize >0;
+	delete[] buffer;
+
+*/
     if (m_is_display)
     {
         m_is_display = false;

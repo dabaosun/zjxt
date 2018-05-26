@@ -22,6 +22,12 @@
     <Filter Include="CertCard">
       <UniqueIdentifier>{7a55f8c2-0513-43bd-a916-28f0baaf6654}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ImgStorage">
+      <UniqueIdentifier>{5f6322ba-a35f-48f8-b9e7-52c90a73144a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Config">
+      <UniqueIdentifier>{4cc0fde6-57f8-463a-bd32-53d5434ee43a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera\CameraView.cpp">
@@ -41,6 +47,12 @@
     </ClCompile>
     <ClCompile Include="certcard\CertCard.cpp">
       <Filter>CertCard</Filter>
+    </ClCompile>
+    <ClCompile Include="imgstorage\ImgStorage.cpp">
+      <Filter>ImgStorage</Filter>
+    </ClCompile>
+    <ClCompile Include="config\Config.cpp">
+      <Filter>Config</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +76,15 @@
     </ClInclude>
     <ClInclude Include="certcard\CertCardObserver.h">
       <Filter>CertCard</Filter>
+    </ClInclude>
+    <ClInclude Include="imgstorage\ImgStorage.h">
+      <Filter>ImgStorage</Filter>
+    </ClInclude>
+    <ClInclude Include="config\Config.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="config\json.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
