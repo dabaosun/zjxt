@@ -1,11 +1,11 @@
-#ifndef __CERTCARD__
-#define __CERTCARD__
+#ifndef __CONFIG__
+#define __CONFIG__
 #include "string"
 #include "json.hpp"
 namespace ns {
 	struct camera
 	{
-		int port;
+		int index;
 	};
 
 	struct certcard
@@ -50,5 +50,4 @@ private:
 
 };
 
-#endif //__CERTCARD__
-
+#endif //__CONFIG__

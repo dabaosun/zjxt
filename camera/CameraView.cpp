@@ -11,6 +11,7 @@
 #include <iostream>  
 
 #include "../detector/Detector.h"
+#include "../config/Config.h"
 
 CameraView::CameraView(wxFrame *parent, wxWindowID winid) : wxPanel(parent, winid, wxPoint(0, 0), wxSize(640, 480))
 {
@@ -103,7 +104,7 @@ void CameraView::Start()
 	FaceCheckInfo fileFace1;//分配要检查人脸信息结构
 	memset(&fileFace1, 0, sizeof(FaceCheckInfo));//初始化结构
 	fileFace1.bNeedPhoto = TRUE;
-
+	/*
 	Mat mat1, mat2;
 	mat1 = imread("d:\\2.jpg");
 	cvtColor(mat1, mat2, CV_RGB2BGR);
@@ -112,7 +113,7 @@ void CameraView::Start()
 
 	int result = DetectFace(data1, mat1.total() * mat1.elemSize(), &fileFace1) && fileFace1.nFacesize >0;
 	int result1 = DetectFace(data2, mat2.total() * mat2.elemSize(), &fileFace1) && fileFace1.nFacesize >0;
-	
+	*/
 /*
 	char * buffer;
 	long size;
@@ -130,8 +131,8 @@ void CameraView::Start()
     {
         m_is_display = false;
     }
-
-    m_p_cap.reset(new cv::VideoCapture(0));
+	int index = Config::GetInstance()->GetData().camera.index;
+    m_p_cap.reset(new cv::VideoCapture(index));
     if (!m_p_cap->isOpened())
     {
         wxPuts(wxT("Camera Open Error!"));

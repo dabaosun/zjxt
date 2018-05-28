@@ -23,7 +23,7 @@ public:
 	int ConnectIdentifyCard(int port);
 private:
 	static CertCard *m_intance;
-	static void thread_workd(std::shared_ptr<CertCard> certcard);
+	static void thread_workd();
 	CertCard();
 	std::list<CertCardObserver*> m_observers;
 	std::unique_ptr<std::thread> m_thread;

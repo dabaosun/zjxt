@@ -127,7 +127,7 @@
     <Link>
       <AdditionalLibraryDirectories>.\opencv\build\x64\vc14\lib;.\wxWidgets-3.0.4\lib\vc_x64_dll;.\sdk-64\sdk;.\hdsdk;.\fastdfs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>comctl32.lib;rpcrt4.lib;winmm.lib;wsock32.lib;HD_SDTapi_x64.lib;FaceSDKV2.lib;wxbase30ud.lib;wxmsw30ud_core.lib;wxpngd.lib;wxjpegd.lib;opencv_world341d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>comctl32.lib;rpcrt4.lib;winmm.lib;wsock32.lib;HD_SDTapi_x64.lib;FaceSDKV2.lib;wxbase30ud.lib;wxmsw30ud_core.lib;wxpngd.lib;wxjpegd.lib;opencv_world341d.lib;FastSDK.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

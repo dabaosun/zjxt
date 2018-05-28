@@ -61,12 +61,13 @@ protected:
 	// Virtual event handlers, overide them in your derived class
 	virtual void OnClose(wxCloseEvent& event) { event.Skip(); }
 	virtual void OnMenuSelectionCamera(wxCommandEvent& event) { event.Skip(); }
+	virtual void OnMenuSelectionCard(wxCommandEvent& event) { event.Skip(); }
 	virtual void OnMenuSelectionExit(wxCommandEvent& event) { event.Skip(); }
 
 
 public:
 
-	SigninFrame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("闸机注册系统"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(1218, 768), long style = wxDEFAULT_FRAME_STYLE | wxTAB_TRAVERSAL);
+	SigninFrame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("闸机注册系统"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(-1, -1), long style = wxDEFAULT_FRAME_STYLE | wxTAB_TRAVERSAL);
 
 	~SigninFrame();
 

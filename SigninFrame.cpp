@@ -11,7 +11,7 @@
 
 SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style) : wxFrame(parent, id, title, pos, size, style)
 {
-	this->SetSizeHints(wxSize(1024, 768), wxDefaultSize);
+	this->SetSizeHints(wxSize(-1, -1), wxDefaultSize);
 
 	wxBoxSizer* BoxSizer_Main;
 	BoxSizer_Main = new wxBoxSizer(wxVERTICAL);
@@ -126,12 +126,17 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	this->SetSizer(BoxSizer_Main);
 	this->Layout();
+	BoxSizer_Main->Fit(this);
 	m_statusBar = this->CreateStatusBar(1, wxSTB_SIZEGRIP, wxID_ANY);
 	m_menubar = new wxMenuBar(0);
 	m_menu1 = new wxMenu();
 	wxMenuItem* m_menuItemCamera;
 	m_menuItemCamera = new wxMenuItem(m_menu1, wxID_ANY, wxString(wxT("ÉãÏñÍ·On/Off")), wxEmptyString, wxITEM_NORMAL);
 	m_menu1->Append(m_menuItemCamera);
+
+	wxMenuItem* m_menuItemCard;
+	m_menuItemCard = new wxMenuItem(m_menu1, wxID_ANY, wxString(wxT("¶Á¿¨Æ÷On/Off")), wxEmptyString, wxITEM_NORMAL);
+	m_menu1->Append(m_menuItemCard);
 
 	wxMenuItem* m_menuItemExit;
 	m_menuItemExit = new wxMenuItem(m_menu1, wxID_ANY, wxString(wxT("ÍË³ö")), wxEmptyString, wxITEM_NORMAL);
@@ -147,6 +152,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	// Connect Events
 	this->Connect(wxEVT_CLOSE_WINDOW, wxCloseEventHandler(SigninFrame::OnClose));
 	this->Connect(m_menuItemCamera->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(SigninFrame::OnMenuSelectionCamera));
+	this->Connect(m_menuItemCard->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(SigninFrame::OnMenuSelectionCard));
 	this->Connect(m_menuItemExit->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(SigninFrame::OnMenuSelectionExit));
 }
 
@@ -155,6 +161,7 @@ SigninFrame::~SigninFrame()
 	// Disconnect Events
 	this->Disconnect(wxEVT_CLOSE_WINDOW, wxCloseEventHandler(SigninFrame::OnClose));
 	this->Disconnect(wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(SigninFrame::OnMenuSelectionCamera));
+	this->Disconnect(wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(SigninFrame::OnMenuSelectionCard));
 	this->Disconnect(wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(SigninFrame::OnMenuSelectionExit));
 
 }

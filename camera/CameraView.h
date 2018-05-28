@@ -29,9 +29,9 @@ public:
     void Start();
     bool SetPicture(cv::Mat &mat);
 
-    std::shared_ptr<cv::VideoCapture> m_p_cap;
+    std::unique_ptr<cv::VideoCapture> m_p_cap;
     std::unique_ptr<wxTimer> m_timer;
-    std::shared_ptr<unsigned char> m_p_picture;
+    std::unique_ptr<unsigned char> m_p_picture;
 
     Detector* m_Detector;
     int m_width;

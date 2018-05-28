@@ -1,6 +1,6 @@
 #include "CertCard.h"
 #include <HD_SDTapi_x64.h>
-
+#include "../config/Config.h"
 
 CertCard* CertCard::m_intance = new CertCard();
 
@@ -23,7 +23,6 @@ CertCard::CertCard()
 {
 
 }
-
 
 CertCard::~CertCard()
 {
@@ -61,13 +60,13 @@ void CertCard::RemoveObserver(std::shared_ptr<CertCardObserver>& observer)
 	}
 }
 
-
 int CertCard::ConnectIdentifyCard(int port)
 {
+	//int port = Config::GetInstance()->GetData().certcard.port;
 	HD_CloseComm(port);
 	int result = HD_InitComm(port);
 	if (0 == result) {
-		//this->m_thread.reset(new std::thread(thread_workd, this));
+		this->m_thread=std::make_unique<std::thread>(thread_workd);
 	}
 	return result;
 }
@@ -87,11 +86,11 @@ void CertCard::NotifyCardInfoUpdated(std::shared_ptr<CertCardInfo>& info)
 }
 
 
-void CertCard::thread_workd(std::shared_ptr<CertCard> certcard)
+void CertCard::thread_workd()
 {
 	while (true) {
 		if (0 == HD_Authenticate(false)) {
-			certcard->NotifyCardAuthed();
+			GetInstance()->NotifyCardAuthed();
 			std::shared_ptr<char> name(new char[256], std::default_delete<char[]>());
 			std::shared_ptr<char> gendar(new char[256], std::default_delete<char[]>());
 			std::shared_ptr<char> nation(new char[256], std::default_delete<char[]>());
@@ -118,7 +117,7 @@ void CertCard::thread_workd(std::shared_ptr<CertCard> certcard)
 				info->expire = expire;
 				info->bmpdata = bmpdata;
 
-				certcard->NotifyCardInfoUpdated(info);
+				GetInstance()->NotifyCardInfoUpdated(info);
 			}
 
 			

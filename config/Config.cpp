@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Config.h"
 #include "json.hpp"
 #include <fstream>
@@ -13,11 +12,11 @@ namespace ns {
 
 
 	void to_json(json& j, const configdata& p) {
-		j = json{ { "camera", p.camera },{ "certcar",p.certcard },{ "storage",p.storage },{ "server",p.server } };
+		j = json{ { "camera", p.camera },{ "certcard",p.certcard },{ "storage",p.storage },{ "server",p.server } };
 	}
 
 	void to_json(json& j, const camera& p) {
-		j = json{ { "port", p.port } };
+		j = json{ { "index", p.index } };
 	}
 
 	void to_json(json& j, const certcard& p) {
@@ -40,7 +39,7 @@ namespace ns {
 
 
 	void from_json(const json& j, camera& p) {
-		p.port = j.at("port").get<int>();
+		p.index = j.at("index").get<int>();
 	}
 
 	void from_json(const json& j, certcard& p) {
@@ -65,29 +64,25 @@ Config* Config::m_instance = new Config();
 
 Config::Config()
 {
-
 	std::ifstream in(confile, std::ios::in);
-	bool result=true;// = json::accept(in, j);
-	if (!result)
+	if (!in)
 	{
-		this->m_data.camera.port = 0;
+		this->m_data.camera.index = 0;
 		this->m_data.certcard.port = 1001;
 		this->m_data.server.ip = "127.0.0.1";
 		this->m_data.server.port = 443;
-		this->m_data.storage.ip = "127.0.0.1";
-		this->m_data.storage.port = 443;
+		this->m_data.storage.ip = "121.42.50.172";
+		this->m_data.storage.port = 22122; 
 
 		this->SaveDataToFile(confile);
 	}
 	else {
 		json j;
 		in >> j;
-
-		//json j=json::parse(in);
-		//in >> j;		
 		this->m_data = j;
+		in.close();
 	}
-	in.close();
+
 }
 
 Config::~Config()
