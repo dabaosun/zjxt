@@ -7,8 +7,11 @@
  **************************************************************/
 
 #include "Detector.h"
+#include <FaceSDK.h>
+#include "../certcard/CertCard.h"
 
 Detector* Detector::m_instance = new Detector();
+
 Detector::Detector()
 {
     //ctor
@@ -70,44 +73,25 @@ bool Detector::DetectAndDisplay( Mat* frame )
     //return frame;
 }
 
-bool Detector::DetectAndDisplayWithSDK(Mat* frame)
+bool Detector::DetectAndComparseWithSDK(Mat* frame, float& score)
 {
-	/*
-	FaceCheckInfo fileFace1;//分配要检查人脸信息结构
-	memset(&fileFace1, 0, sizeof(FaceCheckInfo));//初始化结构
-	fileFace1.bNeedPhoto = TRUE;
-
-	Mat capture =imread("d:\\2.jpg");
-	int result =  DetectFace(capture.data, capture.cols * capture.rows * capture.elemSize(), &fileFace1) && fileFace1.nFacesize > 0;
-	char * buffer;
-	long size;
-	ifstream in("D:\\2.jpg", ios::in | ios::binary | ios::ate);
-	size = in.tellg();
-	in.seekg(0, ios::beg);
-	buffer = new char[size];
-	in.read(buffer, size);
-	in.close();
-	result= DetectFace((BYTE*)buffer, size, &fileFace1) && fileFace1.nFacesize >0;
-	delete[] buffer;
-
-	*/
-	FaceCheckInfo fileFace1;//分配要检查人脸信息结构
-	memset(&fileFace1, 0, sizeof(FaceCheckInfo));//初始化结构
-	return DetectFace(frame->data, frame->cols * frame->rows * frame->elemSize1(), &fileFace1) && fileFace1.nFacesize >0;//从图片中检出人脸信息
+	FaceCheckInfo faceinfo;
+	memset(&faceinfo, 0, sizeof(FaceCheckInfo));
+	int result = DetectFaceForMat(frame->data, frame->cols, frame->rows, &faceinfo);
+	if ((0 == result) && (faceinfo.nFacesize > 0)) {
+		FaceCheckInfo faceinfo2;
+		memset(&faceinfo2, 0, sizeof(faceinfo2));
+		return CalcModel(&faceinfo.faceModelInfo[0], &faceinfo2.faceModelInfo[0], &score);
+	}
+	return false;
 }
 
-
-bool Detector::CalcFeatureMatch(Mat* srcFame, Mat* dstFrame)
+void Detector::CertCardAuthed()
 {
-	FaceCheckInfo face1;//分配要检查人脸信息结构
-	memset(&face1, 0, sizeof(FaceCheckInfo));//初始化结构
-	DetectFace(srcFame->data, srcFame->cols * srcFame->rows * srcFame->elemSize1(), &face1);
 
-	FaceCheckInfo face2;//分配要检查人脸信息结构
-	memset(&face2, 0, sizeof(FaceCheckInfo));//初始化结构
-	DetectFace(dstFrame->data, dstFrame->cols * dstFrame->rows * srcFame->elemSize1(), &face2);
+}
 
-	float pFxd;
-	CalcModel(&face1.faceModelInfo[0], &face2.faceModelInfo[0],&pFxd);
-	return 0;
+void Detector::UpdateCertCardInfo(std::shared_ptr<CertCardInfo> info)
+{
+
 }

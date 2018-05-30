@@ -13,12 +13,12 @@
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
 #include "windows.h"
-#include "../sdk-64/sdk/FaceSDK.h"
+#include "../certcard/CertCardObserver.h"
 
 using namespace std;
 using namespace cv;
 
-class Detector
+class Detector : CertCardObserver
 {
     public:
         static Detector* GetInstance();
@@ -27,7 +27,7 @@ class Detector
 
         bool LoadCascadeClassifier();
         bool DetectAndDisplay( Mat* frame );
-		bool DetectAndDisplayWithSDK(Mat* frame);
+		bool DetectAndComparseWithSDK(Mat* frame,float& score);
 
 		bool CalcFeatureMatch(Mat* srcFame, Mat* dstFrame);
 
@@ -39,6 +39,9 @@ class Detector
         string face_cascade_name,eyes_cascade_name;
         CascadeClassifier face_cascade;
         CascadeClassifier eyes_cascade;
+
+		void CertCardAuthed();
+		void UpdateCertCardInfo(std::shared_ptr<CertCardInfo> info);
 
         Detector();
 };

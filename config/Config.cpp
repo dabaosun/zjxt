@@ -16,7 +16,7 @@ namespace ns {
 	}
 
 	void to_json(json& j, const camera& p) {
-		j = json{ { "index", p.index } };
+		j = json{ { "index", p.index }, {"threshold", p.threshold } };
 	}
 
 	void to_json(json& j, const certcard& p) {
@@ -40,6 +40,7 @@ namespace ns {
 
 	void from_json(const json& j, camera& p) {
 		p.index = j.at("index").get<int>();
+		p.threshold = j.at("threshold").get<float>();
 	}
 
 	void from_json(const json& j, certcard& p) {
@@ -68,6 +69,7 @@ Config::Config()
 	if (!in)
 	{
 		this->m_data.camera.index = 0;
+		this->m_data.camera.threshold = 0.90;
 		this->m_data.certcard.port = 1001;
 		this->m_data.server.ip = "127.0.0.1";
 		this->m_data.server.port = 443;

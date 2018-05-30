@@ -1,6 +1,7 @@
 #ifndef __CERTCARDOBSERVER__
 #define __CERTCARDOBSERVER__
 
+#include <memory>
 typedef struct {
 	std::shared_ptr<char> name;
 	std::shared_ptr<char> gendar;

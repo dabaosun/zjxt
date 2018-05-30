@@ -11,6 +11,7 @@
 #include <iostream>  
 
 #include "../detector/Detector.h"
+#include "../imgstorage/ImgStorage.h"
 #include "../config/Config.h"
 
 CameraView::CameraView(wxFrame *parent, wxWindowID winid) : wxPanel(parent, winid, wxPoint(0, 0), wxSize(640, 480))
@@ -41,10 +42,6 @@ void CameraView::OnPaint(wxPaintEvent &event)
     cv::Mat capture;
     if (m_p_cap->read(capture))
     {
-        //bool foundFace = this->m_Detector->DetectAndDisplay(&capture);
-		bool foundFace = Detector::GetInstance()->DetectAndDisplayWithSDK(&capture);
-
-        //if you only want to refresh and display face, then please add check the value of foundFace.
         bool ret = SetPicture(capture);
         if (!ret)
         {
@@ -57,8 +54,6 @@ void CameraView::OnPaint(wxPaintEvent &event)
 
         wxBufferedPaintDC dc(this);
         dc.DrawBitmap(current_capture, wxPoint(0, 0));
-
-        //here, you can add image compare and save.
     }
 }
 
@@ -101,32 +96,6 @@ byte * matToBytes(Mat image)
 
 void CameraView::Start()
 {
-	FaceCheckInfo fileFace1;//分配要检查人脸信息结构
-	memset(&fileFace1, 0, sizeof(FaceCheckInfo));//初始化结构
-	fileFace1.bNeedPhoto = TRUE;
-	/*
-	Mat mat1, mat2;
-	mat1 = imread("d:\\2.jpg");
-	cvtColor(mat1, mat2, CV_RGB2BGR);
-	byte* data1 = matToBytes(mat1);
-	byte* data2 = matToBytes(mat2);
-
-	int result = DetectFace(data1, mat1.total() * mat1.elemSize(), &fileFace1) && fileFace1.nFacesize >0;
-	int result1 = DetectFace(data2, mat2.total() * mat2.elemSize(), &fileFace1) && fileFace1.nFacesize >0;
-	*/
-/*
-	char * buffer;
-	long size;
-	ifstream in("D:\\2.jpg", ios::in | ios::binary | ios::ate);
-	size = in.tellg();
-	in.seekg(0, ios::beg);
-	buffer = new char[size];
-	in.read(buffer, size);
-	in.close();
-	result = DetectFace((BYTE*)buffer, size, &fileFace1) && fileFace1.nFacesize >0;
-	delete[] buffer;
-
-*/
     if (m_is_display)
     {
         m_is_display = false;

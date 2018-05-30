@@ -6,6 +6,7 @@ namespace ns {
 	struct camera
 	{
 		int index;
+		float threshold;
 	};
 
 	struct certcard

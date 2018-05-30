@@ -134,7 +134,6 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	m_menuItemCamera = new wxMenuItem(m_menu1, wxID_ANY, wxString(wxT("ÉãÏñÍ·On/Off")), wxEmptyString, wxITEM_NORMAL);
 	m_menu1->Append(m_menuItemCamera);
 
-	wxMenuItem* m_menuItemCard;
 	m_menuItemCard = new wxMenuItem(m_menu1, wxID_ANY, wxString(wxT("¶Á¿¨Æ÷On/Off")), wxEmptyString, wxITEM_NORMAL);
 	m_menu1->Append(m_menuItemCard);
 
