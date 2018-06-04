@@ -21,8 +21,12 @@ class CertCardObserver
 {
 public:
 	virtual ~CertCardObserver() {};
-	virtual void CertCardAuthed() = 0 ;
+	virtual void UpdateCardAuthed(bool authed, std::string info) = 0 ;
 	virtual void UpdateCertCardInfo(std::shared_ptr<CertCardInfo> info) = 0;
+
+	virtual void StartProcess(int result, std::string info) = 0;
+	virtual void EndProcess(int result, std::string info) = 0;
+	virtual void UpdateProgressInfo(int progress, std::string info) = 0;
 protected:
 	CertCardObserver() {};
 };

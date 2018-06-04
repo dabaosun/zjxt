@@ -1,5 +1,8 @@
 #include "SigninMain.h"
+#include <fstream>
 #include "ProgressThread.h"
+#include "./certcard/CertCard.h"
+
 enum
 {
 	WORKER_EVENT = wxID_HIGHEST + 1,   // this one gets sent from MyWorkerThread
@@ -10,15 +13,15 @@ SigninMain::SigninMain( wxWindow* parent )
 :
 SigninFrame( parent )
 {
+	CertCard::GetInstance()->RegisterObserver(this);
+
 	this->Connect(WORKER_EVENT, wxEVT_THREAD, wxThreadEventHandler(SigninMain::OnWorkerEvent));
-	this->Connect(m_menuItemCard->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(SigninMain::OnStartWorker));
 	m_CameraView = new CameraView(this, wxID_ANY);
 	m_CameraView->SetBackgroundColour(wxColour(wxT("#000000")));
 	this->StaticBoxSizer_Camera->Add(m_CameraView, 1, wxALL | wxEXPAND | wxFIXED_MINSIZE, 0);
 
 	this->Layout();
 	this->Centre(wxBOTH);
-
 }
 
 void SigninMain::OnClose( wxCloseEvent& event )
@@ -42,6 +45,17 @@ void SigninMain::OnMenuSelectionCamera( wxCommandEvent& event )
 		Layout();
 	}
 }
+
+void SigninMain::OnMenuSelectionCard(wxCommandEvent& event)
+{
+	int result = CertCard::GetInstance()->ConnectCertCard();
+	if (0 != result) {
+		std::string msg = CertCard::GetInstance()->GetErrMsg(result);
+	}
+	else {
+	}
+}
+
 
 void SigninMain::OnMenuSelectionExit( wxCommandEvent& event )
 {
@@ -72,7 +86,8 @@ void SigninMain::OnWorkerEvent(wxThreadEvent& event)
 	}
 	else
 	{
-		if (!m_dlgProgress->Update(n))
+		wxString msg = event.GetString();
+		if (!m_dlgProgress->Update(n,msg))
 		{
 			wxCriticalSectionLocker lock(m_csCancelled);
 
@@ -86,21 +101,59 @@ void SigninMain::OnUpdateWorker(wxUpdateUIEvent& event)
 	event.Enable(m_dlgProgress == NULL);
 }
 
-
-void SigninMain::OnStartWorker(wxCommandEvent& WXUNUSED(event))
+void SigninMain::UpdateCardAuthed(bool authed, std::string info)
 {
-	ProgressThread *thread = new ProgressThread(this);
+	//here, you can update status bar and so on.
+}
 
-	if (thread->Create() != wxTHREAD_NO_ERROR)
+void SigninMain::UpdateCertCardInfo(std::shared_ptr<CertCardInfo> info)
+{
+	this->m_textCtrlName->WriteText(info->name.get());
+	this->m_textCtrlBirth->WriteText(info->birth.get());
+	this->m_textCtrlAddr->WriteText(info->address.get());
+	this->m_textCtrlIDNumber->WriteText(info->certno.get());
+	wxClientDC dc(this->StaticBitmap_IDImage);
+	wxImage img;
+	img.SetData((unsigned char*)(info->bmpdata.get()));//.LoadFile("d:\\3.jpg");
+	img.Rescale(200, 200);
+
+	wxBitmap bitmap = wxBitmap(img);
+	dc.DrawBitmap(bitmap, 0, 0);
+
+}
+
+void SigninMain::StartProcess(int result, std::string info)
+{
+	if (NULL != m_dlgProgress) {
+		//ignore or throw exception.
+		return;
+	}
+	m_threadProgress.reset(new ProgressThread(this));	
+	if (m_threadProgress->Create() != wxTHREAD_NO_ERROR)
 	{
 		wxLogError(wxT("Can't create thread!"));
 		return;
 	}
 
-	m_dlgProgress = std::make_unique<wxProgressDialog>(wxT("Progress dialog"),	wxT("Wait until the thread terminates or press [Cancel]"),100,this, wxPD_SMOOTH);
+	m_dlgProgress = std::make_unique<wxProgressDialog>(wxT("½ø¶È"), wxT("ÇëµÈ´ý..."), 100, this, wxPD_SMOOTH);
 
 	// thread is not running yet, no need for crit sect
 	m_cancelled = false;
 
-	thread->Run();
+	m_threadProgress->Run();
+}
+
+void SigninMain::EndProcess(int result, std::string info)
+{
+	if (NULL == m_dlgProgress) {
+		//ignore or throw exception.
+		return;
+	}
+	m_threadProgress->m_count = 100;
+}
+
+void SigninMain::UpdateProgressInfo(int progress, std::string info)
+{
+	m_threadProgress->m_count = progress;
+	m_threadProgress->m_message = info;
 }

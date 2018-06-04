@@ -8,7 +8,7 @@ class ICameraObserver {
 
 public:
 	virtual ~ICameraObserver() {};
-	virtual void NotifyCapture(std::shared_ptr<cv::Mat> capture) = 0;
+	virtual void UpdateCapture(std::shared_ptr<cv::Mat> capture) = 0;
 };
 
 

@@ -9,13 +9,15 @@
 #ifndef CAMERAVIEW_H
 #define CAMERAVIEW_H
 #include <memory>
+#include <list>
+#include <mutex>
 #include <wx/wx.h>
 #include <wx/dcbuffer.h>
 #include <wx/event.h>
 #include <wx/timer.h>
 #include <wx/panel.h>
 #include <opencv2/highgui.hpp>
-#include "../detector/Detector.h"
+#include "./CameraObserver.h"
 
 class CameraView : public wxPanel
 {
@@ -33,9 +35,17 @@ public:
     std::unique_ptr<wxTimer> m_timer;
     std::unique_ptr<unsigned char> m_p_picture;
 
-    Detector* m_Detector;
-    int m_width;
-    int m_height;
-    bool m_is_display;
+	void RegisterObserver(ICameraObserver* observer);
+	void RemoveObserver(ICameraObserver* observer);
+	int m_width;
+	int m_height;
+	bool m_is_display;
+private:
+    std::list<ICameraObserver*> m_observers;
+	std::mutex m_mtxObservers;
+
+
+
+
 };
 #endif // CAMERAVIEW_H

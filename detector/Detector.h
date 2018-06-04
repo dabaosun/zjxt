@@ -18,7 +18,7 @@
 using namespace std;
 using namespace cv;
 
-class Detector : CertCardObserver
+class Detector
 {
     public:
         static Detector* GetInstance();
@@ -27,22 +27,17 @@ class Detector : CertCardObserver
 
         bool LoadCascadeClassifier();
         bool DetectAndDisplay( Mat* frame );
-		bool DetectAndComparseWithSDK(Mat* frame,float& score);
+		bool DetectAndComparseWithSDK(std::shared_ptr<cv::Mat> frame, std::shared_ptr<char> pImgBuf, long bufLen, float& score);
 
 		bool CalcFeatureMatch(Mat* srcFame, Mat* dstFrame);
 
     protected:
 
     private:
-
         static Detector* m_instance;
         string face_cascade_name,eyes_cascade_name;
         CascadeClassifier face_cascade;
         CascadeClassifier eyes_cascade;
-
-		void CertCardAuthed();
-		void UpdateCertCardInfo(std::shared_ptr<CertCardInfo> info);
-
         Detector();
 };
 

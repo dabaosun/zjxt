@@ -108,13 +108,6 @@ void CameraView::Start()
         return;
     }
 
-    this->m_Detector = Detector::GetInstance();
-    if (!this->m_Detector->LoadCascadeClassifier())
-    {
-        wxPuts(wxT("Camera Open Error!"));
-        return;
-    }
-
     m_p_picture.reset(new unsigned char[m_width * m_height * 3]);
     wxPuts(wxT("Camera Open Success!"));
     m_is_display = true;
@@ -147,4 +140,24 @@ bool CameraView::SetPicture(cv::Mat &mat)
 void CameraView::OnEraseBackground(wxEraseEvent &event)
 {
 
+}
+
+
+
+void CameraView::RegisterObserver(ICameraObserver* obsever)
+{
+	if (NULL != obsever)
+	{
+		std::unique_lock<std::mutex> lck(this->m_mtxObservers);
+		this->m_observers.push_back(obsever);
+	}
+}
+
+void CameraView::RemoveObserver(ICameraObserver* observer)
+{
+	if ((NULL != observer) && (m_observers.size()>0))
+	{
+		std::unique_lock<std::mutex> lck(this->m_mtxObservers);
+		this->m_observers.remove(observer);
+	}
 }

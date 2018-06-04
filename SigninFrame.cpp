@@ -108,7 +108,10 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxGridSizer* GridSizer_IDImage;
 	GridSizer_IDImage = new wxGridSizer(1, 1, 0, 0);
 
+	GridSizer_IDImage->SetMinSize(wxSize(200, 200));
 	StaticBitmap_IDImage = new wxStaticBitmap(StaticBoxSizer_Identify->GetStaticBox(), wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, 0);
+	StaticBitmap_IDImage->SetMinSize(wxSize(200, 200));
+
 	GridSizer_IDImage->Add(StaticBitmap_IDImage, 0, wxALL | wxEXPAND, 5);
 
 

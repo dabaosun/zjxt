@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BusinessWorker.cpp" />
     <ClCompile Include="camera\CameraView.cpp" />
     <ClCompile Include="certcard\CertCard.cpp" />
     <ClCompile Include="config\Config.cpp" />
@@ -31,7 +30,6 @@
     <ClCompile Include="SigninMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BusinessWorker.h" />
     <ClInclude Include="camera\CameraObserver.h" />
     <ClInclude Include="camera\CameraView.h" />
     <ClInclude Include="certcard\CertCard.h" />

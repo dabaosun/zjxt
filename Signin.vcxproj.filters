@@ -54,9 +54,6 @@
     <ClCompile Include="config\Config.cpp">
       <Filter>Config</Filter>
     </ClCompile>
-    <ClCompile Include="BusinessWorker.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ProgressThread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -90,9 +87,6 @@
       <Filter>Config</Filter>
     </ClInclude>
     <ClInclude Include="config\json.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BusinessWorker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="camera\CameraObserver.h">

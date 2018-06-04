@@ -7,7 +7,7 @@
 class ProgressThread : public wxThread
 {
 public:
-	ProgressThread(SigninMain *frame);
+	ProgressThread(SigninMain* frame);
 	virtual ~ProgressThread();
 
 	// thread execution starts here
@@ -19,8 +19,9 @@ public:
 	virtual void OnExit();
 
 public:
-	SigninMain *m_frame;
+	SigninMain* m_frame;
 	unsigned m_count;
+	std::string m_message;
 };
 
 #endif //__PROGRESSHTREAD_H__
