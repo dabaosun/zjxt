@@ -115,7 +115,7 @@ void CertCard::NotifyProgressUpdate(int progress, std::string info)
 void CertCard::thread_workd(CertCard* instance)
 {
 	while (true) {
-		int result = HD_Authenticate(false);
+		int result = HD_Authenticate(true);
 		GetInstance()->NotifyCardAuthed(result);
 
 		if (0 == result) {			
@@ -129,9 +129,10 @@ void CertCard::thread_workd(CertCard* instance)
 			std::shared_ptr<char> effectdata(new char[256], std::default_delete<char[]>());
 			std::shared_ptr<char> expire(new char[256], std::default_delete<char[]>());
 			std::shared_ptr<char> bmpdata(new char[77725], std::default_delete<char[]>());
-
-			if (HD_Read_BaseInfo(bmpdata.get(), name.get(), gendar.get(), nation.get(), 
-				birth.get(), address.get(), certno.get(), department.get(), effectdata.get(), expire.get()))
+			
+			result = HD_Read_BaseInfo(bmpdata.get(), name.get(), gendar.get(), nation.get(),
+				birth.get(), address.get(), certno.get(), department.get(), effectdata.get(), expire.get());
+			if (0 == result)
 			{
 				std::shared_ptr<CertCardInfo> info = std::make_shared<CertCardInfo>();
 				info->name = name;
