@@ -13,7 +13,7 @@ SigninMain::SigninMain( wxWindow* parent )
 :
 SigninFrame( parent )
 {
-	CertCard::GetInstance()->RegisterObserver(this);
+	CertCard::GetInstance()->RegisterListener(this);
 
 	this->Connect(WORKER_EVENT, wxEVT_THREAD, wxThreadEventHandler(SigninMain::OnWorkerEvent));
 	m_CameraView = new CameraView(this, wxID_ANY);

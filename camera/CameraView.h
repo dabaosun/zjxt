@@ -17,7 +17,7 @@
 #include <wx/timer.h>
 #include <wx/panel.h>
 #include <opencv2/highgui.hpp>
-#include "./CameraObserver.h"
+#include "./CameraListener.h"
 
 class CameraView : public wxPanel
 {
@@ -35,14 +35,14 @@ public:
     std::unique_ptr<wxTimer> m_timer;
     std::unique_ptr<unsigned char> m_p_picture;
 
-	void RegisterObserver(ICameraObserver* observer);
-	void RemoveObserver(ICameraObserver* observer);
+	void RegisterListener(ICameraListener * listener);
+	void RemoveListener(ICameraListener * listener);
 	int m_width;
 	int m_height;
 	bool m_is_display;
 private:
-    std::list<ICameraObserver*> m_observers;
-	std::mutex m_mtxObservers;
+    std::list<ICameraListener*> m_listeners;
+	std::mutex m_mtxListeners;
 
 
 

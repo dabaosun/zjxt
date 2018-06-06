@@ -7,15 +7,14 @@
 #include <list>
 #include <thread>
 #include <mutex>
-#include "CertCardObserver.h"
-#include "../camera/CameraObserver.h"
+#include "CertCardListener.h"
+#include "../camera/CameraListener.h"
 
-class CertCard : public ICameraObserver
+class CertCard : public ICameraListener
 {
 public:
-	void RegisterObserver(CertCardObserver* observer);
-	void RemoveObserver(CertCardObserver* observer);
-
+	void RegisterListener(ICertCardListener * listener);
+	void RemoveListener(ICertCardListener * listener);
 
 	void UpdateCapture(const std::shared_ptr<cv::Mat>& capture);
 	static CertCard* GetInstance();
@@ -28,8 +27,8 @@ private:
 	static void thread_workd(CertCard* instance);
 	CertCard();
 
-	std::mutex m_mtxObservers;
-	std::list<CertCardObserver*> m_observers;
+	std::mutex m_mtxListeners;
+	std::list<ICertCardListener*> m_listeners;
 	std::unique_ptr<std::thread> m_thread;
 
 	void NotifyCardAuthed(int result);

@@ -83,9 +83,6 @@
     <ClInclude Include="certcard\CertCard.h">
       <Filter>CertCard</Filter>
     </ClInclude>
-    <ClInclude Include="certcard\CertCardObserver.h">
-      <Filter>CertCard</Filter>
-    </ClInclude>
     <ClInclude Include="imgstorage\ImgStorage.h">
       <Filter>ImgStorage</Filter>
     </ClInclude>
@@ -95,14 +92,17 @@
     <ClInclude Include="config\json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="camera\CameraObserver.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
     <ClInclude Include="ProgressThread.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="dataserver\DataServer.h">
       <Filter>DataServer</Filter>
+    </ClInclude>
+    <ClInclude Include="certcard\CertCardListener.h">
+      <Filter>CertCard</Filter>
+    </ClInclude>
+    <ClInclude Include="camera\CameraListener.h">
+      <Filter>Camera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

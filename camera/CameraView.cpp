@@ -144,20 +144,20 @@ void CameraView::OnEraseBackground(wxEraseEvent &event)
 
 
 
-void CameraView::RegisterObserver(ICameraObserver* obsever)
+void CameraView::RegisterListener(ICameraListener * listener)
 {
-	if (NULL != obsever)
+	if (NULL != listener)
 	{
-		std::unique_lock<std::mutex> lck(this->m_mtxObservers);
-		this->m_observers.push_back(obsever);
+		std::unique_lock<std::mutex> lck(this->m_mtxListeners);
+		this->m_listeners.push_back(listener);
 	}
 }
 
-void CameraView::RemoveObserver(ICameraObserver* observer)
+void CameraView::RemoveListener(ICameraListener * listener)
 {
-	if ((NULL != observer) && (m_observers.size()>0))
+	if ((NULL != listener) && (m_listeners.size()>0))
 	{
-		std::unique_lock<std::mutex> lck(this->m_mtxObservers);
-		this->m_observers.remove(observer);
+		std::unique_lock<std::mutex> lck(this->m_mtxListeners);
+		this->m_listeners.remove(listener);
 	}
 }

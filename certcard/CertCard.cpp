@@ -55,20 +55,20 @@ std::string CertCard::GetErrMsg(int errcode)
 }
 
 
-void CertCard::RegisterObserver(CertCardObserver* observer)
+void CertCard::RegisterListener(ICertCardListener * listener)
 {
-	if (NULL != observer) {
-		std::unique_lock<std::mutex> lck(this->m_mtxObservers);
-		this->m_observers.push_back(observer);
+	if (NULL != listener) {
+		std::unique_lock<std::mutex> lck(this->m_mtxListeners);
+		this->m_listeners.push_back(listener);
 	}
 }
 
-void CertCard::RemoveObserver(CertCardObserver* observer)
+void CertCard::RemoveListener(ICertCardListener * listener)
 {
-	if((NULL != observer) && (m_observers.size()>0))
+	if((NULL != listener) && (m_listeners.size()>0))
 	{
-		std::unique_lock<std::mutex> lck(this->m_mtxObservers);
-		this->m_observers.remove(observer);
+		std::unique_lock<std::mutex> lck(this->m_mtxListeners);
+		this->m_listeners.remove(listener);
 	}
 }
 
@@ -91,35 +91,35 @@ void CertCard::NotifyCardAuthed(int result)
 {
 	bool authed = 0 == result? true: false;
 	std::string info = this->GetErrMsg(result);
-	for (auto& elem : this->m_observers) {
+	for (auto& elem : this->m_listeners) {
 		elem->UpdateCardAuthed(authed,info);
 	}
 }
 
 void CertCard::NotifyCardInfoUpdated(const std::shared_ptr<CertCardInfo>& info)
 {
-	for (auto& elem : this->m_observers) {
+	for (auto& elem : this->m_listeners) {
 		elem->UpdateCertCardInfo(info);
 	}
 }
 
 void CertCard::NofifyProcessStart(int result, const std::string& info)
 {
-	for (auto& elem : this->m_observers) {
+	for (auto& elem : this->m_listeners) {
 		elem->StartProcess(result, info);
 	}
 }
 
 void CertCard::NofityProcessEnd(int result, const std::string& info)
 {
-	for (auto& elem : this->m_observers) {
+	for (auto& elem : this->m_listeners) {
 		elem->EndProcess(result, info);
 	}
 }
 
 void CertCard::NotifyProgressUpdate(int progress, const std::string& info)
 {
-	for (auto& elem : this->m_observers) {
+	for (auto& elem : this->m_listeners) {
 		elem->UpdateProgressInfo(progress, info);
 	}
 }
@@ -167,7 +167,7 @@ void CertCard::thread_workd(CertCard* instance)
 				info->expire = expire;
 				info->bmpdata = bmpdata;
 
-				//Notify observers
+				//Notify listeners
 				instance->NotifyCardInfoUpdated(info);
 
 				//Handle 
@@ -252,7 +252,7 @@ void CertCard::thread_workd(CertCard* instance)
 					info->expire = expire;
 					info->bmpdata = bmpdata;
 
-					//Notify observers
+					//Notify listeners
 					instance->NotifyCardInfoUpdated(info);
 
 					//Handle 

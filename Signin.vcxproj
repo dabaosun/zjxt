@@ -31,10 +31,10 @@
     <ClCompile Include="SigninMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="camera\CameraObserver.h" />
+    <ClInclude Include="camera\CameraListener.h" />
     <ClInclude Include="camera\CameraView.h" />
     <ClInclude Include="certcard\CertCard.h" />
-    <ClInclude Include="certcard\CertCardObserver.h" />
+    <ClInclude Include="certcard\CertCardListener.h" />
     <ClInclude Include="config\Config.h" />
     <ClInclude Include="config\json.hpp" />
     <ClInclude Include="dataserver\DataServer.h" />

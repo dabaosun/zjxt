@@ -1,5 +1,5 @@
-#ifndef __CERTCARDOBSERVER__
-#define __CERTCARDOBSERVER__
+#ifndef __ICERTCARDLISTENER__
+#define __ICERTCARDLISTENER__
 
 #include <memory>
 typedef struct {
@@ -17,10 +17,10 @@ typedef struct {
 } CertCardInfo;
 
 
-class CertCardObserver
+class ICertCardListener
 {
 public:
-	virtual ~CertCardObserver() {};
+	virtual ~ICertCardListener() {};
 	virtual void UpdateCardAuthed(bool authed, const std::string& info) = 0 ;
 	virtual void UpdateCertCardInfo(const std::shared_ptr<CertCardInfo>& info) = 0;
 
@@ -28,7 +28,7 @@ public:
 	virtual void EndProcess(int result, const std::string& info) = 0;
 	virtual void UpdateProgressInfo(int progress, const std::string& info) = 0;
 protected:
-	CertCardObserver() {};
+	ICertCardListener() {};
 };
 
-#endif
+#endif //__ICERTCARDLISTENER__
