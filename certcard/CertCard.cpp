@@ -122,6 +122,14 @@ void CertCard::NotifyProgressUpdate(int progress, std::string info)
 
 void CertCard::thread_workd(CertCard* instance)
 {
+	HANDLE ghJob = CreateJobObject(NULL, NULL);
+	JOBOBJECT_EXTENDED_LIMIT_INFORMATION jeli = { 0 };
+
+	// Configure all child processes associated with the job to terminate when the
+	jeli.BasicLimitInformation.LimitFlags = JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE;
+	SetInformationJobObject(ghJob, JobObjectExtendedLimitInformation, &jeli, sizeof(jeli));
+
+
 	while (true) {
 		/*
 		int result = HD_Authenticate(true);
@@ -175,40 +183,88 @@ void CertCard::thread_workd(CertCard* instance)
 		si.lpReserved2 = NULL;
 
 		char pwd[256];
-		memset(pwd, 0, 256);
+		std::memset(pwd, 0, 256);
 		_getcwd(pwd, sizeof(pwd));
 
-		string filename(pwd);
-		filename.append("./hdconsole.exe");
-		size_t size = filename.length();
+		string process(pwd);
+		process.append("./hdconsole.exe");
+		size_t size = process.length();
 		wchar_t *tmp = new wchar_t[size + 1];
-		MultiByteToWideChar(CP_ACP, 0, filename.c_str(),size, tmp, size * sizeof(wchar_t));
+		MultiByteToWideChar(CP_ACP, 0, process.c_str(),size, tmp, size * sizeof(wchar_t));
 		tmp[size] = 0;
 		BOOL ret = CreateProcess(NULL, tmp, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
+		delete[] tmp;
+
 		DWORD dwExitCode;
 		if (ret)
 		{
+			if (ghJob) {
+				AssignProcessToJobObject(ghJob, pi.hProcess);
+			}
+
 			CloseHandle(pi.hThread);
 			WaitForSingleObject(pi.hProcess, INFINITE);
 			GetExitCodeProcess(pi.hProcess, &dwExitCode);
 			CloseHandle(pi.hProcess);
-		}
-		delete[] tmp;
 
-		/*
-		char *buffer = getcwd(NULL,0);
-		int result = system("./hdconsole.exe");
-		if (0 == result) {
-			std::ifstream in("./data.txt", std::ios::in);
-			char buffer[256];
-			memset(buffer, 0, 256);
-			while (!in.eof())
+			if (0 == dwExitCode)
 			{
-				in.getline(buffer, 256);
-				printf_s("%s\n", buffer, 256);
+				string datafile(pwd);
+				datafile.append("./data.txt");
+
+				string certcardbmp(pwd);
+				certcardbmp.append("./certcard.bmp");
+
+				ifstream datain(datafile, ios::in);
+				ifstream bmpin(datafile, ios::in | ios::binary);
+				if (datain.is_open()&& bmpin.is_open())
+				{
+					std::shared_ptr<char> name(new char[256], std::default_delete<char[]>());
+					std::shared_ptr<char> gendar(new char[256], std::default_delete<char[]>());
+					std::shared_ptr<char> nation(new char[256], std::default_delete<char[]>());
+					std::shared_ptr<char> birth(new char[256], std::default_delete<char[]>());
+					std::shared_ptr<char> address(new char[256], std::default_delete<char[]>());
+					std::shared_ptr<char> certno(new char[256], std::default_delete<char[]>());
+					std::shared_ptr<char> department(new char[256], std::default_delete<char[]>());
+					std::shared_ptr<char> effectdata(new char[256], std::default_delete<char[]>());
+					std::shared_ptr<char> expire(new char[256], std::default_delete<char[]>());
+					std::shared_ptr<char> bmpdata(new char[77725], std::default_delete<char[]>());
+
+					datain.getline(name.get(), 256);
+					datain.getline(gendar.get(), 256);
+					datain.getline(nation.get(), 256);
+					datain.getline(birth.get(), 256);
+					datain.getline(address.get(), 256);
+					datain.getline(certno.get(), 256);
+					datain.getline(department.get(), 256);
+					datain.getline(effectdata.get(), 256);
+					datain.getline(expire.get(), 256);
+					datain.close();
+
+					bmpin.read(bmpdata.get(), 77725);
+					bmpin.close();
+
+					std::shared_ptr<CertCardInfo> info = std::make_shared<CertCardInfo>();
+					info->name = name;
+					info->gendar = gendar;
+					info->nation = nation;
+					info->birth = birth;
+					info->address = address;
+					info->certno = certno;
+					info->department = department;
+					info->effectdata = effectdata;
+					info->expire = expire;
+					info->bmpdata = bmpdata;
+
+					//Notify observers
+					instance->NotifyCardInfoUpdated(info);
+
+					//Handle 
+					instance->HandleCardInfo(info);
+				}
 			}
 		}
-		*/
+
 		std::this_thread::sleep_for(std::chrono::milliseconds(300));
 	}
 }
