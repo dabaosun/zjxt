@@ -1,12 +1,16 @@
 #include "CertCard.h"
 #include <HD_SDTapi_x64.h>
 #include <fstream>
+#include <chrono>
+#include <ctime>
 #include <direct.h>
 #include <wx/process.h>
 #include <wx/txtstrm.h>
+
 #include "../detector/Detector.h"
 #include "../config/Config.h"
 #include "../imgstorage/ImgStorage.h"
+#include "../dataserver/DataServer.h"
 
 CertCard* CertCard::m_intance = new CertCard();
 
@@ -182,12 +186,7 @@ void CertCard::thread_workd(CertCard* instance)
 		si.cbReserved2 = NULL;
 		si.lpReserved2 = NULL;
 
-		char pwd[256];
-		std::memset(pwd, 0, 256);
-		_getcwd(pwd, sizeof(pwd));
-
-		string process(pwd);
-		process.append("./hdconsole.exe");
+		string process = Config::GetInstance()->GetPwd()+"./hdconsole.exe";
 		size_t size = process.length();
 		wchar_t *tmp = new wchar_t[size + 1];
 		MultiByteToWideChar(CP_ACP, 0, process.c_str(),size, tmp, size * sizeof(wchar_t));
@@ -209,11 +208,8 @@ void CertCard::thread_workd(CertCard* instance)
 
 			if (0 == dwExitCode)
 			{
-				string datafile(pwd);
-				datafile.append("./data.txt");
-
-				string certcardbmp(pwd);
-				certcardbmp.append("./certcard.bmp");
+				string datafile = Config::GetInstance()->GetPwd() + "./data.txt";
+				string certcardbmp = Config::GetInstance()->GetPwd() + "./certcard.bmp";
 
 				ifstream datain(datafile, ios::in);
 				ifstream bmpin(datafile, ios::in | ios::binary);
@@ -272,39 +268,46 @@ void CertCard::thread_workd(CertCard* instance)
 bool CertCard::HandleCardInfo(std::shared_ptr<CertCardInfo> info)
 {
 	this->NofifyProcessStart(0, "正在处理中。。。");
-	std::shared_ptr<cv::Mat> capture;
-	this->PopCapture(capture);
-	if (NULL != capture)
+	chrono::steady_clock::time_point start = chrono::steady_clock::now();
+	chrono::steady_clock::time_point end = chrono::steady_clock::now();
+	auto elapsed = end - start;
+	do
 	{
-		float score;
-		bool result;
-		result = Detector::GetInstance()->DetectAndComparseWithSDK(capture, info->bmpdata, 77725, score);
-
-		if (result && score >= Config::GetInstance()->GetData().camera.threshold)
+		std::shared_ptr<cv::Mat> capture;
+		this->PopCapture(capture);
+		if (NULL != capture)
 		{
-			//passed
-			//save mat to local image
-			char localImg[256];
-			memset(localImg, 0, 256);
-			sprintf(localImg, "./%s.jpg", info->certno.get());
-			imwrite(localImg, *capture);
+			float score;
+			bool result;
+			result = Detector::GetInstance()->DetectAndComparseWithSDK(capture, info->bmpdata, 77725, score);
 
-			//upload image to remote file sever
-			std::string remoteurl;
-			int code = ImgStorage::GetInstance()->UploadFile(localImg, remoteurl);
-			if (0 == code)
+			if (result && score >= Config::GetInstance()->GetData().camera.threshold)
 			{
-				//update data info to remote server by http request.
-
+				//passed
+				//save mat to local image
+				std::string localImg = Config::GetInstance()->GetPwd() + "./" + info->certno.get() + ".jpg";
+				if (imwrite(localImg, *capture)) {
+					//upload image to remote file sever
+					std::string remoteurl;
+					int code = ImgStorage::GetInstance()->UploadFile(localImg, remoteurl);
+					if (0 == code)
+					{
+						//update data info to remote server by http request.
+						if (DataServer::GetInstance()->UploadData(info->certno.get(), remoteurl)) {
+							this->NofityProcessEnd(100, "注册成功。");
+							return true;
+						}
+					}
+				}
 			}
 		}
-		else
-		{
-			
-		}
-	}
-	this->NofityProcessEnd(0, "结束。");
-
+		std::this_thread::sleep_for(std::chrono::milliseconds(300));
+		end = chrono::steady_clock::now();
+		elapsed = end - start;
+	} 
+	while (chrono::duration<double>(elapsed).count()>10);
+		
+	this->NofityProcessEnd(100, "注册失败。");
 	return false;
 }
 
@@ -321,5 +324,3 @@ void CertCard::PopCapture(std::shared_ptr<cv::Mat>& capture)
 	this->m_mat.reset();
 
 }
-//HD_Read_ BaseInf
-//int HD_Read_BaseInfo(char* pBmpData, char *pName, char *pSex, char *pNation, char *pBirth, char *pAddress, char *pCertNo, char *pDepartment, char *pEffectData, char *pExpire);

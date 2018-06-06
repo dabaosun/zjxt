@@ -22,6 +22,7 @@
     <ClCompile Include="camera\CameraView.cpp" />
     <ClCompile Include="certcard\CertCard.cpp" />
     <ClCompile Include="config\Config.cpp" />
+    <ClCompile Include="dataserver\DataServer.cpp" />
     <ClCompile Include="detector\Detector.cpp" />
     <ClCompile Include="imgstorage\ImgStorage.cpp" />
     <ClCompile Include="ProgressThread.cpp" />
@@ -36,6 +37,7 @@
     <ClInclude Include="certcard\CertCardObserver.h" />
     <ClInclude Include="config\Config.h" />
     <ClInclude Include="config\json.hpp" />
+    <ClInclude Include="dataserver\DataServer.h" />
     <ClInclude Include="detector\Detector.h" />
     <ClInclude Include="imgstorage\ImgStorage.h" />
     <ClInclude Include="ProgressThread.h" />

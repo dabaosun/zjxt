@@ -40,6 +40,7 @@ class Config
 public:
 	static Config* GetInstance();
 	ns::configdata GetData();
+	std::string GetPwd();
 	void SaveDataToFile(std::string filepath);
 
 	~Config();
@@ -47,8 +48,7 @@ private:
 	Config();
 	static Config* m_instance;
 	ns::configdata m_data;
-	
-
+	std::string m_pwd;
 };
 
 #endif //__CONFIG__

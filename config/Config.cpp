@@ -85,6 +85,11 @@ Config::Config()
 		in.close();
 	}
 
+	char pwd[256];
+	std::memset(pwd, 0, 256);
+	_getcwd(pwd, sizeof(pwd));
+	this->m_pwd = pwd;
+
 }
 
 Config::~Config()
@@ -100,6 +105,10 @@ Config* Config::GetInstance()
 ns::configdata Config::GetData()
 {
 	return this->m_data;
+}
+std::string Config::GetPwd()
+{
+	return this->m_pwd;
 }
 
 void Config::SaveDataToFile(std::string filepath)
