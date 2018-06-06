@@ -1,5 +1,9 @@
 #include "CertCard.h"
 #include <HD_SDTapi_x64.h>
+#include <fstream>
+#include <direct.h>
+#include <wx/process.h>
+#include <wx/txtstrm.h>
 #include "../detector/Detector.h"
 #include "../config/Config.h"
 #include "../imgstorage/ImgStorage.h"
@@ -67,12 +71,16 @@ void CertCard::RemoveObserver(CertCardObserver* observer)
 int CertCard::ConnectCertCard()
 {
 	int port = Config::GetInstance()->GetData().certcard.port;
+	/*
 	HD_CloseComm(port);
 	int result = HD_InitComm(port);
 	if (0 == result) {
 		this->m_thread=std::make_unique<std::thread>(thread_workd,this);
 	}
-	return result;
+	*/
+	this->m_thread = std::make_unique<std::thread>(thread_workd, this);
+
+	return 0;
 }
 
 void CertCard::NotifyCardAuthed(int result)
@@ -115,6 +123,7 @@ void CertCard::NotifyProgressUpdate(int progress, std::string info)
 void CertCard::thread_workd(CertCard* instance)
 {
 	while (true) {
+		/*
 		int result = HD_Authenticate(true);
 		GetInstance()->NotifyCardAuthed(result);
 
@@ -153,6 +162,53 @@ void CertCard::thread_workd(CertCard* instance)
 				instance->HandleCardInfo(info);
 			}
 		}
+		*/
+		PROCESS_INFORMATION pi;
+		STARTUPINFO si;
+		si.cb = sizeof(STARTUPINFO);
+		si.lpReserved = NULL;
+		si.lpDesktop = NULL;
+		si.lpTitle = NULL;
+		si.dwFlags = STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW;
+		si.wShowWindow = SW_HIDE;
+		si.cbReserved2 = NULL;
+		si.lpReserved2 = NULL;
+
+		char pwd[256];
+		memset(pwd, 0, 256);
+		_getcwd(pwd, sizeof(pwd));
+
+		string filename(pwd);
+		filename.append("./hdconsole.exe");
+		size_t size = filename.length();
+		wchar_t *tmp = new wchar_t[size + 1];
+		MultiByteToWideChar(CP_ACP, 0, filename.c_str(),size, tmp, size * sizeof(wchar_t));
+		tmp[size] = 0;
+		BOOL ret = CreateProcess(NULL, tmp, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
+		DWORD dwExitCode;
+		if (ret)
+		{
+			CloseHandle(pi.hThread);
+			WaitForSingleObject(pi.hProcess, INFINITE);
+			GetExitCodeProcess(pi.hProcess, &dwExitCode);
+			CloseHandle(pi.hProcess);
+		}
+		delete[] tmp;
+
+		/*
+		char *buffer = getcwd(NULL,0);
+		int result = system("./hdconsole.exe");
+		if (0 == result) {
+			std::ifstream in("./data.txt", std::ios::in);
+			char buffer[256];
+			memset(buffer, 0, 256);
+			while (!in.eof())
+			{
+				in.getline(buffer, 256);
+				printf_s("%s\n", buffer, 256);
+			}
+		}
+		*/
 		std::this_thread::sleep_for(std::chrono::milliseconds(300));
 	}
 }
