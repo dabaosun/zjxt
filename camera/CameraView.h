@@ -24,12 +24,12 @@ class CameraView : public wxPanel
 public:
     CameraView(wxFrame *parent, wxWindowID winid = wxID_ANY);
     ~CameraView();
-    void OnPaint(wxPaintEvent &event);
+    void OnPaint(wxPaintEvent& event);
     void OnEraseBackground(wxEraseEvent &event);
-    void OnTimer(wxTimerEvent &event);
+    void OnTimer(wxTimerEvent & event);
     void Stop();
     void Start();
-    bool SetPicture(cv::Mat &mat);
+    bool SetPicture(const cv::Mat& mat);
 
     std::unique_ptr<cv::VideoCapture> m_p_cap;
     std::unique_ptr<wxTimer> m_timer;

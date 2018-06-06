@@ -7,7 +7,7 @@ class ImgStorage
 {
 public:
 	static ImgStorage* GetInstance();
-	int UploadFile(std::string filename, std::string& remoteurl);
+	int UploadFile(const std::string& filename, std::string& remoteurl);
 	~ImgStorage();
 private:
 	static ImgStorage* m_instance;

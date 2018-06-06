@@ -41,11 +41,11 @@ public:
 		void OnWorkerEvent(wxThreadEvent& event);
 		void OnUpdateWorker(wxUpdateUIEvent& event);
 
-		void UpdateCardAuthed(bool authed, std::string info);
-		void UpdateCertCardInfo(std::shared_ptr<CertCardInfo> info);
-		void StartProcess(int result, std::string info);
-		void EndProcess(int result, std::string info);
-		void UpdateProgressInfo(int progress, std::string info);
+		void UpdateCardAuthed(bool authed, const std::string& info);
+		void UpdateCertCardInfo(const std::shared_ptr<CertCardInfo>& info);
+		void StartProcess(int result, const std::string& info);
+		void EndProcess(int result, const std::string& info);
+		void UpdateProgressInfo(int progress, const std::string& info);
 };
 
 #endif // __SigninMain__

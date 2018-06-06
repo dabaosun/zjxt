@@ -32,7 +32,7 @@ CameraView::~CameraView()
 
 }
 
-void CameraView::OnPaint(wxPaintEvent &event)
+void CameraView::OnPaint(wxPaintEvent& event)
 {
     if (!m_is_display)
     {
@@ -57,7 +57,7 @@ void CameraView::OnPaint(wxPaintEvent &event)
     }
 }
 
-void CameraView::OnTimer(wxTimerEvent &event)
+void CameraView::OnTimer(wxTimerEvent & event)
 {
     Refresh(false);
 }
@@ -117,7 +117,7 @@ void CameraView::Start()
     m_timer->Start(1000 / 30);
 }
 
-bool CameraView::SetPicture(cv::Mat &mat)
+bool CameraView::SetPicture(const cv::Mat& mat)
 {
     if (mat.rows != m_height)
         return false;

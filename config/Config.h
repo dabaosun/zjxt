@@ -41,7 +41,7 @@ public:
 	static Config* GetInstance();
 	ns::configdata GetData();
 	std::string GetPwd();
-	void SaveDataToFile(std::string filepath);
+	void SaveDataToFile(const std::string& filepath);
 
 	~Config();
 private:

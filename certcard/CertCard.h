@@ -17,7 +17,7 @@ public:
 	void RemoveObserver(CertCardObserver* observer);
 
 
-	void UpdateCapture(std::shared_ptr<cv::Mat> capture);
+	void UpdateCapture(const std::shared_ptr<cv::Mat>& capture);
 	static CertCard* GetInstance();
 	static std::string GetErrMsg(int errcode);
 	~CertCard();
@@ -33,12 +33,12 @@ private:
 	std::unique_ptr<std::thread> m_thread;
 
 	void NotifyCardAuthed(int result);
-	void NotifyCardInfoUpdated(std::shared_ptr<CertCardInfo> info);
-	void NofifyProcessStart(int result, std::string info);
-	void NofityProcessEnd(int result, std::string info);
-	void NotifyProgressUpdate(int progress, std::string info);
+	void NotifyCardInfoUpdated(const std::shared_ptr<CertCardInfo>& info);
+	void NofifyProcessStart(int result, const std::string& info);
+	void NofityProcessEnd(int result, const std::string& info);
+	void NotifyProgressUpdate(int progress, const std::string& info);
 
-	bool HandleCardInfo(std::shared_ptr<CertCardInfo> info);
+	bool HandleCardInfo(const std::shared_ptr<CertCardInfo>& info);
 	void PopCapture(std::shared_ptr<cv::Mat>& capture);
 	std::shared_ptr<cv::Mat> m_mat;
 	std::mutex m_mtxMat;

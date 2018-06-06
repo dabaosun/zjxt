@@ -101,12 +101,12 @@ void SigninMain::OnUpdateWorker(wxUpdateUIEvent& event)
 	event.Enable(m_dlgProgress == NULL);
 }
 
-void SigninMain::UpdateCardAuthed(bool authed, std::string info)
+void SigninMain::UpdateCardAuthed(bool authed, const std::string& info)
 {
 	//here, you can update status bar and so on.
 }
 
-void SigninMain::UpdateCertCardInfo(std::shared_ptr<CertCardInfo> info)
+void SigninMain::UpdateCertCardInfo(const std::shared_ptr<CertCardInfo>& info)
 {
 	this->m_textCtrlName->WriteText(info->name.get());
 	this->m_textCtrlBirth->WriteText(info->birth.get());
@@ -122,7 +122,7 @@ void SigninMain::UpdateCertCardInfo(std::shared_ptr<CertCardInfo> info)
 
 }
 
-void SigninMain::StartProcess(int result, std::string info)
+void SigninMain::StartProcess(int result, const std::string& info)
 {
 	if (NULL != m_dlgProgress) {
 		//ignore or throw exception.
@@ -143,7 +143,7 @@ void SigninMain::StartProcess(int result, std::string info)
 	m_threadProgress->Run();
 }
 
-void SigninMain::EndProcess(int result, std::string info)
+void SigninMain::EndProcess(int result, const std::string& info)
 {
 	if (NULL == m_dlgProgress) {
 		//ignore or throw exception.
@@ -152,7 +152,7 @@ void SigninMain::EndProcess(int result, std::string info)
 	m_threadProgress->m_count = 100;
 }
 
-void SigninMain::UpdateProgressInfo(int progress, std::string info)
+void SigninMain::UpdateProgressInfo(int progress, const std::string& info)
 {
 	m_threadProgress->m_count = progress;
 	m_threadProgress->m_message = info;

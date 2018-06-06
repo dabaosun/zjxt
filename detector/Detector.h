@@ -27,7 +27,7 @@ class Detector
 
         bool LoadCascadeClassifier();
         bool DetectAndDisplay( Mat* frame );
-		bool DetectAndComparseWithSDK(std::shared_ptr<cv::Mat> frame, std::shared_ptr<char> pImgBuf, long bufLen, float& score);
+		bool DetectAndComparseWithSDK(const std::shared_ptr<cv::Mat>& frame, const std::shared_ptr<char>& pImgBuf, long bufLen, float& score);
 
 		bool CalcFeatureMatch(Mat* srcFame, Mat* dstFrame);
 

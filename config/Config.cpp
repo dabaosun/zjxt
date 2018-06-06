@@ -111,7 +111,7 @@ std::string Config::GetPwd()
 	return this->m_pwd;
 }
 
-void Config::SaveDataToFile(std::string filepath)
+void Config::SaveDataToFile(const std::string& filepath)
 {
 	char drive[10];
 	char dir[256];

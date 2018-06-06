@@ -96,28 +96,28 @@ void CertCard::NotifyCardAuthed(int result)
 	}
 }
 
-void CertCard::NotifyCardInfoUpdated(std::shared_ptr<CertCardInfo> info)
+void CertCard::NotifyCardInfoUpdated(const std::shared_ptr<CertCardInfo>& info)
 {
 	for (auto& elem : this->m_observers) {
 		elem->UpdateCertCardInfo(info);
 	}
 }
 
-void CertCard::NofifyProcessStart(int result, std::string info)
+void CertCard::NofifyProcessStart(int result, const std::string& info)
 {
 	for (auto& elem : this->m_observers) {
 		elem->StartProcess(result, info);
 	}
 }
 
-void CertCard::NofityProcessEnd(int result, std::string info)
+void CertCard::NofityProcessEnd(int result, const std::string& info)
 {
 	for (auto& elem : this->m_observers) {
 		elem->EndProcess(result, info);
 	}
 }
 
-void CertCard::NotifyProgressUpdate(int progress, std::string info)
+void CertCard::NotifyProgressUpdate(int progress, const std::string& info)
 {
 	for (auto& elem : this->m_observers) {
 		elem->UpdateProgressInfo(progress, info);
@@ -265,7 +265,7 @@ void CertCard::thread_workd(CertCard* instance)
 	}
 }
 
-bool CertCard::HandleCardInfo(std::shared_ptr<CertCardInfo> info)
+bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 {
 	this->NofifyProcessStart(0, "正在处理中。。。");
 	chrono::steady_clock::time_point start = chrono::steady_clock::now();
@@ -311,7 +311,7 @@ bool CertCard::HandleCardInfo(std::shared_ptr<CertCardInfo> info)
 	return false;
 }
 
-void CertCard::UpdateCapture(std::shared_ptr<cv::Mat> capture)
+void CertCard::UpdateCapture(const std::shared_ptr<cv::Mat>& capture)
 {
 	std::lock_guard<std::mutex> lck(this->m_mtxMat);
 	this->m_mat = capture;

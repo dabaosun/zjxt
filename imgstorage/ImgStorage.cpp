@@ -19,7 +19,7 @@ ImgStorage* ImgStorage::GetInstance()
 	return m_instance;
 }
 
-int ImgStorage::UploadFile(std::string filename,std::string& remoteurl)
+int ImgStorage::UploadFile(const std::string& filename,std::string& remoteurl)
 {
 	std::string ip = Config::GetInstance()->GetData().storage.ip;
 	int port = Config::GetInstance()->GetData().storage.port;

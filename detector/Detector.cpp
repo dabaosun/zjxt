@@ -72,7 +72,7 @@ bool Detector::DetectAndDisplay( Mat* frame )
     //return frame;
 }
 
-bool Detector::DetectAndComparseWithSDK(std::shared_ptr<cv::Mat> frame, std::shared_ptr<char> pImgBuf, long bufLen, float& score)
+bool Detector::DetectAndComparseWithSDK(const std::shared_ptr<cv::Mat>& frame, const std::shared_ptr<char>& pImgBuf, long bufLen, float& score)
 {
 	FaceCheckInfo faceinfo;
 	memset(&faceinfo, 0, sizeof(FaceCheckInfo));
