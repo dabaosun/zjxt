@@ -60,7 +60,7 @@ namespace ns {
 	}
 };
 
-const std::string confile =  "/etc/config.json";
+const std::string confile =  "etc/config.json";
 
 Config* Config::m_instance = new Config();
 
@@ -70,6 +70,7 @@ Config::Config()
 	std::memset(pwd, 0, 256);
 	_getcwd(pwd, sizeof(pwd));
 	this->m_pwd = pwd;
+	this->m_pwd.append("/");
 
 	std::ifstream in(this->m_pwd+confile, std::ios::in);
 	if (!in)

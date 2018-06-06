@@ -186,7 +186,7 @@ void CertCard::thread_workd(CertCard* instance)
 		si.cbReserved2 = NULL;
 		si.lpReserved2 = NULL;
 
-		string process = Config::GetInstance()->GetPwd()+"./hdconsole.exe";
+		string process = Config::GetInstance()->GetPwd()+"hdconsole.exe";
 		size_t size = process.length();
 		wchar_t *tmp = new wchar_t[size + 1];
 		MultiByteToWideChar(CP_ACP, 0, process.c_str(),size, tmp, size * sizeof(wchar_t));
@@ -208,8 +208,8 @@ void CertCard::thread_workd(CertCard* instance)
 
 			if (0 == dwExitCode)
 			{
-				string datafile = Config::GetInstance()->GetPwd() + "./data.txt";
-				string certcardbmp = Config::GetInstance()->GetPwd() + "./certcard.bmp";
+				string datafile = Config::GetInstance()->GetPwd() + "data.txt";
+				string certcardbmp = Config::GetInstance()->GetPwd() + "certcard.bmp";
 
 				ifstream datain(datafile, ios::in);
 				ifstream bmpin(datafile, ios::in | ios::binary);
@@ -285,7 +285,7 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 			{
 				//passed
 				//save mat to local image
-				std::string localImg = Config::GetInstance()->GetPwd() + "./" + info->certno.get() + ".jpg";
+				std::string localImg = Config::GetInstance()->GetPwd() + info->certno.get() + ".jpg";
 				if (imwrite(localImg, *capture)) {
 					//upload image to remote file sever
 					std::string remoteurl;
