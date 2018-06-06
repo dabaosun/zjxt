@@ -16,7 +16,7 @@ public:
 	void RegisterListener(ICertCardListener * listener);
 	void RemoveListener(ICertCardListener * listener);
 
-	void UpdateCapture(const std::shared_ptr<cv::Mat>& capture);
+	void UpdateCapture(const cv::Mat& capture);
 	static CertCard* GetInstance();
 	static std::string GetErrMsg(int errcode);
 	~CertCard();

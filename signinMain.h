@@ -35,8 +35,8 @@ public:
 		bool m_cancelled;
 		wxCriticalSection m_csCancelled;        // protects m_cancelled
 
-		std::unique_ptr<wxProgressDialog> m_dlgProgress;
-		std::unique_ptr<ProgressThread> m_threadProgress;
+		wxProgressDialog* m_dlgProgress;
+		ProgressThread *m_threadProgress;
 
 		void OnWorkerEvent(wxThreadEvent& event);
 		void OnUpdateWorker(wxUpdateUIEvent& event);

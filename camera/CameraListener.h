@@ -8,7 +8,7 @@ class ICameraListener {
 
 public:
 	virtual ~ICameraListener() {};
-	virtual void UpdateCapture(const std::shared_ptr<cv::Mat>& capture) = 0;
+	virtual void UpdateCapture(const cv::Mat& capture) = 0;
 };
 
 

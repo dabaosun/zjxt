@@ -25,6 +25,7 @@ CameraView::CameraView(wxFrame *parent, wxWindowID winid) : wxPanel(parent, wini
 
     Connect(wxEVT_TIMER, wxTimerEventHandler(CameraView::OnTimer));
     Connect(wxEVT_PAINT, wxPaintEventHandler(CameraView::OnPaint));
+
 }
 
 CameraView::~CameraView()
@@ -42,13 +43,13 @@ void CameraView::OnPaint(wxPaintEvent& event)
     cv::Mat capture;
     if (m_p_cap->read(capture))
     {
-        bool ret = SetPicture(capture);
+		bool ret = SetPicture(capture);
         if (!ret)
         {
             wxPuts(wxT("Error: can't get picture data."));
             return;
         }
-
+		//this->NotifyCapture(capture);
         wxImage image(m_width, m_height, m_p_picture.get(), true);
         wxBitmap current_capture(image);
 
@@ -142,8 +143,6 @@ void CameraView::OnEraseBackground(wxEraseEvent &event)
 
 }
 
-
-
 void CameraView::RegisterListener(ICameraListener * listener)
 {
 	if (NULL != listener)
@@ -159,5 +158,12 @@ void CameraView::RemoveListener(ICameraListener * listener)
 	{
 		std::unique_lock<std::mutex> lck(this->m_mtxListeners);
 		this->m_listeners.remove(listener);
+	}
+}
+
+void CameraView::NotifyCapture(const cv::Mat& capture)
+{
+	for (auto& elem : this->m_listeners) {
+		elem->UpdateCapture(capture);
 	}
 }

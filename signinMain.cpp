@@ -2,6 +2,7 @@
 #include <fstream>
 #include "ProgressThread.h"
 #include "./certcard/CertCard.h"
+#include "./config/Config.h"
 
 enum
 {
@@ -76,8 +77,9 @@ void SigninMain::OnWorkerEvent(wxThreadEvent& event)
 	int n = event.GetInt();
 	if (n == -1)
 	{
-		m_dlgProgress->Destroy();
-		m_dlgProgress.reset();
+		bool result = m_dlgProgress->Destroy();
+		delete m_dlgProgress;
+		m_dlgProgress = NULL;
 
 		// the dialog is aborted because the event came from another thread, so
 		// we may need to wake up the main event loop for the dialog to be
@@ -108,14 +110,23 @@ void SigninMain::UpdateCardAuthed(bool authed, const std::string& info)
 
 void SigninMain::UpdateCertCardInfo(const std::shared_ptr<CertCardInfo>& info)
 {
-	this->m_textCtrlName->WriteText(info->name.get());
-	this->m_textCtrlBirth->WriteText(info->birth.get());
-	this->m_textCtrlAddr->WriteText(info->address.get());
-	this->m_textCtrlIDNumber->WriteText(info->certno.get());
+	this->m_textCtrlName->SetLabelText(info->name.get());
+	this->m_textCtrlBirth->SetLabelText(info->birth.get());
+	this->m_textCtrlAddr->SetLabelText(info->address.get());
+	this->m_textCtrlIDNumber->SetLabelText(info->certno.get());
+	this->m_radioBtnFemale->SetValue(false);
+	this->m_radioBtnMale->SetValue(false);
+	if (wxT("男") == wxString(info->gendar.get())) {
+		this->m_radioBtnMale->SetValue(true);
+	}
+	else {
+		this->m_radioBtnFemale->SetValue(true);
+	}
 	wxClientDC dc(this->StaticBitmap_IDImage);
 	wxImage img;
-	img.SetData((unsigned char*)(info->bmpdata.get()));//.LoadFile("d:\\3.jpg");
-	img.Rescale(200, 200);
+	img.LoadFile(Config::GetInstance()->GetPwd() + "certcard.bmp");
+	//img.SetData((unsigned char*)(info->bmpdata.get()));
+	img.Rescale(204, 252);
 
 	wxBitmap bitmap = wxBitmap(img);
 	dc.DrawBitmap(bitmap, 0, 0);
@@ -128,14 +139,14 @@ void SigninMain::StartProcess(int result, const std::string& info)
 		//ignore or throw exception.
 		return;
 	}
-	m_threadProgress.reset(new ProgressThread(this));	
+	m_threadProgress = new ProgressThread(this);
 	if (m_threadProgress->Create() != wxTHREAD_NO_ERROR)
 	{
 		wxLogError(wxT("Can't create thread!"));
 		return;
 	}
 
-	m_dlgProgress = std::make_unique<wxProgressDialog>(wxT("进度"), wxT("请等待..."), 100, this, wxPD_SMOOTH);
+	m_dlgProgress = new wxProgressDialog(wxT("进度"), info, 100, this, wxPD_SMOOTH);
 
 	// thread is not running yet, no need for crit sect
 	m_cancelled = false;
@@ -150,6 +161,7 @@ void SigninMain::EndProcess(int result, const std::string& info)
 		return;
 	}
 	m_threadProgress->m_count = 100;
+	m_threadProgress->m_message = info;
 }
 
 void SigninMain::UpdateProgressInfo(int progress, const std::string& info)

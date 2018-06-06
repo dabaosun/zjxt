@@ -212,7 +212,7 @@ void CertCard::thread_workd(CertCard* instance)
 				string certcardbmp = Config::GetInstance()->GetPwd() + "certcard.bmp";
 
 				ifstream datain(datafile, ios::in);
-				ifstream bmpin(datafile, ios::in | ios::binary);
+				ifstream bmpin(certcardbmp, ios::in | ios::binary);
 				if (datain.is_open()&& bmpin.is_open())
 				{
 					std::shared_ptr<char> name(new char[256], std::default_delete<char[]>());
@@ -304,17 +304,19 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 		std::this_thread::sleep_for(std::chrono::milliseconds(300));
 		end = chrono::steady_clock::now();
 		elapsed = end - start;
+
 	} 
-	while (chrono::duration<double>(elapsed).count()>Config::GetInstance()->GetData().camera.elapsed);
+	while (std::chrono::duration_cast<std::chrono::seconds>(end - start).count() < Config::GetInstance()->GetData().camera.elapsed);
 		
 	this->NofityProcessEnd(100, "×¢²áÊ§°Ü¡£");
 	return false;
 }
 
-void CertCard::UpdateCapture(const std::shared_ptr<cv::Mat>& capture)
+void CertCard::UpdateCapture(const cv::Mat& capture)
 {
 	std::lock_guard<std::mutex> lck(this->m_mtxMat);
-	this->m_mat = capture;
+	std::shared_ptr<cv::Mat> mat = std::make_shared<cv::Mat>(capture);
+	this->m_mat = mat;
 }
 
 void CertCard::PopCapture(std::shared_ptr<cv::Mat>& capture)

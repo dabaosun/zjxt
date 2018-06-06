@@ -43,9 +43,6 @@ public:
 private:
     std::list<ICameraListener*> m_listeners;
 	std::mutex m_mtxListeners;
-
-
-
-
+	void NotifyCapture(const cv::Mat& capture);
 };
 #endif // CAMERAVIEW_H
