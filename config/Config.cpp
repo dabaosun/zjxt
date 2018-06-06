@@ -16,7 +16,7 @@ namespace ns {
 	}
 
 	void to_json(json& j, const camera& p) {
-		j = json{ { "index", p.index }, {"threshold", p.threshold } };
+		j = json{ { "index", p.index }, {"threshold", p.threshold } ,{ "elapsed", p.elapsed } };
 	}
 
 	void to_json(json& j, const certcard& p) {
@@ -41,6 +41,7 @@ namespace ns {
 	void from_json(const json& j, camera& p) {
 		p.index = j.at("index").get<int>();
 		p.threshold = j.at("threshold").get<float>();
+		p.elapsed = j.at("elapsed").get<int>();
 	}
 
 	void from_json(const json& j, certcard& p) {
@@ -59,24 +60,33 @@ namespace ns {
 	}
 };
 
-const std::string confile = "./etc/config.json";
+const std::string confile =  "/etc/config.json";
 
 Config* Config::m_instance = new Config();
 
 Config::Config()
 {
-	std::ifstream in(confile, std::ios::in);
+	char pwd[256];
+	std::memset(pwd, 0, 256);
+	_getcwd(pwd, sizeof(pwd));
+	this->m_pwd = pwd;
+
+	std::ifstream in(this->m_pwd+confile, std::ios::in);
 	if (!in)
 	{
 		this->m_data.camera.index = 0;
 		this->m_data.camera.threshold = 0.90;
+		this->m_data.camera.elapsed = 10;
+
 		this->m_data.certcard.port = 1001;
-		this->m_data.server.ip = "127.0.0.1";
-		this->m_data.server.port = 443;
+
+		this->m_data.server.ip = "115.28.84.22";
+		this->m_data.server.port = 8060;
+
 		this->m_data.storage.ip = "121.42.50.172";
 		this->m_data.storage.port = 22122; 
-
-		this->SaveDataToFile(confile);
+	
+		this->SaveDataToFile(this->m_pwd + confile);
 	}
 	else {
 		json j;
@@ -84,12 +94,6 @@ Config::Config()
 		this->m_data = j;
 		in.close();
 	}
-
-	char pwd[256];
-	std::memset(pwd, 0, 256);
-	_getcwd(pwd, sizeof(pwd));
-	this->m_pwd = pwd;
-
 }
 
 Config::~Config()
@@ -125,6 +129,6 @@ void Config::SaveDataToFile(const std::string& filepath)
 	}
 	json j = m_data;
 	std::ofstream out(filepath);
-	//out << std::setw(4) << j << std::endl;
+	
 	out << j << std::endl;
 }

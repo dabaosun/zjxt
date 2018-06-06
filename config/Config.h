@@ -7,6 +7,7 @@ namespace ns {
 	{
 		int index;
 		float threshold;
+		int elapsed;
 	};
 
 	struct certcard

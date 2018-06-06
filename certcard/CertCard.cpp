@@ -305,7 +305,7 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 		end = chrono::steady_clock::now();
 		elapsed = end - start;
 	} 
-	while (chrono::duration<double>(elapsed).count()>10);
+	while (chrono::duration<double>(elapsed).count()>Config::GetInstance()->GetData().camera.elapsed);
 		
 	this->NofityProcessEnd(100, "×¢²áÊ§°Ü¡£");
 	return false;
