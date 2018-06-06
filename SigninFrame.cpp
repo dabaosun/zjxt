@@ -83,7 +83,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	m_staticTextAddr->Wrap(-1);
 	FlexGridSizer_IDInfoDetail->Add(m_staticTextAddr, 0, wxALL, 5);
 
-	m_textCtrlAddr = new wxTextCtrl(StaticBoxSizer_Identify->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
+	m_textCtrlAddr = new wxTextCtrl(StaticBoxSizer_Identify->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_CHARWRAP | wxTE_MULTILINE | wxTE_WORDWRAP);
 	FlexGridSizer_IDInfoDetail->Add(m_textCtrlAddr, 0, wxALL | wxEXPAND, 5);
 
 
