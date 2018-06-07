@@ -1,3 +1,11 @@
+/***************************************************************
+* Name:      SigninMain.cpp
+* Purpose:   App's main frame with GUI.
+* Author:    sunzhenbao (suzhenbao@live.com)
+* Copyright: sunzhenbao ()
+* License:
+**************************************************************/
+
 #include "SigninMain.h"
 #include <fstream>
 #include "ProgressThread.h"
@@ -10,11 +18,8 @@ enum
 	GUITHREAD_EVENT                  // this one gets sent from MyGUIThread
 };
 
-SigninMain::SigninMain( wxWindow* parent )
-:
-SigninFrame( parent )
+SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 {
-	CertCard::GetInstance()->RegisterListener(this);
 
 	this->Connect(WORKER_EVENT, wxEVT_THREAD, wxThreadEventHandler(SigninMain::OnWorkerEvent));
 	m_CameraView = new CameraView(this, wxID_ANY);
@@ -28,7 +33,7 @@ SigninFrame( parent )
 void SigninMain::OnClose( wxCloseEvent& event )
 {
 // TODO: Implement OnClose
-	m_CameraView->Stop();
+	m_CameraView->CloseCamera();
 	Destroy();
 
 }
@@ -38,18 +43,18 @@ void SigninMain::OnMenuSelectionCamera( wxCommandEvent& event )
 // TODO: Implement OnMenuSelectionCamera
 	if (m_CameraView->m_is_display)
 	{
-		m_CameraView->Stop();
+		m_CameraView->CloseCamera();
 	}
 	else
 	{
-		m_CameraView->Start();
+		m_CameraView->OpenCamera();
 		Layout();
 	}
 }
 
 void SigninMain::OnMenuSelectionCard(wxCommandEvent& event)
 {
-	int result = CertCard::GetInstance()->ConnectCertCard();
+	int result = CertCard::GetInstance()->OpenCertCardReader();
 	if (0 != result) {
 		std::string msg = CertCard::GetInstance()->GetErrMsg(result);
 	}
@@ -170,4 +175,9 @@ void SigninMain::UpdateProgressInfo(int progress, const std::string& info)
 {
 	m_threadProgress->m_count = progress;
 	m_threadProgress->m_message = info;
+}
+
+CameraView* SigninMain::GetCameraView()
+{
+	return this->m_CameraView;
 }

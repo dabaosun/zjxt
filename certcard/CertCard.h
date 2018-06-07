@@ -1,3 +1,11 @@
+/***************************************************************
+* Name:      CertCard.h
+* Purpose:   Read cert card info and handle the data.
+* Author:    sunzhenbao (suzhenbao@live.com)
+* Copyright: sunzhenbao ()
+* License:
+**************************************************************/
+
 #ifndef __CERTCARD__
 #define __CERTCARD__
 
@@ -17,15 +25,18 @@ public:
 	void RemoveListener(ICertCardListener * listener);
 
 	void UpdateCapture(const std::shared_ptr<cv::Mat> & capture);
-	static CertCard* GetInstance();
+	static CertCard* GetInstance() {
+		return m_pInstance;
+	};
 	static std::string GetErrMsg(int errcode);
-	~CertCard();
 
-	int ConnectCertCard();
+	int OpenCertCardReader();
+	void CloseCertCardReader();
 private:
-	static CertCard *m_intance;
+	static CertCard* m_pInstance;
 	static void thread_workd(CertCard* instance);
 	CertCard();
+	~CertCard();
 
 	std::mutex m_mtxListeners;
 	std::list<ICertCardListener*> m_listeners;
@@ -42,7 +53,20 @@ private:
 	std::shared_ptr<cv::Mat> m_mat;
 	std::mutex m_mtxMat;
 
+	class Garbo
 
+	{
+	public:
+		~Garbo()
+		{
+			if (CertCard::m_pInstance)
+			{
+				delete CertCard::m_pInstance;
+			}
+		}
+	};
+
+	static Garbo garbo;
 };
 
 #endif //__CERTCARD__

@@ -26,6 +26,9 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	BoxSizer_Top->Add(StaticBoxSizer_Camera, 1, wxEXPAND, 5);
 
+	wxBoxSizer* bSizer6;
+	bSizer6 = new wxBoxSizer(wxVERTICAL);
+
 	wxStaticBoxSizer* StaticBoxSizer_Identify;
 	StaticBoxSizer_Identify = new wxStaticBoxSizer(new wxStaticBox(m_panelTop, wxID_ANY, wxT("身份证信息区")), wxHORIZONTAL);
 
@@ -46,7 +49,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	m_staticTextName->Wrap(-1);
 	FlexGridSizer_IDInfoDetail->Add(m_staticTextName, 0, wxALL, 5);
 
-	m_textCtrlName = new wxTextCtrl(StaticBoxSizer_Identify->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
+	m_textCtrlName = new wxTextCtrl(StaticBoxSizer_Identify->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY);
 	FlexGridSizer_IDInfoDetail->Add(m_textCtrlName, 0, wxALL | wxEXPAND, 5);
 
 	m_staticTextGender = new wxStaticText(StaticBoxSizer_Identify->GetStaticBox(), wxID_ANY, wxT("性别："), wxDefaultPosition, wxDefaultSize, 0);
@@ -69,21 +72,21 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	m_staticTextBirth->Wrap(-1);
 	FlexGridSizer_IDInfoDetail->Add(m_staticTextBirth, 0, wxALL, 5);
 
-	m_textCtrlBirth = new wxTextCtrl(StaticBoxSizer_Identify->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
+	m_textCtrlBirth = new wxTextCtrl(StaticBoxSizer_Identify->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY);
 	FlexGridSizer_IDInfoDetail->Add(m_textCtrlBirth, 0, wxALL | wxEXPAND, 5);
 
 	m_staticTextIDNumber = new wxStaticText(StaticBoxSizer_Identify->GetStaticBox(), wxID_ANY, wxT("身份证号："), wxDefaultPosition, wxDefaultSize, 0);
 	m_staticTextIDNumber->Wrap(-1);
 	FlexGridSizer_IDInfoDetail->Add(m_staticTextIDNumber, 0, wxALL, 5);
 
-	m_textCtrlIDNumber = new wxTextCtrl(StaticBoxSizer_Identify->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
+	m_textCtrlIDNumber = new wxTextCtrl(StaticBoxSizer_Identify->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY);
 	FlexGridSizer_IDInfoDetail->Add(m_textCtrlIDNumber, 0, wxALL | wxEXPAND, 5);
 
 	m_staticTextAddr = new wxStaticText(StaticBoxSizer_Identify->GetStaticBox(), wxID_ANY, wxT("地址："), wxDefaultPosition, wxDefaultSize, 0);
 	m_staticTextAddr->Wrap(-1);
 	FlexGridSizer_IDInfoDetail->Add(m_staticTextAddr, 0, wxALL, 5);
 
-	m_textCtrlAddr = new wxTextCtrl(StaticBoxSizer_Identify->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_CHARWRAP | wxTE_MULTILINE | wxTE_WORDWRAP);
+	m_textCtrlAddr = new wxTextCtrl(StaticBoxSizer_Identify->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_CHARWRAP | wxTE_READONLY);
 	FlexGridSizer_IDInfoDetail->Add(m_textCtrlAddr, 0, wxALL | wxEXPAND, 5);
 
 
@@ -91,16 +94,6 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 
 	BoxSizer_IDInfoMain->Add(BoxSizer_IDInfoTop, 1, wxEXPAND, 5);
-
-	wxFlexGridSizer* FlexGridSizer_IDInfoButtom;
-	FlexGridSizer_IDInfoButtom = new wxFlexGridSizer(3, 2, 0, 0);
-	FlexGridSizer_IDInfoButtom->AddGrowableCol(1);
-	FlexGridSizer_IDInfoButtom->AddGrowableRow(2);
-	FlexGridSizer_IDInfoButtom->SetFlexibleDirection(wxBOTH);
-	FlexGridSizer_IDInfoButtom->SetNonFlexibleGrowMode(wxFLEX_GROWMODE_SPECIFIED);
-
-
-	BoxSizer_IDInfoMain->Add(FlexGridSizer_IDInfoButtom, 1, wxEXPAND, 5);
 
 
 	StaticBoxSizer_Identify->Add(BoxSizer_IDInfoMain, 1, wxEXPAND, 5);
@@ -118,7 +111,29 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	StaticBoxSizer_Identify->Add(GridSizer_IDImage, 1, wxEXPAND, 5);
 
 
-	BoxSizer_Top->Add(StaticBoxSizer_Identify, 1, wxEXPAND, 5);
+	bSizer6->Add(StaticBoxSizer_Identify, 1, wxEXPAND, 5);
+
+	wxStaticBoxSizer* sbSizerProgress;
+	sbSizerProgress = new wxStaticBoxSizer(new wxStaticBox(m_panelTop, wxID_ANY, wxT("进展提示")), wxHORIZONTAL);
+
+	m_staticTextProgress = new wxStaticText(sbSizerProgress->GetStaticBox(), wxID_ANY, wxT("请刷身份证"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE);
+	m_staticTextProgress->Wrap(-1);
+	m_staticTextProgress->SetFont(wxFont(18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("宋体")));
+	m_staticTextProgress->SetForegroundColour(wxColour(0, 0, 255));
+
+	sbSizerProgress->Add(m_staticTextProgress, 1, wxALL | wxEXPAND, 5);
+
+	m_gaugeProgress = new wxGauge(sbSizerProgress->GetStaticBox(), wxID_ANY, 100, wxDefaultPosition, wxDefaultSize, wxGA_HORIZONTAL);
+	m_gaugeProgress->SetValue(0);
+	m_gaugeProgress->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
+
+	sbSizerProgress->Add(m_gaugeProgress, 1, wxALL | wxEXPAND, 5);
+
+
+	bSizer6->Add(sbSizerProgress, 0, wxEXPAND, 5);
+
+
+	BoxSizer_Top->Add(bSizer6, 1, wxEXPAND, 5);
 
 
 	m_panelTop->SetSizer(BoxSizer_Top);
@@ -132,6 +147,9 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	BoxSizer_Main->Fit(this);
 	m_statusBar = this->CreateStatusBar(1, wxSTB_SIZEGRIP, wxID_ANY);
 	m_menubar = new wxMenuBar(0);
+	m_menubar->Enable(false);
+	m_menubar->Hide();
+
 	m_menu1 = new wxMenu();
 	wxMenuItem* m_menuItemCamera;
 	m_menuItemCamera = new wxMenuItem(m_menu1, wxID_ANY, wxString(wxT("摄像头On/Off")), wxEmptyString, wxITEM_NORMAL);

@@ -1,3 +1,11 @@
+/***************************************************************
+* Name:      SigninMain.h
+* Purpose:   App's main frame with GUI.
+* Author:    sunzhenbao (suzhenbao@live.com)
+* Copyright: sunzhenbao ()
+* License:
+**************************************************************/
+
 #ifndef __SigninMain__
 #define __SigninMain__
 
@@ -46,6 +54,7 @@ public:
 		void StartProcess(int result, const std::string& info);
 		void EndProcess(int result, const std::string& info);
 		void UpdateProgressInfo(int progress, const std::string& info);
+		CameraView* GetCameraView();
 };
 
 #endif // __SigninMain__

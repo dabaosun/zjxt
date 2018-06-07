@@ -1,8 +1,18 @@
+/***************************************************************
+* Name:      ImgStorage.h
+* Purpose:   Communication utility class with remote file server.
+* Author:    sunzhenbao (suzhenbao@live.com)
+* Copyright: sunzhenbao ()
+* License:
+**************************************************************/
+
 #include "ImgStorage.h"
 #include "FastSDK.h"
 #include "../config/Config.h"
 
-ImgStorage* ImgStorage::m_instance = new ImgStorage();
+ImgStorage* ImgStorage::m_pInstance = new ImgStorage();
+
+ImgStorage::Garbo ImgStorage::garbo;
 
 ImgStorage::ImgStorage()
 {
@@ -12,11 +22,6 @@ ImgStorage::ImgStorage()
 ImgStorage::~ImgStorage()
 {
 
-}
-
-ImgStorage* ImgStorage::GetInstance()
-{
-	return m_instance;
 }
 
 int ImgStorage::UploadFile(const std::string& filename,std::string& remoteurl)

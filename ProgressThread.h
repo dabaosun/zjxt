@@ -1,3 +1,11 @@
+/***************************************************************
+* Name:      ProgressThread.h
+* Purpose:   thread for progress.
+* Author:    sunzhenbao (suzhenbao@live.com)
+* Copyright: sunzhenbao ()
+* License:
+**************************************************************/
+
 #ifndef __PROGRESSHTREAD_H__
 #define __PROGRESSHTREAD_H__
 

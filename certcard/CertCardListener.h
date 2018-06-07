@@ -1,3 +1,11 @@
+/***************************************************************
+* Name:      CertCardListener.h
+* Purpose:   Cert card's listener interface.
+* Author:    sunzhenbao (suzhenbao@live.com)
+* Copyright: sunzhenbao ()
+* License:
+**************************************************************/
+
 #ifndef __ICERTCARDLISTENER__
 #define __ICERTCARDLISTENER__
 

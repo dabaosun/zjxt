@@ -13,23 +13,36 @@
 #include "SigninMain.h"
 #include <wx/image.h>
 //*)
+#include "./certcard/CertCard.h"
+#include "./config/Config.h"
 
 IMPLEMENT_APP(SigninApp);
 
 bool SigninApp::OnInit()
 {
-    //(*AppInitialize
+	if (0 == Config::GetInstance()->LoadConfig()) {
+		return false;
+	}
+	if (0 == CertCard::GetInstance()->OpenCertCardReader()) {
+		return false;
+	}
+	SigninMain* Frame = NULL;
+	//(*AppInitialize
     bool wxsOK = true;
     wxInitAllImageHandlers();
     if ( wxsOK )
     {
-    	SigninMain* Frame = new SigninMain(0);
+    	Frame = new SigninMain(0);
     	Frame->Show();
     	//Frame->ShowFullScreen(true);
-
     	SetTopWindow(Frame);
     }
     //*)
+
+	CertCard::GetInstance()->RegisterListener(Frame);
+	Frame->GetCameraView()->RegisterListener(CertCard::GetInstance());
+	Frame->GetCameraView()->OpenCamera();
+	
     return wxsOK;
 
 }

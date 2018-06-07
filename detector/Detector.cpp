@@ -9,7 +9,9 @@
 #include "Detector.h"
 #include <FaceSDK.h>
 
-Detector* Detector::m_instance = new Detector();
+Detector* Detector::m_pInstance = new Detector();
+
+Detector::Garbo Detector::garbo;
 
 Detector::Detector()
 {
@@ -25,15 +27,9 @@ Detector::~Detector()
 	DelSDK();
 }
 
-Detector* Detector::GetInstance()
-{
-	return m_instance; 
-}
-
 bool Detector::LoadCascadeClassifier()
 {
     return this->face_cascade.load(face_cascade_name) && this->eyes_cascade.load(eyes_cascade_name);
-
 }
 
 bool Detector::DetectAndDisplay( Mat* frame )

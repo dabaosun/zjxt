@@ -1,3 +1,11 @@
+/***************************************************************
+* Name:      ProgressThread.cpp
+* Purpose:   thread for progress.
+* Author:    sunzhenbao (suzhenbao@live.com)
+* Copyright: sunzhenbao ()
+* License:
+**************************************************************/
+
 #include "ProgressThread.h"
 
 enum

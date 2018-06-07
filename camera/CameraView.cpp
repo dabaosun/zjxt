@@ -28,8 +28,6 @@ CameraView::CameraView(wxFrame *parent, wxWindowID winid) : wxPanel(parent, wini
 
     Connect(wxEVT_TIMER, wxTimerEventHandler(CameraView::OnTimer));
     Connect(wxEVT_PAINT, wxPaintEventHandler(CameraView::OnPaint));
-
-	this->RegisterListener(CertCard::GetInstance());
 }
 
 CameraView::~CameraView()
@@ -50,7 +48,6 @@ void CameraView::OnPaint(wxPaintEvent& event)
 		bool ret = SetPicture(capture);
         if (!ret)
         {
-            wxPuts(wxT("Error: can't get picture data."));
             return;
         }
 		std::shared_ptr<cv::Mat> updated = std::make_shared<cv::Mat>(capture.clone());
@@ -68,12 +65,15 @@ void CameraView::OnTimer(wxTimerEvent & event)
     Refresh(false);
 }
 
-void CameraView::Stop()
+void CameraView::CloseCamera()
 {
     if (m_is_display)
     {
         m_timer->Stop();
         m_is_display = false;
+		if ((NULL != m_p_cap.get()) && m_p_cap->isOpened()) {
+			m_p_cap->release();
+		}
     }
     Refresh();
 }
@@ -100,27 +100,27 @@ byte * matToBytes(Mat image)
 	return bytes;
 }
 
-void CameraView::Start()
+bool CameraView::OpenCamera()
 {
     if (m_is_display)
     {
-        m_is_display = false;
+		return true;
     }
+
 	int index = Config::GetInstance()->GetData().camera.index;
     m_p_cap.reset(new cv::VideoCapture(index));
     if (!m_p_cap->isOpened())
     {
-        wxPuts(wxT("Camera Open Error!"));
-        return;
+        return false;
     }
 
     m_p_picture.reset(new unsigned char[m_width * m_height * 3]);
-    wxPuts(wxT("Camera Open Success!"));
     m_is_display = true;
 
     //((wxFrame*)GetParent())->SetSize(wxSize(m_width, m_height));
-
     m_timer->Start(1000 / 30);
+
+	return true;
 }
 
 bool CameraView::SetPicture(const cv::Mat& mat)
@@ -141,11 +141,6 @@ bool CameraView::SetPicture(const cv::Mat& mat)
         m_p_picture.get()[i + 2] = mat.data[i];
     }
     return true;
-}
-
-void CameraView::OnEraseBackground(wxEraseEvent &event)
-{
-
 }
 
 void CameraView::RegisterListener(ICameraListener * listener)

@@ -1,3 +1,11 @@
+/***************************************************************
+* Name:      DataServer.cpp
+* Purpose:   Communication utility class with remote server.
+* Author:    sunzhenbao (suzhenbao@live.com)
+* Copyright: sunzhenbao ()
+* License:
+**************************************************************/
+
 #include "DataServer.h"
 #include <cpprest/http_client.h>
 #include <cpprest/filestream.h>
@@ -8,7 +16,9 @@ using namespace web::http;
 using namespace web::http::client;
 using namespace concurrency::streams;
 
-DataServer* DataServer::m_instance = new DataServer();
+DataServer* DataServer::m_pInstance = new DataServer();
+
+DataServer::Garbo DataServer::garbo;
 
 DataServer::DataServer()
 {
@@ -18,11 +28,6 @@ DataServer::DataServer()
 DataServer::~DataServer()
 {
 
-}
-
-DataServer* DataServer::GetInstance()
-{
-	return m_instance;
 }
 
 int DataServer::UploadData(const std::string& cardno, const std::string& imgpath)

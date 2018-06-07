@@ -24,6 +24,7 @@
 #include <wx/image.h>
 #include <wx/icon.h>
 #include <wx/statbmp.h>
+#include <wx/gauge.h>
 #include <wx/panel.h>
 #include <wx/statusbr.h>
 #include <wx/menu.h>
@@ -54,6 +55,8 @@ protected:
 	wxStaticText* m_staticTextAddr;
 	wxTextCtrl* m_textCtrlAddr;
 	wxStaticBitmap* StaticBitmap_IDImage;
+	wxStaticText* m_staticTextProgress;
+	wxGauge* m_gaugeProgress;
 	wxStatusBar* m_statusBar;
 	wxMenuBar* m_menubar;
 	wxMenu* m_menu1;
@@ -68,7 +71,7 @@ protected:
 public:
 	wxMenuItem * m_menuItemCard;
 
-	SigninFrame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("闸机注册系统"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(-1, -1), long style = wxDEFAULT_FRAME_STYLE | wxTAB_TRAVERSAL);
+	SigninFrame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("闸机注册系统"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(-1, -1), long style = wxCAPTION | wxCLOSE_BOX | wxSTAY_ON_TOP | wxTAB_TRAVERSAL);
 
 	~SigninFrame();
 

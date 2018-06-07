@@ -1,3 +1,11 @@
+/***************************************************************
+* Name:      CameraListener.h
+* Purpose:   Camera listener interface define.
+* Author:    sunzhenbao (suzhenbao@live.com)
+* Copyright: sunzhenbao ()
+* License:
+**************************************************************/
+
 #ifndef __ICAMERAOBLISTENER__
 #define __ICAMERAOBLISTENER__
 

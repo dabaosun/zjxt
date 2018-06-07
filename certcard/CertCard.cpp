@@ -1,3 +1,11 @@
+/***************************************************************
+* Name:      CertCard.cpp
+* Purpose:   Read cert card info and handle the data.
+* Author:    sunzhenbao (suzhenbao@live.com)
+* Copyright: sunzhenbao ()
+* License:
+**************************************************************/
+
 #include "CertCard.h"
 #include <HD_SDTapi_x64.h>
 #include <fstream>
@@ -11,8 +19,6 @@
 #include "../config/Config.h"
 #include "../imgstorage/ImgStorage.h"
 #include "../dataserver/DataServer.h"
-
-CertCard* CertCard::m_intance = new CertCard();
 
 const std::map<int, std::string> errlist { { SHD_Connect_Error ,"设备连接错" },
 { SHD_UnConnected, "设备未建立连" },
@@ -29,6 +35,10 @@ const std::map<int, std::string> errlist { { SHD_Connect_Error ,"设备连接错" },
 { SHD_OTHER_ERROR ,"其他异常错误" }
 };
 
+CertCard* CertCard::m_pInstance = new CertCard();
+
+CertCard::Garbo CertCard::garbo;
+
 CertCard::CertCard()
 {
 
@@ -36,12 +46,7 @@ CertCard::CertCard()
 
 CertCard::~CertCard()
 {
-	HD_CloseComm(Config::GetInstance()->GetData().certcard.port);
-}
-
-CertCard* CertCard::GetInstance()
-{
-	return m_intance;
+	this->CloseCertCardReader();
 }
 
 std::string CertCard::GetErrMsg(int errcode)
@@ -72,7 +77,7 @@ void CertCard::RemoveListener(ICertCardListener * listener)
 	}
 }
 
-int CertCard::ConnectCertCard()
+int CertCard::OpenCertCardReader()
 {
 	int port = Config::GetInstance()->GetData().certcard.port;
 	/*
@@ -83,8 +88,16 @@ int CertCard::ConnectCertCard()
 	}
 	*/
 	this->m_thread = std::make_unique<std::thread>(thread_workd, this);
-
 	return 0;
+}
+
+void CertCard::CloseCertCardReader()
+{
+	if (NULL != this->m_thread) {
+		m_thread->detach();
+		m_thread.reset();
+	}
+	HD_CloseComm(Config::GetInstance()->GetData().certcard.port);
 }
 
 void CertCard::NotifyCardAuthed(int result)

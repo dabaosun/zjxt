@@ -15,16 +15,15 @@
 #include <opencv2/imgproc.hpp>
 #include <windows.h>
 
-
 using namespace std;
 using namespace cv;
 
 class Detector
 {
     public:
-        static Detector* GetInstance();
-
-        virtual ~Detector();
+        static Detector* GetInstance(){
+			return m_pInstance;
+		};
 
         bool LoadCascadeClassifier();
         bool DetectAndDisplay( Mat* frame );
@@ -35,11 +34,28 @@ class Detector
     protected:
 
     private:
-        static Detector* m_instance;
         string face_cascade_name,eyes_cascade_name;
         CascadeClassifier face_cascade;
         CascadeClassifier eyes_cascade;
+
+		static Detector* m_pInstance;
         Detector();
+		virtual ~Detector();
+
+		class Garbo
+
+		{
+		public:
+			~Garbo()
+			{
+				if (Detector::m_pInstance)
+				{
+					delete Detector::m_pInstance;
+				}
+			}
+		};
+
+		static Garbo garbo;
 };
 
 #endif // DETECTOR_H

@@ -6,7 +6,7 @@
  * License:
  **************************************************************/
 
-#ifndef CAMERAVIEW_H
+#ifndef CAMERAVIEW_H_
 #define CAMERAVIEW_H
 #include <memory>
 #include <list>
@@ -27,8 +27,8 @@ public:
     void OnPaint(wxPaintEvent& event);
     void OnEraseBackground(wxEraseEvent &event);
     void OnTimer(wxTimerEvent & event);
-    void Stop();
-    void Start();
+    void CloseCamera();
+    bool OpenCamera();
     bool SetPicture(const cv::Mat& mat);
 
     std::unique_ptr<cv::VideoCapture> m_p_cap;

@@ -1,3 +1,11 @@
+/***************************************************************
+* Name:      Config.cpp
+* Purpose:   Config utility class including read and initial config file.
+* Author:    sunzhenbao (suzhenbao@live.com)
+* Copyright: sunzhenbao ()
+* License:
+**************************************************************/
+
 #include "Config.h"
 #include "json.hpp"
 #include <fstream>
@@ -5,7 +13,6 @@
 #include <direct.h>
 #include <io.h>
 #include <iostream>  
-
 
 using json = nlohmann::json;
 namespace ns {
@@ -62,7 +69,9 @@ namespace ns {
 
 const std::string confile =  "etc/config.json";
 
-Config* Config::m_instance = new Config();
+Config* Config::m_pInstance = new Config();
+
+Config::Garbo Config::garbo;
 
 Config::Config()
 {
@@ -71,44 +80,11 @@ Config::Config()
 	_getcwd(pwd, sizeof(pwd));
 	this->m_pwd = pwd;
 	this->m_pwd.append("/");
-
-	std::ifstream in(this->m_pwd+confile, std::ios::in);
-	if (!in)
-	{
-		this->m_data.camera.index = 0;
-		this->m_data.camera.threshold = 0.90;
-		this->m_data.camera.elapsed = 10;
-
-		this->m_data.certcard.port = 1001;
-
-		this->m_data.server.ip = "115.28.84.22";
-		this->m_data.server.port = 8060;
-
-		this->m_data.storage.ip = "121.42.50.172";
-		this->m_data.storage.port = 22122; 
-	
-		this->SaveDataToFile(this->m_pwd + confile);
-	}
-	else {
-		json j;
-		in >> j;
-		this->m_data = j;
-		in.close();
-	}
 }
 
 Config::~Config()
 {
 
-}
-
-Config* Config::GetInstance()
-{
-	if (NULL == m_instance) {
-		m_instance = new Config();
-	}
-	
-	return m_instance;
 }
 
 ns::configdata Config::GetData()
@@ -130,10 +106,39 @@ void Config::SaveDataToFile(const std::string& filepath)
 	_splitpath_s(filepath.c_str(), drive, dir, fname, ext);
 	if (_access(dir, 6) == -1)
 	{
-		_mkdir(dir);  //创建成功返回0 不成功返回-1  
+		_mkdir(dir);  
 	}
 	json j = m_data;
 	std::ofstream out(filepath);
 	
 	out << j << std::endl;
+}
+
+
+int Config::LoadConfig()
+{
+	std::ifstream in(this->m_pwd + confile, std::ios::in);
+	if (!in)
+	{
+		this->m_data.camera.index = 0;
+		this->m_data.camera.threshold = 0.90;
+		this->m_data.camera.elapsed = 10;
+
+		this->m_data.certcard.port = 1001;
+
+		this->m_data.server.ip = "115.28.84.22";
+		this->m_data.server.port = 8060;
+
+		this->m_data.storage.ip = "121.42.50.172";
+		this->m_data.storage.port = 22122;
+
+		this->SaveDataToFile(this->m_pwd + confile);
+	}
+	else {
+		json j;
+		in >> j;
+		this->m_data = j;
+		in.close();
+	}
+	return 0;
 }

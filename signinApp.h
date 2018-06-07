@@ -2,7 +2,6 @@
  * Name:      SigninApp.h
  * Purpose:   Defines Application Class
  * Author:    sunzhenbao (suzhenbao@live.com)
- * Created:   2018-04-19
  * Copyright: sunzhenbao ()
  * License:
  **************************************************************/
