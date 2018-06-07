@@ -89,7 +89,7 @@ void SigninMain::OnWorkerEvent(wxThreadEvent& event)
 	else
 	{
 		wxString msg = event.GetString();
-		if (!m_dlgProgress->Update(n,msg))
+		if (NULL != m_dlgProgress && !m_dlgProgress->Update(n,msg))
 		{
 			wxCriticalSectionLocker lock(m_csCancelled);
 

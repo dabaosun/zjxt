@@ -312,10 +312,10 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 	return false;
 }
 
-void CertCard::UpdateCapture(const cv::Mat& capture)
+void CertCard::UpdateCapture(const std::shared_ptr<cv::Mat> & capture)
 {
 	std::lock_guard<std::mutex> lck(this->m_mtxMat);
-	std::shared_ptr<cv::Mat> mat = std::make_shared<cv::Mat>(capture);
+	std::shared_ptr<cv::Mat> mat = capture;
 	this->m_mat = mat;
 }
 

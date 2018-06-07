@@ -9,10 +9,13 @@
 #include "CameraView.h"
 #include <fstream>
 #include <iostream>  
-
-#include "../detector/Detector.h"
-#include "../imgstorage/ImgStorage.h"
+#include <opencv2/objdetect.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
 #include "../config/Config.h"
+#include "../certcard/CertCard.h"
+
+using namespace cv;
 
 CameraView::CameraView(wxFrame *parent, wxWindowID winid) : wxPanel(parent, winid, wxPoint(0, 0), wxSize(640, 480))
 {
@@ -26,6 +29,7 @@ CameraView::CameraView(wxFrame *parent, wxWindowID winid) : wxPanel(parent, wini
     Connect(wxEVT_TIMER, wxTimerEventHandler(CameraView::OnTimer));
     Connect(wxEVT_PAINT, wxPaintEventHandler(CameraView::OnPaint));
 
+	this->RegisterListener(CertCard::GetInstance());
 }
 
 CameraView::~CameraView()
@@ -49,7 +53,8 @@ void CameraView::OnPaint(wxPaintEvent& event)
             wxPuts(wxT("Error: can't get picture data."));
             return;
         }
-		//this->NotifyCapture(capture);
+		std::shared_ptr<cv::Mat> updated = std::make_shared<cv::Mat>(capture.clone());
+		this->NotifyCapture(updated);
         wxImage image(m_width, m_height, m_p_picture.get(), true);
         wxBitmap current_capture(image);
 
@@ -161,7 +166,7 @@ void CameraView::RemoveListener(ICameraListener * listener)
 	}
 }
 
-void CameraView::NotifyCapture(const cv::Mat& capture)
+void CameraView::NotifyCapture(const std::shared_ptr<cv::Mat>& capture)
 {
 	for (auto& elem : this->m_listeners) {
 		elem->UpdateCapture(capture);

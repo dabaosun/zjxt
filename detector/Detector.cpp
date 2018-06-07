@@ -77,12 +77,12 @@ bool Detector::DetectAndComparseWithSDK(const std::shared_ptr<cv::Mat>& frame, c
 	FaceCheckInfo faceinfo;
 	memset(&faceinfo, 0, sizeof(FaceCheckInfo));
 	int result = DetectFaceForMat(frame->data, frame->cols, frame->rows, &faceinfo);
-	if ((0 == result) && (faceinfo.nFacesize > 0)) {
+	if ((0 != result) && (faceinfo.nFacesize > 0)) {
 		FaceCheckInfo faceinfo2;
 		memset(&faceinfo2, 0, sizeof(faceinfo2));
 
 		result=DetectFace((unsigned char*)pImgBuf.get(), bufLen, &faceinfo2);
-		if ((0 == result) && (faceinfo2.nFacesize > 0)) {
+		if ((0 != result) && (faceinfo2.nFacesize > 0)) {
 			return CalcModel(&faceinfo.faceModelInfo[0], &faceinfo2.faceModelInfo[0], &score);
 		}
 	}
