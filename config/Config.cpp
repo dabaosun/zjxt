@@ -104,6 +104,10 @@ Config::~Config()
 
 Config* Config::GetInstance()
 {
+	if (NULL == m_instance) {
+		m_instance = new Config();
+	}
+	
 	return m_instance;
 }
 
