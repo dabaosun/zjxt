@@ -35,9 +35,8 @@ const std::map<int, std::string> errlist { { SHD_Connect_Error ,"设备连接错" },
 { SHD_OTHER_ERROR ,"其他异常错误" }
 };
 
-CertCard* CertCard::m_pInstance = new CertCard();
-
-CertCard::Garbo CertCard::garbo;
+HANDLE hProcess = 0;
+bool needexit =false ;
 
 CertCard::CertCard()
 {
@@ -87,7 +86,10 @@ int CertCard::OpenCertCardReader()
 		this->m_thread=std::make_unique<std::thread>(thread_workd,this);
 	}
 	*/
+	m_mtxThread.lock();
+
 	this->m_thread = std::make_unique<std::thread>(thread_workd, this);
+
 	return 0;
 }
 
@@ -97,6 +99,10 @@ void CertCard::CloseCertCardReader()
 		m_thread->detach();
 		m_thread.reset();
 	}
+	m_mtxThread.unlock();
+	needexit = true;
+	TerminateProcess(hProcess, -1);
+
 	HD_CloseComm(Config::GetInstance()->GetData().certcard.port);
 }
 
@@ -145,9 +151,11 @@ void CertCard::thread_workd(CertCard* instance)
 	// Configure all child processes associated with the job to terminate when the
 	jeli.BasicLimitInformation.LimitFlags = JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE;
 	SetInformationJobObject(ghJob, JobObjectExtendedLimitInformation, &jeli, sizeof(jeli));
-
-
+	
 	while (true) {
+		if (needexit) {
+			return;
+		}
 		/*
 		int result = HD_Authenticate(true);
 		GetInstance()->NotifyCardAuthed(result);
@@ -204,7 +212,7 @@ void CertCard::thread_workd(CertCard* instance)
 		wchar_t *tmp = new wchar_t[size + 1];
 		MultiByteToWideChar(CP_ACP, 0, process.c_str(),size, tmp, size * sizeof(wchar_t));
 		tmp[size] = 0;
-		BOOL ret = CreateProcess(NULL, tmp, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
+		BOOL ret = CreateProcess(NULL, tmp, NULL, NULL, TRUE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
 		delete[] tmp;
 
 		DWORD dwExitCode;
@@ -215,9 +223,11 @@ void CertCard::thread_workd(CertCard* instance)
 			}
 
 			CloseHandle(pi.hThread);
+			hProcess = pi.hProcess;
 			WaitForSingleObject(pi.hProcess, INFINITE);
 			GetExitCodeProcess(pi.hProcess, &dwExitCode);
 			CloseHandle(pi.hProcess);
+			hProcess = NULL;
 
 			if (0 == dwExitCode)
 			{

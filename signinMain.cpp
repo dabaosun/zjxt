@@ -20,20 +20,30 @@ enum
 
 SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 {
+	if (0 != Config::GetInstance()->LoadConfig()) {
+		
+	}
 
 	this->Connect(WORKER_EVENT, wxEVT_THREAD, wxThreadEventHandler(SigninMain::OnWorkerEvent));
 	m_CameraView = new CameraView(this, wxID_ANY);
 	m_CameraView->SetBackgroundColour(wxColour(wxT("#000000")));
 	this->StaticBoxSizer_Camera->Add(m_CameraView, 1, wxALL | wxEXPAND | wxFIXED_MINSIZE, 0);
-
 	this->Layout();
 	this->Centre(wxBOTH);
+
+	this->m_CertCard = new CertCard();
+	this->m_CertCard->RegisterListener(this);
+	this->m_CameraView->RegisterListener(this->m_CertCard);
+	this->GetCameraView()->OpenCamera();
+	this->m_CertCard->OpenCertCardReader();
 }
 
 void SigninMain::OnClose( wxCloseEvent& event )
 {
-// TODO: Implement OnClose
+	this->m_CertCard->RemoveListener(this);
+	this->m_CameraView->RemoveListener(this->m_CertCard);
 	m_CameraView->CloseCamera();
+	this->m_CertCard->CloseCertCardReader();
 	Destroy();
 
 }
@@ -54,9 +64,9 @@ void SigninMain::OnMenuSelectionCamera( wxCommandEvent& event )
 
 void SigninMain::OnMenuSelectionCard(wxCommandEvent& event)
 {
-	int result = CertCard::GetInstance()->OpenCertCardReader();
+	int result = this->m_CertCard->OpenCertCardReader();
 	if (0 != result) {
-		std::string msg = CertCard::GetInstance()->GetErrMsg(result);
+		std::string msg = this->m_CertCard->GetErrMsg(result);
 	}
 	else {
 	}
@@ -67,6 +77,11 @@ void SigninMain::OnMenuSelectionExit( wxCommandEvent& event )
 {
 	// TODO: Implement OnMenuSelectionExit
 	Close(true);
+}
+
+void SigninMain::OnActivateApp(wxActivateEvent& event)
+{
+	
 }
 
 bool SigninMain::Cancelled()
@@ -142,6 +157,7 @@ void SigninMain::UpdateCertCardInfo(const std::shared_ptr<CertCardInfo>& info)
 
 void SigninMain::StartProcess(int result, const std::string& info)
 {
+	/*
 	if (NULL != m_dlgProgress) {
 		//ignore or throw exception.
 		return;
@@ -159,25 +175,35 @@ void SigninMain::StartProcess(int result, const std::string& info)
 	m_cancelled = false;
 
 	m_threadProgress->Run();
+	*/
 }
 
 void SigninMain::EndProcess(int result, const std::string& info)
 {
+	/*
 	if (NULL == m_dlgProgress) {
 		//ignore or throw exception.
 		return;
 	}
 	m_threadProgress->m_count = 100;
 	m_threadProgress->m_message = info;
+	*/
 }
 
 void SigninMain::UpdateProgressInfo(int progress, const std::string& info)
 {
+	/*
 	m_threadProgress->m_count = progress;
 	m_threadProgress->m_message = info;
+	*/
 }
 
 CameraView* SigninMain::GetCameraView()
 {
 	return this->m_CameraView;
+}
+
+SigninMain::~SigninMain()
+{
+
 }

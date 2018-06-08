@@ -20,29 +20,17 @@ IMPLEMENT_APP(SigninApp);
 
 bool SigninApp::OnInit()
 {
-	if (0 == Config::GetInstance()->LoadConfig()) {
-		return false;
-	}
-	if (0 == CertCard::GetInstance()->OpenCertCardReader()) {
-		return false;
-	}
-	SigninMain* Frame = NULL;
 	//(*AppInitialize
     bool wxsOK = true;
     wxInitAllImageHandlers();
     if ( wxsOK )
     {
-    	Frame = new SigninMain(0);
+		SigninMain* Frame = new SigninMain(0);
     	Frame->Show();
     	//Frame->ShowFullScreen(true);
     	SetTopWindow(Frame);
     }
-    //*)
-
-	CertCard::GetInstance()->RegisterListener(Frame);
-	Frame->GetCameraView()->RegisterListener(CertCard::GetInstance());
-	Frame->GetCameraView()->OpenCamera();
-	
+    //*)	
     return wxsOK;
 
 }

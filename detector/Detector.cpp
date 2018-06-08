@@ -70,9 +70,10 @@ bool Detector::DetectAndDisplay( Mat* frame )
 
 bool Detector::DetectAndComparseWithSDK(const std::shared_ptr<cv::Mat>& frame, const std::shared_ptr<char>& pImgBuf, long bufLen, float& score)
 {
+	std::shared_ptr<cv::Mat> tmp = frame;
 	FaceCheckInfo faceinfo;
 	memset(&faceinfo, 0, sizeof(FaceCheckInfo));
-	int result = DetectFaceForMat(frame->data, frame->cols, frame->rows, &faceinfo);
+	int result = DetectFaceForMat(tmp->data, tmp->cols, tmp->rows, &faceinfo);
 	if ((0 != result) && (faceinfo.nFacesize > 0)) {
 		FaceCheckInfo faceinfo2;
 		memset(&faceinfo2, 0, sizeof(faceinfo2));

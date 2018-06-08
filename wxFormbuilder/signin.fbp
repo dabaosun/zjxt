@@ -45,7 +45,7 @@
             <property name="name">SigninFrame</property>
             <property name="pos"></property>
             <property name="size">-1,-1</property>
-            <property name="style">wxCAPTION|wxCLOSE_BOX|wxSTAY_ON_TOP</property>
+            <property name="style">wxCAPTION|wxCLOSE_BOX</property>
             <property name="subclass">; forward_declare</property>
             <property name="title">闸机注册系统</property>
             <property name="tooltip"></property>

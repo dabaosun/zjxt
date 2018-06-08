@@ -21,24 +21,22 @@
 class CertCard : public ICameraListener
 {
 public:
+	CertCard();
+	~CertCard();
+
 	void RegisterListener(ICertCardListener * listener);
 	void RemoveListener(ICertCardListener * listener);
 
 	void UpdateCapture(const std::shared_ptr<cv::Mat> & capture);
-	static CertCard* GetInstance() {
-		return m_pInstance;
-	};
 	static std::string GetErrMsg(int errcode);
 
 	int OpenCertCardReader();
 	void CloseCertCardReader();
 private:
-	static CertCard* m_pInstance;
 	static void thread_workd(CertCard* instance);
-	CertCard();
-	~CertCard();
 
 	std::mutex m_mtxListeners;
+	std::mutex m_mtxThread;
 	std::list<ICertCardListener*> m_listeners;
 	std::unique_ptr<std::thread> m_thread;
 
@@ -52,21 +50,6 @@ private:
 	void PopCapture(std::shared_ptr<cv::Mat>& capture);
 	std::shared_ptr<cv::Mat> m_mat;
 	std::mutex m_mtxMat;
-
-	class Garbo
-
-	{
-	public:
-		~Garbo()
-		{
-			if (CertCard::m_pInstance)
-			{
-				delete CertCard::m_pInstance;
-			}
-		}
-	};
-
-	static Garbo garbo;
 };
 
 #endif //__CERTCARD__

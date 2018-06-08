@@ -71,7 +71,7 @@ protected:
 public:
 	wxMenuItem * m_menuItemCard;
 
-	SigninFrame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("闸机注册系统"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(-1, -1), long style = wxCAPTION | wxCLOSE_BOX | wxSTAY_ON_TOP | wxTAB_TRAVERSAL);
+	SigninFrame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("闸机注册系统"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(-1, -1), long style = wxCAPTION | wxCLOSE_BOX | wxTAB_TRAVERSAL);
 
 	~SigninFrame();
 
