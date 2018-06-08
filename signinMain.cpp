@@ -112,31 +112,24 @@ void SigninMain::OnWorkerEvent(wxThreadEvent& event)
 
 	if (n == -1)
 	{
-		/*
 		bool result = m_dlgProgress->Destroy();
-		delete m_dlgProgress;
 		m_dlgProgress = NULL;
 
 		// the dialog is aborted because the event came from another thread, so
 		// we may need to wake up the main event loop for the dialog to be
 		// really closed
 		wxWakeUpIdle();
-		*/
 	}
 	else
 	{
-		/*
 		wxString msg = event.GetString();
 		if (NULL != m_dlgProgress) {
 			if (!m_dlgProgress->Update(n, msg))
 			{
 				wxCriticalSectionLocker lock(m_csCancelled);
-
 				m_cancelled = true;
 			}
 		}
-		*/
-		
 	}
 }
 
@@ -177,25 +170,6 @@ void SigninMain::UpdateCertCardInfo(const std::shared_ptr<CertCardInfo>& info)
 
 void SigninMain::StartProcess(const std::string& info)
 {
-	/*
-	if (NULL != m_dlgProgress) {
-		//ignore or throw exception.
-		return;
-	}
-	m_threadProgress = new ProgressThread(this);
-	if (m_threadProgress->Create() != wxTHREAD_NO_ERROR)
-	{
-		wxLogError(wxT("Can't create thread!"));
-		return;
-	}
-
-	m_dlgProgress = new wxProgressDialog(wxT("进度"), info, 100, this, wxPD_SMOOTH);
-
-	// thread is not running yet, no need for crit sect
-	m_cancelled = false;
-
-	m_threadProgress->Run();
-	*/
 	if (NULL != m_threadProgress) {
 		m_threadProgress->Delete();
 		if (!m_threadProgress->IsDetached()) {
@@ -203,23 +177,29 @@ void SigninMain::StartProcess(const std::string& info)
 		}
 		m_threadProgress = NULL;
 	}
-	
+
+	if (NULL != m_dlgProgress) {
+		m_dlgProgress->Destroy();
+		m_dlgProgress = NULL;
+	}
+	m_dlgProgress = new wxProgressDialog(wxT("进度"), info, 100, this, wxPD_SMOOTH);
+	m_cancelled = false;
+
 	m_threadProgress = new ProgressThread(this);
 	m_threadProgress->m_message = info;
 	m_threadProgress->Run();
-
 }
 
 void SigninMain::EndProcess(int result, const std::string& info)
 {
-	/*
+	
 	if (NULL == m_dlgProgress) {
 		//ignore or throw exception.
 		return;
 	}
 	m_threadProgress->m_count = 100;
 	m_threadProgress->m_message = info;
-	*/
+	
 
 	if (NULL != m_threadProgress) {
 		this->m_threadProgress->Delete();
