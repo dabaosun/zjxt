@@ -47,7 +47,7 @@ wxThread::ExitCode ProgressThread::Entry()
 		wxQueueEvent(m_frame, event.Clone());
 
 		wxMilliSleep(200);
-		tmp = tmp++ >= 100 ? 100: tmp;
+		tmp = tmp++ >= 100 ? 0: tmp;
 	} while (!m_frame->Cancelled() && (m_count < 100));
 
 	wxThreadEvent eventEnd(wxEVT_THREAD, WORKER_EVENT);

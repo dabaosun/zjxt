@@ -32,7 +32,7 @@ public:
 	virtual void UpdateCardAuthed(bool authed, const std::string& info) = 0 ;
 	virtual void UpdateCertCardInfo(const std::shared_ptr<CertCardInfo>& info) = 0;
 
-	virtual void StartProcess(int result, const std::string& info) = 0;
+	virtual void StartProcess(const std::string& info) = 0;
 	virtual void EndProcess(int result, const std::string& info) = 0;
 	virtual void UpdateProgressInfo(int progress, const std::string& info) = 0;
 protected:

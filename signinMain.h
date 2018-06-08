@@ -55,7 +55,7 @@ public:
 
 		void UpdateCardAuthed(bool authed, const std::string& info);
 		void UpdateCertCardInfo(const std::shared_ptr<CertCardInfo>& info);
-		void StartProcess(int result, const std::string& info);
+		void StartProcess(const std::string& info);
 		void EndProcess(int result, const std::string& info);
 		void UpdateProgressInfo(int progress, const std::string& info);
 		CameraView* GetCameraView();

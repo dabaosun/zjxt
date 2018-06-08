@@ -36,13 +36,12 @@ private:
 	static void thread_workd(CertCard* instance);
 
 	std::mutex m_mtxListeners;
-	std::mutex m_mtxThread;
 	std::list<ICertCardListener*> m_listeners;
 	std::unique_ptr<std::thread> m_thread;
 
 	void NotifyCardAuthed(int result);
 	void NotifyCardInfoUpdated(const std::shared_ptr<CertCardInfo>& info);
-	void NofifyProcessStart(int result, const std::string& info);
+	void NofifyProcessStart(const std::string& info);
 	void NofityProcessEnd(int result, const std::string& info);
 	void NotifyProgressUpdate(int progress, const std::string& info);
 
@@ -50,6 +49,9 @@ private:
 	void PopCapture(std::shared_ptr<cv::Mat>& capture);
 	std::shared_ptr<cv::Mat> m_mat;
 	std::mutex m_mtxMat;
+
+	void * m_hSubProcess;
+	bool m_bNeedexit;
 };
 
 #endif //__CERTCARD__

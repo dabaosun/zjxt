@@ -35,12 +35,10 @@ const std::map<int, std::string> errlist { { SHD_Connect_Error ,"设备连接错" },
 { SHD_OTHER_ERROR ,"其他异常错误" }
 };
 
-HANDLE hProcess = 0;
-bool needexit =false ;
-
 CertCard::CertCard()
 {
-
+	m_hSubProcess = NULL;
+	m_bNeedexit = false;
 }
 
 CertCard::~CertCard()
@@ -78,6 +76,7 @@ void CertCard::RemoveListener(ICertCardListener * listener)
 
 int CertCard::OpenCertCardReader()
 {
+	this->CloseCertCardReader();
 	int port = Config::GetInstance()->GetData().certcard.port;
 	/*
 	HD_CloseComm(port);
@@ -86,8 +85,8 @@ int CertCard::OpenCertCardReader()
 		this->m_thread=std::make_unique<std::thread>(thread_workd,this);
 	}
 	*/
-	m_mtxThread.lock();
-
+	this->m_hSubProcess = NULL;
+	this->m_bNeedexit = false;
 	this->m_thread = std::make_unique<std::thread>(thread_workd, this);
 
 	return 0;
@@ -96,13 +95,17 @@ int CertCard::OpenCertCardReader()
 void CertCard::CloseCertCardReader()
 {
 	if (NULL != this->m_thread) {
+		auto threadid = m_thread->native_handle();
+		if (NULL != this->m_hSubProcess) {
+			TerminateProcess(this->m_hSubProcess, -1);
+		}
+		m_bNeedexit = true;		
+		WaitForSingleObject(threadid, INFINITE);
+
 		m_thread->detach();
 		m_thread.reset();
 	}
-	m_mtxThread.unlock();
-	needexit = true;
-	TerminateProcess(hProcess, -1);
-
+	
 	HD_CloseComm(Config::GetInstance()->GetData().certcard.port);
 }
 
@@ -122,10 +125,10 @@ void CertCard::NotifyCardInfoUpdated(const std::shared_ptr<CertCardInfo>& info)
 	}
 }
 
-void CertCard::NofifyProcessStart(int result, const std::string& info)
+void CertCard::NofifyProcessStart(const std::string& info)
 {
 	for (auto& elem : this->m_listeners) {
-		elem->StartProcess(result, info);
+		elem->StartProcess(info);
 	}
 }
 
@@ -153,9 +156,13 @@ void CertCard::thread_workd(CertCard* instance)
 	SetInformationJobObject(ghJob, JobObjectExtendedLimitInformation, &jeli, sizeof(jeli));
 	
 	while (true) {
-		if (needexit) {
+		if (instance->m_bNeedexit) {
 			return;
 		}
+		
+		instance->NofifyProcessStart("处理中");
+		std::this_thread::sleep_for(std::chrono::seconds(10));
+		instance->NofityProcessEnd(0,"结束");
 		/*
 		int result = HD_Authenticate(true);
 		GetInstance()->NotifyCardAuthed(result);
@@ -223,11 +230,11 @@ void CertCard::thread_workd(CertCard* instance)
 			}
 
 			CloseHandle(pi.hThread);
-			hProcess = pi.hProcess;
+			instance->m_hSubProcess = pi.hProcess;
 			WaitForSingleObject(pi.hProcess, INFINITE);
 			GetExitCodeProcess(pi.hProcess, &dwExitCode);
 			CloseHandle(pi.hProcess);
-			hProcess = NULL;
+			instance->m_hSubProcess = NULL;
 
 			if (0 == dwExitCode)
 			{
@@ -290,7 +297,7 @@ void CertCard::thread_workd(CertCard* instance)
 
 bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 {
-	this->NofifyProcessStart(0, "正在处理中。。。");
+	this->NofifyProcessStart("正在处理中");
 	chrono::steady_clock::time_point start = chrono::steady_clock::now();
 	chrono::steady_clock::time_point end = chrono::steady_clock::now();
 	auto elapsed = end - start;
@@ -317,7 +324,7 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 					{
 						//update data info to remote server by http request.
 						if (DataServer::GetInstance()->UploadData(info->certno.get(), remoteurl)) {
-							this->NofityProcessEnd(100, "注册成功。");
+							this->NofityProcessEnd(100, "注册成功");
 							return true;
 						}
 					}
@@ -331,7 +338,7 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 	} 
 	while (std::chrono::duration_cast<std::chrono::seconds>(end - start).count() < Config::GetInstance()->GetData().camera.elapsed);
 		
-	this->NofityProcessEnd(100, "注册失败。");
+	this->NofityProcessEnd(100, "注册失败");
 	return false;
 }
 

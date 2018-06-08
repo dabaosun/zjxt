@@ -39,13 +39,24 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 }
 
 void SigninMain::OnClose( wxCloseEvent& event )
-{
-	this->m_CertCard->RemoveListener(this);
-	this->m_CameraView->RemoveListener(this->m_CertCard);
-	m_CameraView->CloseCamera();
+{	
 	this->m_CertCard->CloseCertCardReader();
-	Destroy();
+	this->m_CameraView->CloseCamera();
 
+	this->m_CameraView->RemoveListener(this->m_CertCard);	
+	this->m_CertCard->RemoveListener(this);
+	
+	delete m_CertCard;
+	delete m_CameraView;
+		
+	if (NULL != this->m_threadProgress) {
+		if (!this->m_threadProgress->IsDetached()) {
+			this->m_threadProgress->Delete();
+		}
+		this->m_threadProgress = NULL;
+	}
+
+	Destroy();
 }
 
 void SigninMain::OnMenuSelectionCamera( wxCommandEvent& event )
@@ -95,8 +106,13 @@ bool SigninMain::Cancelled()
 void SigninMain::OnWorkerEvent(wxThreadEvent& event)
 {
 	int n = event.GetInt();
+	wxString msg = event.GetString();
+	this->m_staticTextProgress->SetLabelText(msg);
+	this->m_gaugeProgress->SetValue(n);
+
 	if (n == -1)
 	{
+		/*
 		bool result = m_dlgProgress->Destroy();
 		delete m_dlgProgress;
 		m_dlgProgress = NULL;
@@ -105,9 +121,11 @@ void SigninMain::OnWorkerEvent(wxThreadEvent& event)
 		// we may need to wake up the main event loop for the dialog to be
 		// really closed
 		wxWakeUpIdle();
+		*/
 	}
 	else
 	{
+		/*
 		wxString msg = event.GetString();
 		if (NULL != m_dlgProgress) {
 			if (!m_dlgProgress->Update(n, msg))
@@ -117,6 +135,8 @@ void SigninMain::OnWorkerEvent(wxThreadEvent& event)
 				m_cancelled = true;
 			}
 		}
+		*/
+		
 	}
 }
 
@@ -155,7 +175,7 @@ void SigninMain::UpdateCertCardInfo(const std::shared_ptr<CertCardInfo>& info)
 
 }
 
-void SigninMain::StartProcess(int result, const std::string& info)
+void SigninMain::StartProcess(const std::string& info)
 {
 	/*
 	if (NULL != m_dlgProgress) {
@@ -176,6 +196,18 @@ void SigninMain::StartProcess(int result, const std::string& info)
 
 	m_threadProgress->Run();
 	*/
+	if (NULL != m_threadProgress) {
+		m_threadProgress->Delete();
+		if (!m_threadProgress->IsDetached()) {
+			delete m_threadProgress;
+		}
+		m_threadProgress = NULL;
+	}
+	
+	m_threadProgress = new ProgressThread(this);
+	m_threadProgress->m_message = info;
+	m_threadProgress->Run();
+
 }
 
 void SigninMain::EndProcess(int result, const std::string& info)
@@ -188,6 +220,17 @@ void SigninMain::EndProcess(int result, const std::string& info)
 	m_threadProgress->m_count = 100;
 	m_threadProgress->m_message = info;
 	*/
+
+	if (NULL != m_threadProgress) {
+		this->m_threadProgress->Delete();
+		if (!this->m_threadProgress->IsDetached()) {
+			delete this->m_threadProgress;
+		}
+		this->m_threadProgress = NULL;
+
+	}
+	this->m_staticTextProgress->SetLabelText(info);
+	this->m_gaugeProgress->SetValue(0);
 }
 
 void SigninMain::UpdateProgressInfo(int progress, const std::string& info)
