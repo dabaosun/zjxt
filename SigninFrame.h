@@ -26,8 +26,6 @@
 #include <wx/statbmp.h>
 #include <wx/gauge.h>
 #include <wx/panel.h>
-#include <wx/statusbr.h>
-#include <wx/menu.h>
 #include <wx/frame.h>
 
 ///////////////////////////////////////////////////////////////////////////
@@ -57,19 +55,12 @@ protected:
 	wxStaticBitmap* StaticBitmap_IDImage;
 	wxStaticText* m_staticTextProgress;
 	wxGauge* m_gaugeProgress;
-	wxStatusBar* m_statusBar;
-	wxMenuBar* m_menubar;
-	wxMenu* m_menu1;
 
 	// Virtual event handlers, overide them in your derived class
 	virtual void OnClose(wxCloseEvent& event) { event.Skip(); }
-	virtual void OnMenuSelectionCamera(wxCommandEvent& event) { event.Skip(); }
-	virtual void OnMenuSelectionCard(wxCommandEvent& event) { event.Skip(); }
-	virtual void OnMenuSelectionExit(wxCommandEvent& event) { event.Skip(); }
 
 
 public:
-	wxMenuItem * m_menuItemCard;
 
 	SigninFrame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Õ¢»ú×¢²áÏµÍ³"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(-1, -1), long style = wxCAPTION | wxCLOSE_BOX | wxTAB_TRAVERSAL);
 

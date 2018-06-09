@@ -114,7 +114,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	bSizer6->Add(StaticBoxSizer_Identify, 1, wxEXPAND, 5);
 
 	wxStaticBoxSizer* sbSizerProgress;
-	sbSizerProgress = new wxStaticBoxSizer(new wxStaticBox(m_panelTop, wxID_ANY, wxT("进展提示")), wxHORIZONTAL);
+	sbSizerProgress = new wxStaticBoxSizer(new wxStaticBox(m_panelTop, wxID_ANY, wxT("提示区")), wxHORIZONTAL);
 
 	m_staticTextProgress = new wxStaticText(sbSizerProgress->GetStaticBox(), wxID_ANY, wxT("请刷身份证"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE);
 	m_staticTextProgress->Wrap(-1);
@@ -145,43 +145,16 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	this->SetSizer(BoxSizer_Main);
 	this->Layout();
 	BoxSizer_Main->Fit(this);
-	m_statusBar = this->CreateStatusBar(1, wxSTB_SIZEGRIP, wxID_ANY);
-	m_menubar = new wxMenuBar(0);
-	m_menubar->Enable(false);
-	m_menubar->Hide();
-
-	m_menu1 = new wxMenu();
-	wxMenuItem* m_menuItemCamera;
-	m_menuItemCamera = new wxMenuItem(m_menu1, wxID_ANY, wxString(wxT("摄像头On/Off")), wxEmptyString, wxITEM_NORMAL);
-	m_menu1->Append(m_menuItemCamera);
-
-	m_menuItemCard = new wxMenuItem(m_menu1, wxID_ANY, wxString(wxT("读卡器On/Off")), wxEmptyString, wxITEM_NORMAL);
-	m_menu1->Append(m_menuItemCard);
-
-	wxMenuItem* m_menuItemExit;
-	m_menuItemExit = new wxMenuItem(m_menu1, wxID_ANY, wxString(wxT("退出")), wxEmptyString, wxITEM_NORMAL);
-	m_menu1->Append(m_menuItemExit);
-
-	m_menubar->Append(m_menu1, wxT("操作"));
-
-	this->SetMenuBar(m_menubar);
-
 
 	this->Centre(wxBOTH);
 
 	// Connect Events
 	this->Connect(wxEVT_CLOSE_WINDOW, wxCloseEventHandler(SigninFrame::OnClose));
-	this->Connect(m_menuItemCamera->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(SigninFrame::OnMenuSelectionCamera));
-	this->Connect(m_menuItemCard->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(SigninFrame::OnMenuSelectionCard));
-	this->Connect(m_menuItemExit->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(SigninFrame::OnMenuSelectionExit));
 }
 
 SigninFrame::~SigninFrame()
 {
 	// Disconnect Events
 	this->Disconnect(wxEVT_CLOSE_WINDOW, wxCloseEventHandler(SigninFrame::OnClose));
-	this->Disconnect(wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(SigninFrame::OnMenuSelectionCamera));
-	this->Disconnect(wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(SigninFrame::OnMenuSelectionCard));
-	this->Disconnect(wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(SigninFrame::OnMenuSelectionExit));
 
 }

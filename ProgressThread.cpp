@@ -14,7 +14,7 @@ enum
 };
 
 
-ProgressThread::ProgressThread(SigninMain *frame)
+ProgressThread::ProgressThread(SigninMain *frame) : wxThread(wxTHREAD_JOINABLE)
 {
 	m_frame = frame;
 	m_count = 0;
@@ -50,15 +50,9 @@ wxThread::ExitCode ProgressThread::Entry()
 		tmp = tmp++ >= 100 ? 0: tmp;
 	} while (!m_frame->Cancelled() && (m_count < 100));
 
-	wxThreadEvent eventEnd(wxEVT_THREAD, WORKER_EVENT);
-	eventEnd.SetInt(100); // that's all
-	eventEnd.SetString(m_message);
-	wxQueueEvent(m_frame, eventEnd.Clone());
-
-	std::this_thread::sleep_for(std::chrono::seconds(2));
-
 	wxThreadEvent eventClose(wxEVT_THREAD, WORKER_EVENT);
-	eventClose.SetInt(-1); 
+	eventClose.SetInt(-1);
+	eventClose.SetString(m_message);
 	wxQueueEvent(m_frame, eventClose.Clone());
 
 	return NULL;

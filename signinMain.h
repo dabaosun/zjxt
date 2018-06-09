@@ -26,15 +26,12 @@ class ProgressThread;
 class SigninMain : public SigninFrame, public ICertCardListener
 {
 	protected:
+		std::mutex m_mtxProgress;
 		CameraView* m_CameraView;
 		CertCard* m_CertCard;
 
 		// Handlers for SigninFrame events.
 		void OnClose( wxCloseEvent& event );
-		void OnMenuSelectionCamera( wxCommandEvent& event );
-		void OnMenuSelectionCard(wxCommandEvent& event);
-		void OnMenuSelectionExit( wxCommandEvent& event );
-		void OnActivateApp(wxActivateEvent& event);
 public:
 		/** Constructor */
 		SigninMain( wxWindow* parent );

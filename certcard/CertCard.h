@@ -37,7 +37,7 @@ private:
 
 	std::mutex m_mtxListeners;
 	std::list<ICertCardListener*> m_listeners;
-	std::unique_ptr<std::thread> m_thread;
+	std::thread* m_thread;
 
 	void NotifyCardAuthed(int result);
 	void NotifyCardInfoUpdated(const std::shared_ptr<CertCardInfo>& info);

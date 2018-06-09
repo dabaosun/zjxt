@@ -43,7 +43,7 @@ CertCard::CertCard()
 
 CertCard::~CertCard()
 {
-	this->CloseCertCardReader();
+
 }
 
 std::string CertCard::GetErrMsg(int errcode)
@@ -76,7 +76,6 @@ void CertCard::RemoveListener(ICertCardListener * listener)
 
 int CertCard::OpenCertCardReader()
 {
-	this->CloseCertCardReader();
 	int port = Config::GetInstance()->GetData().certcard.port;
 	/*
 	HD_CloseComm(port);
@@ -87,8 +86,7 @@ int CertCard::OpenCertCardReader()
 	*/
 	this->m_hSubProcess = NULL;
 	this->m_bNeedexit = false;
-	this->m_thread = std::make_unique<std::thread>(thread_workd, this);
-
+	this->m_thread = new std::thread(thread_workd, this);
 	return 0;
 }
 
@@ -99,11 +97,10 @@ void CertCard::CloseCertCardReader()
 		if (NULL != this->m_hSubProcess) {
 			TerminateProcess(this->m_hSubProcess, -1);
 		}
-		m_bNeedexit = true;		
-		WaitForSingleObject(threadid, INFINITE);
+		m_bNeedexit = true;	
 
-		m_thread->detach();
-		m_thread.reset();
+		//WaitForSingleObject(threadid, INFINITE);
+		m_thread = NULL;
 	}
 	
 	HD_CloseComm(Config::GetInstance()->GetData().certcard.port);
@@ -160,12 +157,8 @@ void CertCard::thread_workd(CertCard* instance)
 			return;
 		}
 		
-		instance->NofifyProcessStart("处理中");
-		std::this_thread::sleep_for(std::chrono::seconds(10));
-		instance->NofityProcessEnd(0,"结束");
-		/*
 		int result = HD_Authenticate(true);
-		GetInstance()->NotifyCardAuthed(result);
+		instance->NotifyCardAuthed(result);
 
 		if (0 == result) {			
 			std::shared_ptr<char> name(new char[256], std::default_delete<char[]>());
@@ -202,7 +195,7 @@ void CertCard::thread_workd(CertCard* instance)
 				instance->HandleCardInfo(info);
 			}
 		}
-		*/
+
 		PROCESS_INFORMATION pi;
 		STARTUPINFO si;
 		si.cb = sizeof(STARTUPINFO);

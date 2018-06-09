@@ -40,6 +40,13 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 
 void SigninMain::OnClose( wxCloseEvent& event )
 {	
+	if (NULL != this->m_threadProgress) {
+		this->m_threadProgress->Delete();
+		if (!this->m_threadProgress->IsDetached()) {
+			delete this->m_threadProgress;
+		}
+		this->m_threadProgress = NULL;
+	}
 	this->m_CertCard->CloseCertCardReader();
 	this->m_CameraView->CloseCamera();
 
@@ -48,51 +55,8 @@ void SigninMain::OnClose( wxCloseEvent& event )
 	
 	delete m_CertCard;
 	delete m_CameraView;
-		
-	if (NULL != this->m_threadProgress) {
-		if (!this->m_threadProgress->IsDetached()) {
-			this->m_threadProgress->Delete();
-		}
-		this->m_threadProgress = NULL;
-	}
 
 	Destroy();
-}
-
-void SigninMain::OnMenuSelectionCamera( wxCommandEvent& event )
-{
-// TODO: Implement OnMenuSelectionCamera
-	if (m_CameraView->m_is_display)
-	{
-		m_CameraView->CloseCamera();
-	}
-	else
-	{
-		m_CameraView->OpenCamera();
-		Layout();
-	}
-}
-
-void SigninMain::OnMenuSelectionCard(wxCommandEvent& event)
-{
-	int result = this->m_CertCard->OpenCertCardReader();
-	if (0 != result) {
-		std::string msg = this->m_CertCard->GetErrMsg(result);
-	}
-	else {
-	}
-}
-
-
-void SigninMain::OnMenuSelectionExit( wxCommandEvent& event )
-{
-	// TODO: Implement OnMenuSelectionExit
-	Close(true);
-}
-
-void SigninMain::OnActivateApp(wxActivateEvent& event)
-{
-	
 }
 
 bool SigninMain::Cancelled()
@@ -109,28 +73,6 @@ void SigninMain::OnWorkerEvent(wxThreadEvent& event)
 	wxString msg = event.GetString();
 	this->m_staticTextProgress->SetLabelText(msg);
 	this->m_gaugeProgress->SetValue(n);
-
-	if (n == -1)
-	{
-		bool result = m_dlgProgress->Destroy();
-		m_dlgProgress = NULL;
-
-		// the dialog is aborted because the event came from another thread, so
-		// we may need to wake up the main event loop for the dialog to be
-		// really closed
-		wxWakeUpIdle();
-	}
-	else
-	{
-		wxString msg = event.GetString();
-		if (NULL != m_dlgProgress) {
-			if (!m_dlgProgress->Update(n, msg))
-			{
-				wxCriticalSectionLocker lock(m_csCancelled);
-				m_cancelled = true;
-			}
-		}
-	}
 }
 
 void SigninMain::OnUpdateWorker(wxUpdateUIEvent& event)
@@ -170,21 +112,11 @@ void SigninMain::UpdateCertCardInfo(const std::shared_ptr<CertCardInfo>& info)
 
 void SigninMain::StartProcess(const std::string& info)
 {
-	if (NULL != m_threadProgress) {
-		m_threadProgress->Delete();
-		if (!m_threadProgress->IsDetached()) {
-			delete m_threadProgress;
-		}
-		m_threadProgress = NULL;
-	}
+	std::unique_lock<std::mutex> lock(this->m_mtxProgress);
+	do {
 
-	if (NULL != m_dlgProgress) {
-		m_dlgProgress->Destroy();
-		m_dlgProgress = NULL;
-	}
-	m_dlgProgress = new wxProgressDialog(wxT("½ø¶È"), info, 100, this, wxPD_SMOOTH);
-	m_cancelled = false;
-
+	} while (NULL != m_threadProgress);
+	
 	m_threadProgress = new ProgressThread(this);
 	m_threadProgress->m_message = info;
 	m_threadProgress->Run();
@@ -192,25 +124,25 @@ void SigninMain::StartProcess(const std::string& info)
 
 void SigninMain::EndProcess(int result, const std::string& info)
 {
-	
-	if (NULL == m_dlgProgress) {
-		//ignore or throw exception.
-		return;
-	}
-	m_threadProgress->m_count = 100;
-	m_threadProgress->m_message = info;
-	
-
 	if (NULL != m_threadProgress) {
+		m_threadProgress->m_count = 100;
+		m_threadProgress->m_message = info;
 		this->m_threadProgress->Delete();
 		if (!this->m_threadProgress->IsDetached()) {
 			delete this->m_threadProgress;
 		}
 		this->m_threadProgress = NULL;
-
 	}
-	this->m_staticTextProgress->SetLabelText(info);
-	this->m_gaugeProgress->SetValue(0);
+
+	this->m_textCtrlName->SetLabelText("");
+	this->m_textCtrlBirth->SetLabelText("");
+	this->m_textCtrlAddr->SetLabelText("");
+	this->m_textCtrlIDNumber->SetLabelText("");
+	this->m_radioBtnFemale->SetValue(false);
+	this->m_radioBtnMale->SetValue(false);
+
+	wxClientDC dc(this->StaticBitmap_IDImage);
+	dc.Clear();
 }
 
 void SigninMain::UpdateProgressInfo(int progress, const std::string& info)
