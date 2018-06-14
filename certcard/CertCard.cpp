@@ -20,7 +20,7 @@
 #include "../imgstorage/ImgStorage.h"
 #include "../dataserver/DataServer.h"
 
-const std::map<int, std::string> errlist { { SHD_Connect_Error ,"设备连接错" },
+const std::map<int, std::string> errlist { { -1 ,"设备连接错" },
 { SHD_UnConnected, "设备未建立连" },
 { SHD_BadLoadDLL_Error, "(动态库)加载失败 " },
 { SHD_Parameter_Error ,"(发给动态库的)参数错 " },
@@ -103,7 +103,7 @@ void CertCard::CloseCertCardReader()
 		m_thread = NULL;
 	}
 	
-	HD_CloseComm(Config::GetInstance()->GetData().certcard.port);
+	//HD_CloseComm(Config::GetInstance()->GetData().certcard.port);
 }
 
 void CertCard::NotifyCardAuthed(int result)
@@ -156,7 +156,7 @@ void CertCard::thread_workd(CertCard* instance)
 		if (instance->m_bNeedexit) {
 			return;
 		}
-		
+		/*
 		int result = HD_Authenticate(true);
 		instance->NotifyCardAuthed(result);
 
@@ -195,7 +195,7 @@ void CertCard::thread_workd(CertCard* instance)
 				instance->HandleCardInfo(info);
 			}
 		}
-
+		*/
 		PROCESS_INFORMATION pi;
 		STARTUPINFO si;
 		si.cb = sizeof(STARTUPINFO);
