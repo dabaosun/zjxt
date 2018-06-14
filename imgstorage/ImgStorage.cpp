@@ -32,6 +32,7 @@ int ImgStorage::UploadFile(const std::string& filename,std::string& remoteurl)
 	int code = sdk.connect(ip.c_str(), port);
 	ST_RETURN_DATA data = sdk.upload_file(filename.c_str(), true);
 	char url[256];
+	memset(url, 0, 256);
 	code = sdk.remote_file_to_ulr(data, url);
 	remoteurl = url;
 	return code;

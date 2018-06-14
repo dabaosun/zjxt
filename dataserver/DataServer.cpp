@@ -43,14 +43,22 @@ int DataServer::UploadData(const std::string& cardno, const std::string& imgpath
 
 	// Build request URI and start the request.
 	uri_builder builder(U("/device/register/register.do"));
-	builder.append_query(U("cardID"), utility::conversions::to_string_t(cardno));
-	builder.append_query(U("path"), utility::conversions::to_string_t(imgpath));
+	builder.append_query(U("cardID"), utility::conversions::to_string_t(cardno.c_str()));
+	builder.append_query(U("path"), utility::conversions::to_string_t(imgpath.c_str()));
 	http_response response = client.request(methods::GET, builder.to_string()).get();
 
 	if (200 == response.status_code()) {
-		const web::json::value& v = response.extract_json().get();
-		const web::json::value& a = v.at(U("code"));
-		return a.as_integer();
+		try
+		{
+			string_t atest = response.extract_string().get();
+			const web::json::value& v = response.extract_json().get();
+			const web::json::value& a = v.at(U("code"));
+			return a.as_integer();
+		}
+		catch (const http_exception& e)
+		{
+			return 500;
+		}
 	}
 	return response.status_code();
 

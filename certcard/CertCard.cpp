@@ -316,7 +316,7 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 					if (0 == code)
 					{
 						//update data info to remote server by http request.
-						if (DataServer::GetInstance()->UploadData(info->certno.get(), remoteurl)) {
+						if (0 == DataServer::GetInstance()->UploadData(info->certno.get(), remoteurl)) {
 							this->NofityProcessEnd(100, "×¢²á³É¹¦");
 							return true;
 						}
