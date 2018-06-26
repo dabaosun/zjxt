@@ -108,12 +108,19 @@ bool CameraView::OpenCamera()
     }
 
 	int index = Config::GetInstance()->GetData().camera.index;
-    m_p_cap.reset(new cv::VideoCapture(index));
-    if (!m_p_cap->isOpened())
-    {
-        return false;
-    }
+	for (int i = 0; i < 3; i++) {
+		m_p_cap.reset(new cv::VideoCapture(index));
+		if (m_p_cap->open(index)) {
+			break;
+		}
 
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+	}
+
+	if (!m_p_cap->isOpened())
+	{
+		return false;
+	}
     m_p_picture.reset(new unsigned char[m_width * m_height * 3]);
     m_is_display = true;
 
@@ -129,7 +136,6 @@ bool CameraView::SetPicture(const cv::Mat& mat)
         return false;
     if (mat.cols != m_width)
         return false;
-
 
     if (NULL == m_p_picture)
         return false;
