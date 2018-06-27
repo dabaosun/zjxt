@@ -44,7 +44,7 @@
             <property name="minimum_size">-1,-1</property>
             <property name="name">SigninFrame</property>
             <property name="pos"></property>
-            <property name="size">-1,-1</property>
+            <property name="size">1920,1080</property>
             <property name="style">wxCAPTION|wxCLOSE_BOX</property>
             <property name="subclass">; forward_declare</property>
             <property name="title">闸机注册系统</property>

@@ -192,7 +192,6 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	this->SetSizer(BoxSizer_Main);
 	this->Layout();
-	BoxSizer_Main->Fit(this);
 
 	this->Centre(wxBOTH);
 
