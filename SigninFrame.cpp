@@ -16,7 +16,38 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* BoxSizer_Main;
 	BoxSizer_Main = new wxBoxSizer(wxVERTICAL);
 
-	m_panelTop = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+	m_panelTop = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxNO_BORDER | wxTAB_TRAVERSAL);
+	wxBoxSizer* bSizer10;
+	bSizer10 = new wxBoxSizer(wxVERTICAL);
+
+	wxBoxSizer* bSizer8;
+	bSizer8 = new wxBoxSizer(wxHORIZONTAL);
+
+	m_panel4 = new wxPanel(m_panelTop, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+	m_panel4->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT));
+
+	wxBoxSizer* bSizer14;
+	bSizer14 = new wxBoxSizer(wxHORIZONTAL);
+
+	m_bitmap2 = new wxStaticBitmap(m_panel4, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxSize(84, 84), 0);
+	bSizer14->Add(m_bitmap2, 0, wxALL, 5);
+
+	m_staticText8 = new wxStaticText(m_panel4, wxID_ANY, wxT("某大学闸机注册系统"), wxDefaultPosition, wxDefaultSize, 0);
+	m_staticText8->Wrap(-1);
+	m_staticText8->SetFont(wxFont(36, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
+	m_staticText8->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
+
+	bSizer14->Add(m_staticText8, 0, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL | wxALL | wxLEFT, 5);
+
+
+	m_panel4->SetSizer(bSizer14);
+	m_panel4->Layout();
+	bSizer14->Fit(m_panel4);
+	bSizer8->Add(m_panel4, 1, wxALL | wxEXPAND, 0);
+
+
+	bSizer10->Add(bSizer8, 0, wxEXPAND, 0);
+
 	wxBoxSizer* BoxSizer_Top;
 	BoxSizer_Top = new wxBoxSizer(wxHORIZONTAL);
 
@@ -136,9 +167,26 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	BoxSizer_Top->Add(bSizer6, 1, wxEXPAND, 5);
 
 
-	m_panelTop->SetSizer(BoxSizer_Top);
+	bSizer10->Add(BoxSizer_Top, 1, wxEXPAND, 5);
+
+	wxBoxSizer* bSizer7;
+	bSizer7 = new wxBoxSizer(wxVERTICAL);
+
+	m_staticText7 = new wxStaticText(m_panelTop, wxID_ANY, wxT("联深泰科技有限公司"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTRE);
+	m_staticText7->Wrap(-1);
+	m_staticText7->SetFont(wxFont(18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
+	m_staticText7->SetForegroundColour(wxColour(255, 255, 255));
+	m_staticText7->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT));
+
+	bSizer7->Add(m_staticText7, 1, wxALL | wxEXPAND, 5);
+
+
+	bSizer10->Add(bSizer7, 0, wxEXPAND, 5);
+
+
+	m_panelTop->SetSizer(bSizer10);
 	m_panelTop->Layout();
-	BoxSizer_Top->Fit(m_panelTop);
+	bSizer10->Fit(m_panelTop);
 	BoxSizer_Main->Add(m_panelTop, 1, wxEXPAND | wxALL, 5);
 
 
