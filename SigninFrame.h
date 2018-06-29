@@ -19,12 +19,12 @@
 #include <wx/colour.h>
 #include <wx/settings.h>
 #include <wx/string.h>
-#include <wx/stattext.h>
 #include <wx/sizer.h>
+#include <wx/stattext.h>
 #include <wx/panel.h>
-#include <wx/statbox.h>
 #include <wx/textctrl.h>
 #include <wx/radiobut.h>
+#include <wx/statbox.h>
 #include <wx/gauge.h>
 #include <wx/frame.h>
 
@@ -39,11 +39,12 @@ class SigninFrame : public wxFrame
 private:
 
 protected:
-	wxPanel * m_panelTop;
-	wxPanel* m_panel4;
-	wxStaticBitmap* m_bitmap2;
-	wxStaticText* m_staticText8;
-	wxStaticBoxSizer* StaticBoxSizer_Camera;
+	wxStaticBitmap * m_bitmapLogo;
+	wxPanel* m_panelTop;
+	wxStaticText* m_staticTextCemra;
+	wxPanel* m_panelCamera;
+	wxBoxSizer* bSizer_Camera;
+	wxStaticText* m_staticTextIdentify;
 	wxStaticText* m_staticTextName;
 	wxTextCtrl* m_textCtrlName;
 	wxStaticText* m_staticTextGender;
@@ -56,17 +57,22 @@ protected:
 	wxStaticText* m_staticTextAddr;
 	wxTextCtrl* m_textCtrlAddr;
 	wxStaticBitmap* StaticBitmap_IDImage;
+	wxPanel* m_panelButtom;
 	wxStaticText* m_staticTextProgress;
 	wxGauge* m_gaugeProgress;
-	wxStaticText* m_staticText7;
+	wxBoxSizer* bSizerButtom;
 
 	// Virtual event handlers, overide them in your derived class
 	virtual void OnClose(wxCloseEvent& event) { event.Skip(); }
+	virtual void OnEraseBackground(wxEraseEvent& event) { event.Skip(); }
+	virtual void OnPaint(wxPaintEvent& event) { event.Skip(); }
+	virtual void OnEraseBackgroundLogo(wxEraseEvent& event) { event.Skip(); }
+	virtual void OnPaintLogo(wxPaintEvent& event) { event.Skip(); }
 
 
 public:
 
-	SigninFrame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("闸机注册系统"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(1920, 1080), long style = wxCAPTION | wxCLOSE_BOX | wxSIMPLE_BORDER | wxSTATIC_BORDER | wxTAB_TRAVERSAL);
+	SigninFrame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("闸机注册系统"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(1920, 1080), long style = wxCAPTION | wxCLOSE_BOX | wxSIMPLE_BORDER | wxSTATIC_BORDER | wxTAB_TRAVERSAL | wxTRANSPARENT_WINDOW);
 
 	~SigninFrame();
 

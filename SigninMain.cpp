@@ -25,9 +25,9 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 	}
 
 	this->Connect(WORKER_EVENT, wxEVT_THREAD, wxThreadEventHandler(SigninMain::OnWorkerEvent));
-	m_CameraView = new CameraView(this, wxID_ANY);
+	m_CameraView = new CameraView(this->m_panelCamera, wxID_ANY);
 	m_CameraView->SetBackgroundColour(wxColour(wxT("#000000")));
-	this->StaticBoxSizer_Camera->Add(m_CameraView, 1, wxALL | wxEXPAND | wxFIXED_MINSIZE, 0);
+	this->bSizer_Camera->Add(m_CameraView, 1, wxALL | wxEXPAND | wxFIXED_MINSIZE, 0);
 	this->Layout();
 	this->Centre(wxBOTH);
 
@@ -161,4 +161,66 @@ CameraView* SigninMain::GetCameraView()
 SigninMain::~SigninMain()
 {
 
+}
+
+void SigninMain::OnEraseBackground(wxEraseEvent& event)
+{
+	wxImage image;
+	wxBitmap m_background;
+	if (image.LoadFile(_T("./resource/background.png"), wxBITMAP_TYPE_PNG))
+	{
+		m_background = wxBitmap(image);
+	}
+	if (m_background.Ok())
+	{
+		wxSize sz = GetClientSize();
+		wxRect rect(0, 0, sz.x, sz.y);
+
+		if (event.GetDC())
+		{
+			TileBitmap(rect, *(event.GetDC()), m_background);
+
+		}
+		else
+		{
+			wxClientDC dc(this);
+			TileBitmap(rect, dc, m_background);
+		}
+	}
+	else {
+		event.Skip(); // The official way of doing it
+	}		
+}
+
+void SigninMain::OnPaint(wxPaintEvent& event)
+{
+	wxPaintDC dc(this);
+	PrepareDC(dc);
+}
+
+bool SigninMain::TileBitmap(const wxRect& rect, wxDC& dc, wxBitmap& bitmap)
+{
+	int w = bitmap.GetWidth();
+	int h = bitmap.GetHeight();
+
+	int i, j;
+	for (i = rect.x; i < rect.x + rect.width; i += w)
+	{
+		for (j = rect.y; j < rect.y + rect.height; j += h)
+			dc.DrawBitmap(bitmap, i, j);
+	}
+	dc.SetFont(wxFont(36, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("SourceHanSerifCN-Bold")));
+	dc.SetTextForeground(wxColour(255, 255, 255));
+	dc.DrawText("大学闸机注册系统", this->m_bitmapLogo->GetPosition().x + this->m_bitmapLogo->GetSize().GetWidth()+ 40,
+								   this->m_bitmapLogo->GetPosition().y + (this->m_bitmapLogo->GetSize().GetHeight()-36)/2);
+
+	dc.SetFont(wxFont(18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
+	dc.SetTextForeground(wxColour(255, 255, 255));
+	int y = this->bSizerButtom->GetPosition().y;
+	int offset = this->bSizerButtom->GetSize().GetHeight() / 2;
+
+	dc.DrawText("联深泰科技有限公司", 873, y + offset);
+	
+
+	return true;
 }
