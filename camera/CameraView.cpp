@@ -17,7 +17,7 @@
 
 using namespace cv;
 
-CameraView::CameraView(wxFrame *parent, wxWindowID winid) : wxPanel(parent, winid, wxPoint(0, 0), wxSize(640, 480))
+CameraView::CameraView(wxWindow *parent, wxWindowID winid) : wxPanel(parent, winid, wxPoint(0, 0), wxSize(640, 480))
 {
     m_p_picture = NULL;
     m_timer.reset(new wxTimer(this, -1));

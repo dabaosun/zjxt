@@ -22,7 +22,7 @@
 class CameraView : public wxPanel
 {
 public:
-    CameraView(wxFrame *parent, wxWindowID winid = wxID_ANY);
+    CameraView(wxWindow *parent, wxWindowID winid = wxID_ANY);
     ~CameraView();
     void OnPaint(wxPaintEvent& event);
     void OnEraseBackground(wxEraseEvent &event);
