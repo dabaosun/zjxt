@@ -24,7 +24,6 @@
 #include <wx/panel.h>
 #include <wx/textctrl.h>
 #include <wx/radiobut.h>
-#include <wx/statbox.h>
 #include <wx/gauge.h>
 #include <wx/frame.h>
 
@@ -54,9 +53,9 @@ protected:
 	wxTextCtrl* m_textCtrlBirth;
 	wxStaticText* m_staticTextIDNumber;
 	wxTextCtrl* m_textCtrlIDNumber;
+	wxStaticBitmap* StaticBitmap_IDImage;
 	wxStaticText* m_staticTextAddr;
 	wxTextCtrl* m_textCtrlAddr;
-	wxStaticBitmap* StaticBitmap_IDImage;
 	wxPanel* m_panelButtom;
 	wxStaticText* m_staticTextProgress;
 	wxGauge* m_gaugeProgress;

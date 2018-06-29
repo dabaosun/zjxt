@@ -27,7 +27,7 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 	this->Connect(WORKER_EVENT, wxEVT_THREAD, wxThreadEventHandler(SigninMain::OnWorkerEvent));
 	m_CameraView = new CameraView(this->m_panelCamera, wxID_ANY);
 	m_CameraView->SetBackgroundColour(wxColour(wxT("#000000")));
-	this->bSizer_Camera->Add(m_CameraView, 1, wxALL | wxEXPAND | wxFIXED_MINSIZE, 0);
+	this->bSizer_Camera->Add(m_CameraView, 1, wxALL, 0);
 	this->Layout();
 	this->Centre(wxBOTH);
 
