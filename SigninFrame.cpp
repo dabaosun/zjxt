@@ -16,15 +16,12 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* BoxSizer_Main;
 	BoxSizer_Main = new wxBoxSizer(wxVERTICAL);
 
-	BoxSizer_Main->SetMinSize(wxSize(1920, 1080));
-	wxBoxSizer* bSizerTop;
 	bSizerTop = new wxBoxSizer(wxVERTICAL);
 
-	bSizerTop->SetMinSize(wxSize(-1, 146));
+	bSizerTop->SetMinSize(wxSize(-1, 100));
 
 	bSizerTop->Add(0, 0, 0, 0, 5);
 
-	wxBoxSizer* bSizerLogo;
 	bSizerLogo = new wxBoxSizer(wxHORIZONTAL);
 
 	bSizerLogo->SetMinSize(wxSize(84, 84));
@@ -291,7 +288,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	bSizerButtom = new wxBoxSizer(wxHORIZONTAL);
 
-	bSizerButtom->SetMinSize(wxSize(-1, 77));
+	bSizerButtom->SetMinSize(wxSize(-1, 80));
 
 	bSizerButtom->Add(0, 0, 1, wxEXPAND, 5);
 
@@ -301,6 +298,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	this->SetSizer(BoxSizer_Main);
 	this->Layout();
+	BoxSizer_Main->Fit(this);
 
 	this->Centre(wxBOTH);
 

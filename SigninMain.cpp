@@ -23,6 +23,8 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 	if (0 != Config::GetInstance()->LoadConfig()) {
 		
 	}
+	//this->bSizerTop->SetMinSize(-1, this->GetSize().GetHeight()*10/100);
+	//this->bSizerButtom->SetMinSize(-1, this->GetSize().GetHeight() - this->GetSize().GetHeight() * 82 / 100);
 
 	this->Connect(WORKER_EVENT, wxEVT_THREAD, wxThreadEventHandler(SigninMain::OnWorkerEvent));
 	m_CameraView = new CameraView(this->m_panelCamera, wxID_ANY);
@@ -167,14 +169,16 @@ void SigninMain::OnEraseBackground(wxEraseEvent& event)
 {
 	wxImage image;
 	wxBitmap m_background;
-	if (image.LoadFile(_T("./resource/background.png"), wxBITMAP_TYPE_PNG))
+
+	if (image.LoadFile(_T("./resource/top.png"), wxBITMAP_TYPE_PNG))
 	{
 		m_background = wxBitmap(image);
 	}
 	if (m_background.Ok())
 	{
 		wxSize sz = GetClientSize();
-		wxRect rect(0, 0, sz.x, sz.y);
+		m_background.SetSize(sz.GetWidth(), 100);
+		wxRect rect(0, 0, sz.x, 100);
 
 		if (event.GetDC())
 		{
@@ -183,14 +187,62 @@ void SigninMain::OnEraseBackground(wxEraseEvent& event)
 		else
 		{
 			wxClientDC dc(this);
-
 			TileBitmap(rect, dc, m_background);
-
 		}
 	}
 	else {
 		event.Skip(); // The official way of doing it
-	}		
+	}
+
+	if (image.LoadFile(_T("./resource/buttom.png"), wxBITMAP_TYPE_PNG))
+	{
+		m_background = wxBitmap(image);
+	}
+	if (m_background.Ok())
+	{
+		wxSize sz = GetClientSize();
+		m_background.SetSize(sz.GetWidth(),80);
+
+		wxRect rect(0, sz.y-80, sz.x, 80);
+
+		if (event.GetDC())
+		{
+			TileBitmap(rect, *(event.GetDC()), m_background);
+		}
+		else
+		{
+			wxClientDC dc(this);
+			TileBitmap(rect, dc, m_background);
+		}
+	}
+	else {
+		event.Skip(); // The official way of doing it
+	}
+
+	if (image.LoadFile(_T("./resource/middle.png"), wxBITMAP_TYPE_PNG))
+	{
+		m_background = wxBitmap(image);
+	}
+	if (m_background.Ok())
+	{
+		wxSize sz = GetClientSize();
+		m_background.SetSize(sz.GetWidth(), sz.y-180);
+
+		wxRect rect(0, 100, sz.x, sz.y - 180);
+
+		if (event.GetDC())
+		{
+			TileBitmap(rect, *(event.GetDC()), m_background);
+		}
+		else
+		{
+			wxClientDC dc(this);
+			TileBitmap(rect, dc, m_background);
+		}
+	}
+	else {
+		event.Skip(); // The official way of doing it
+	}
 }
 
 void SigninMain::OnPaint(wxPaintEvent& event)
@@ -206,7 +258,7 @@ void SigninMain::OnPaint(wxPaintEvent& event)
 		logo = wxBitmap(image);
 	}
 	int x = 30;
-	int y = 40;
+	int y = 8;
 	dc.DrawBitmap(logo, x, y, true);
 
 	wxPoint point_1(x + logo.GetSize().GetWidth() + 40,	y + (logo.GetSize().GetHeight() - 36) / 2);
@@ -215,8 +267,8 @@ void SigninMain::OnPaint(wxPaintEvent& event)
 
 	wxFont font_2(18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI"));
 	y = this->bSizerButtom->GetPosition().y;
-	int offset = this->bSizerButtom->GetSize().GetHeight() / 2;
-	wxPoint point_2(873, y + offset);
+	int offset = (this->bSizerButtom->GetSize().GetHeight()-18) / 2;
+	wxPoint point_2(this->bSizerButtom->GetSize().GetWidth()*45/100, y + offset);
 	TileText(dc, "联深泰科技有限公司", font_2, point_2);
 }
 

@@ -38,7 +38,9 @@ class SigninFrame : public wxFrame
 private:
 
 protected:
-	wxPanel * m_panelMiddleTop;
+	wxBoxSizer * bSizerTop;
+	wxBoxSizer* bSizerLogo;
+	wxPanel* m_panelMiddleTop;
 	wxStaticText* m_staticTextCemra;
 	wxPanel* m_panelCamera;
 	wxBoxSizer* bSizer_Camera;
@@ -68,7 +70,7 @@ protected:
 
 public:
 
-	SigninFrame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("闸机注册系统"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(1920, 1080), long style = wxCAPTION | wxCLOSE_BOX | wxSIMPLE_BORDER | wxSTATIC_BORDER | wxTAB_TRAVERSAL | wxTRANSPARENT_WINDOW);
+	SigninFrame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("闸机注册系统"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(-1, -1), long style = wxCAPTION | wxCLOSE_BOX | wxSIMPLE_BORDER | wxSTATIC_BORDER | wxTAB_TRAVERSAL | wxTRANSPARENT_WINDOW);
 
 	~SigninFrame();
 
