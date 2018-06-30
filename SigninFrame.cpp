@@ -269,8 +269,8 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	m_staticTextProgress = new wxStaticText(m_panelMiddleButtom, wxID_ANY, wxT("Loading"), wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT);
 	m_staticTextProgress->Wrap(-1);
-	m_staticTextProgress->SetFont(wxFont(18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("ËÎÌו")));
-	m_staticTextProgress->SetForegroundColour(wxColour(0, 45, 135));
+	m_staticTextProgress->SetFont(wxFont(18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
+	m_staticTextProgress->SetForegroundColour(wxColour(0, 45, 93));
 
 	bSizerProgress->Add(m_staticTextProgress, 1, wxALIGN_RIGHT | wxEXPAND | wxALL, 5);
 
