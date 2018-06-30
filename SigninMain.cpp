@@ -179,12 +179,13 @@ void SigninMain::OnEraseBackground(wxEraseEvent& event)
 		if (event.GetDC())
 		{
 			TileBitmap(rect, *(event.GetDC()), m_background);
-
 		}
 		else
 		{
 			wxClientDC dc(this);
+
 			TileBitmap(rect, dc, m_background);
+
 		}
 	}
 	else {
@@ -196,6 +197,27 @@ void SigninMain::OnPaint(wxPaintEvent& event)
 {
 	wxPaintDC dc(this);
 	PrepareDC(dc);
+
+	wxImage image;
+	wxBitmap logo;
+	if (image.LoadFile(_T("./resource/logo.png"), wxBITMAP_TYPE_PNG))
+	{
+		image.SetMask(false);
+		logo = wxBitmap(image);
+	}
+	int x = 30;
+	int y = 40;
+	dc.DrawBitmap(logo, x, y, true);
+
+	wxPoint point_1(x + logo.GetSize().GetWidth() + 40,	y + (logo.GetSize().GetHeight() - 36) / 2);
+	wxFont font_1(36, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("SourceHanSerifCN-Bold"));
+	TileText(dc, "大学闸机注册系统", font_1, point_1);
+
+	wxFont font_2(18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI"));
+	y = this->bSizerButtom->GetPosition().y;
+	int offset = this->bSizerButtom->GetSize().GetHeight() / 2;
+	wxPoint point_2(873, y + offset);
+	TileText(dc, "联深泰科技有限公司", font_2, point_2);
 }
 
 bool SigninMain::TileBitmap(const wxRect& rect, wxDC& dc, wxBitmap& bitmap)
@@ -209,18 +231,13 @@ bool SigninMain::TileBitmap(const wxRect& rect, wxDC& dc, wxBitmap& bitmap)
 		for (j = rect.y; j < rect.y + rect.height; j += h)
 			dc.DrawBitmap(bitmap, i, j);
 	}
-	dc.SetFont(wxFont(36, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("SourceHanSerifCN-Bold")));
+
+	return true;
+}
+bool SigninMain::TileText( wxDC& dc, const wxString& text, wxFont& font, wxPoint& point)
+{
+	dc.SetFont(font);
 	dc.SetTextForeground(wxColour(255, 255, 255));
-	dc.DrawText("大学闸机注册系统", this->m_bitmapLogo->GetPosition().x + this->m_bitmapLogo->GetSize().GetWidth()+ 40,
-								   this->m_bitmapLogo->GetPosition().y + (this->m_bitmapLogo->GetSize().GetHeight()-36)/2);
-
-	dc.SetFont(wxFont(18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
-	dc.SetTextForeground(wxColour(255, 255, 255));
-	int y = this->bSizerButtom->GetPosition().y;
-	int offset = this->bSizerButtom->GetSize().GetHeight() / 2;
-
-	dc.DrawText("联深泰科技有限公司", 873, y + offset);
-	
-
+	dc.DrawText(text, point);
 	return true;
 }
