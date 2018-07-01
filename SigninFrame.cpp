@@ -12,6 +12,7 @@
 SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style) : wxFrame(parent, id, title, pos, size, style)
 {
 	this->SetSizeHints(wxSize(-1, -1), wxDefaultSize);
+	this->SetFont(wxFont(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 
 	wxBoxSizer* BoxSizer_Main;
 	BoxSizer_Main = new wxBoxSizer(wxVERTICAL);
@@ -183,6 +184,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	m_textCtrlBirth->SetFont(wxFont(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_textCtrlBirth->SetForegroundColour(wxColour(33, 33, 33));
 	m_textCtrlBirth->Enable(false);
+	m_textCtrlBirth->SetMinSize(wxSize(192, -1));
 
 	FlexGridSizer_IDInfoDetail->Add(m_textCtrlBirth, 1, wxEXPAND | wxTOP | wxBOTTOM, 5);
 
@@ -225,6 +227,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	m_textCtrlIDNumber->SetFont(wxFont(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_textCtrlIDNumber->SetForegroundColour(wxColour(33, 33, 33));
 	m_textCtrlIDNumber->Enable(false);
+	m_textCtrlIDNumber->SetMinSize(wxSize(432, -1));
 
 	fgSizer31->Add(m_textCtrlIDNumber, 1, wxEXPAND | wxTOP | wxBOTTOM, 5);
 
@@ -275,7 +278,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	m_gaugeProgress->SetValue(0);
 	m_gaugeProgress->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
 
-	bSizerProgress->Add(m_gaugeProgress, 1, wxALL | wxEXPAND, 5);
+	bSizerProgress->Add(m_gaugeProgress, 1, wxEXPAND | wxTOP | wxBOTTOM, 5);
 
 
 	m_panelMiddleButtom->SetSizer(bSizerProgress);
@@ -288,7 +291,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	bSizerButtom = new wxBoxSizer(wxHORIZONTAL);
 
-	bSizerButtom->SetMinSize(wxSize(-1, 80));
+	bSizerButtom->SetMinSize(wxSize(-1, 72));
 
 	bSizerButtom->Add(0, 0, 1, wxEXPAND, 5);
 

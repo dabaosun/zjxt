@@ -201,12 +201,13 @@ void SigninMain::OnEraseBackground(wxEraseEvent& event)
 	if (m_background.Ok())
 	{
 		wxSize sz = GetClientSize();
-		m_background.SetSize(sz.GetWidth(),80);
+		m_background.SetSize(sz.GetWidth(),72);
 
-		wxRect rect(0, sz.y-80, sz.x, 80);
+		wxRect rect(0, sz.y-72, sz.x, 72);
 
 		if (event.GetDC())
 		{
+
 			TileBitmap(rect, *(event.GetDC()), m_background);
 		}
 		else

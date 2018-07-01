@@ -70,7 +70,7 @@ protected:
 
 public:
 
-	SigninFrame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("闸机注册系统"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(-1, -1), long style = wxCAPTION | wxCLOSE_BOX | wxSIMPLE_BORDER | wxSTATIC_BORDER | wxTAB_TRAVERSAL | wxTRANSPARENT_WINDOW);
+	SigninFrame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("闸机注册系统"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(-1, -1), long style = 0 | wxSIMPLE_BORDER | wxSTATIC_BORDER | wxTAB_TRAVERSAL | wxTRANSPARENT_WINDOW);
 
 	~SigninFrame();
 
