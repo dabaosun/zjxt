@@ -38,6 +38,8 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 	this->m_CameraView->RegisterListener(this->m_CertCard);
 	this->GetCameraView()->OpenCamera();
 	this->m_CertCard->OpenCertCardReader();
+
+	this->BoxSizer_Main->Fit(this);
 }
 
 void SigninMain::OnClose( wxCloseEvent& event )

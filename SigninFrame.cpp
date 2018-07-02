@@ -11,12 +11,12 @@
 
 SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style) : wxFrame(parent, id, title, pos, size, style)
 {
-	this->SetSizeHints(wxSize(-1, -1), wxDefaultSize);
+	this->SetSizeHints(wxSize(1920, 1080), wxDefaultSize);
 	this->SetFont(wxFont(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
 
-	wxBoxSizer* BoxSizer_Main;
 	BoxSizer_Main = new wxBoxSizer(wxVERTICAL);
 
+	BoxSizer_Main->SetMinSize(wxSize(1920, 1080));
 	bSizerTop = new wxBoxSizer(wxVERTICAL);
 
 	bSizerTop->SetMinSize(wxSize(-1, 100));
@@ -36,7 +36,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	BoxSizer_Main->Add(bSizerTop, 0, wxEXPAND, 5);
 
 
-	BoxSizer_Main->Add(0, 20, 1, wxEXPAND, 5);
+	BoxSizer_Main->Add(0, 20, 0, 0, 5);
 
 	wxBoxSizer* bSizerMiddle;
 	bSizerMiddle = new wxBoxSizer(wxVERTICAL);
@@ -64,10 +64,10 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	m_staticTextCemra->SetFont(wxFont(30, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_staticTextCemra->SetForegroundColour(wxColour(33, 33, 33));
 
-	bSizer16->Add(m_staticTextCemra, 0, wxALL | wxEXPAND, 5);
+	bSizer16->Add(m_staticTextCemra, 1, wxALL | wxEXPAND, 5);
 
 
-	bSizer19->Add(bSizer16, 1, wxEXPAND, 5);
+	bSizer19->Add(bSizer16, 0, wxEXPAND, 5);
 
 	m_panelCamera = new wxPanel(m_panelMiddleTop, wxID_ANY, wxDefaultPosition, wxSize(680, 680), wxTAB_TRAVERSAL);
 	m_panelCamera->SetMinSize(wxSize(680, 680));
@@ -104,6 +104,9 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 
 	bSizerIdentify->Add(bSizer17, 0, wxEXPAND, 5);
+
+
+	bSizerIdentify->Add(0, 0, 1, wxEXPAND, 5);
 
 	wxBoxSizer* bSizerIdentifyTop;
 	bSizerIdentifyTop = new wxBoxSizer(wxHORIZONTAL);
@@ -204,10 +207,10 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	GridSizer_IDImage->Add(StaticBitmap_IDImage, 0, wxALL | wxALIGN_CENTER_HORIZONTAL | wxEXPAND, 5);
 
 
-	fgSizer3->Add(GridSizer_IDImage, 0, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL, 5);
+	fgSizer3->Add(GridSizer_IDImage, 0, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL | wxEXPAND, 5);
 
 
-	bSizer18->Add(fgSizer3, 1, wxEXPAND, 5);
+	bSizer18->Add(fgSizer3, 0, wxEXPAND, 5);
 
 	wxFlexGridSizer* fgSizer31;
 	fgSizer31 = new wxFlexGridSizer(2, 2, 0, 0);
@@ -253,6 +256,9 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 
 	bSizerIdentify->Add(bSizerIdentifyTop, 1, wxEXPAND, 5);
+
+
+	bSizerIdentify->Add(0, 0, 1, wxEXPAND, 5);
 
 
 	BoxSizer_PanelTop->Add(bSizerIdentify, 1, wxEXPAND, 5);
@@ -301,7 +307,6 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	this->SetSizer(BoxSizer_Main);
 	this->Layout();
-	BoxSizer_Main->Fit(this);
 
 	this->Centre(wxBOTH);
 
