@@ -85,12 +85,25 @@ void SigninMain::OnWorkerEvent(wxThreadEvent& event)
 {
 	int n = event.GetInt();
 	wxString msg = event.GetString();
-	wxFont font = this->m_staticTextStep->GetFont();
+
+	this->m_staticTextStep->SetLabelText("（"+msg+"）");
+
 	if ("正在处理中" == msg) {
-		this->m_staticTextStep->SetLabelText(msg);
 		this->m_staticTextStep->SetForegroundColour(wxColour(33, 33, 33));
 	}
-	
+
+	if ("注册失败" == msg) {
+		this->m_staticTextStep->SetForegroundColour(wxColour(226, 62, 49));
+	}
+
+	if ("注册成功" == msg) {
+		this->m_staticTextStep->SetForegroundColour(wxColour(43, 111, 143));
+	}
+
+	if ("请刷身份证" == msg) {
+		this->m_staticTextStep->SetForegroundColour(wxColour(33, 33, 33));
+	}
+
 	if ("正在处理中" == msg) {
 		this->m_staticTextProgress->SetLabelText("Loading");
 	}

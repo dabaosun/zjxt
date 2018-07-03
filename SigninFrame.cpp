@@ -139,7 +139,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	bSizer17->Add(bSizer40, 0, wxALIGN_CENTER_VERTICAL, 5);
 
 	wxBoxSizer* bSizer41;
-	bSizer41 = new wxBoxSizer(wxVERTICAL);
+	bSizer41 = new wxBoxSizer(wxHORIZONTAL);
 
 	m_staticTextStep = new wxStaticText(m_panelMiddleTop, wxID_ANY, wxT("£¨ÇëË¢Éí·ÝÖ¤£©"), wxDefaultPosition, wxDefaultSize, 0);
 	m_staticTextStep->Wrap(-1);
@@ -317,7 +317,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxGridSizer* GridSizer_IDImage;
 	GridSizer_IDImage = new wxGridSizer(1, 1, 0, 0);
 
-	StaticBitmap_IDImage = new wxStaticBitmap(m_panelMiddleTop, wxID_ANY, wxBitmap(wxT("resource/identify.png"), wxBITMAP_TYPE_ANY), wxDefaultPosition, wxSize(-1, -1), 0);
+	StaticBitmap_IDImage = new wxStaticBitmap(m_panelMiddleTop, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxSize(-1, -1), 0);
 	StaticBitmap_IDImage->SetMinSize(wxSize(132, 163));
 
 	GridSizer_IDImage->Add(StaticBitmap_IDImage, 1, wxALL | wxALIGN_CENTER_HORIZONTAL | wxEXPAND, 5);
@@ -430,7 +430,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizer42;
 	bSizer42 = new wxBoxSizer(wxVERTICAL);
 
-	m_staticTextProgress = new wxStaticText(m_panelMiddleButtom, wxID_ANY, wxT("Loading"), wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT);
+	m_staticTextProgress = new wxStaticText(m_panelMiddleButtom, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT);
 	m_staticTextProgress->Wrap(-1);
 	m_staticTextProgress->SetFont(wxFont(18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_staticTextProgress->SetForegroundColour(wxColour(0, 45, 93));
