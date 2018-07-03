@@ -39,6 +39,9 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	bSizer341->Add(bSizerTop, 0, wxEXPAND, 5);
 
+
+	bSizer341->Add(0, 40, 0, 0, 5);
+
 	wxBoxSizer* bSizerMiddle;
 	bSizerMiddle = new wxBoxSizer(wxVERTICAL);
 
@@ -48,11 +51,11 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* BoxSizer_PanelTop;
 	BoxSizer_PanelTop = new wxBoxSizer(wxHORIZONTAL);
 
+	wxBoxSizer* bSizer362;
+	bSizer362 = new wxBoxSizer(wxHORIZONTAL);
+
 	wxBoxSizer* bSizerCameraTop;
 	bSizerCameraTop = new wxBoxSizer(wxHORIZONTAL);
-
-
-	bSizerCameraTop->Add(20, 0, 0, wxEXPAND, 5);
 
 	wxBoxSizer* bSizer19;
 	bSizer19 = new wxBoxSizer(wxVERTICAL);
@@ -70,11 +73,20 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	bSizer19->Add(bSizer16, 0, wxEXPAND, 5);
 
+
+	bSizer19->Add(0, 20, 0, wxEXPAND, 5);
+
 	wxBoxSizer* bSizer361;
-	bSizer361 = new wxBoxSizer(wxVERTICAL);
+	bSizer361 = new wxBoxSizer(wxHORIZONTAL);
+
+
+	bSizer361->Add(20, 0, 0, wxEXPAND, 5);
+
+	wxBoxSizer* bSizer38;
+	bSizer38 = new wxBoxSizer(wxVERTICAL);
 
 	m_panelCamera = new wxPanel(m_panelMiddleTop, wxID_ANY, wxDefaultPosition, wxSize(-1, -1), wxTAB_TRAVERSAL);
-	m_panelCamera->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT));
+	m_panelCamera->SetBackgroundColour(wxColour(0, 0, 0));
 	m_panelCamera->SetMinSize(wxSize(640, 640));
 
 	bSizer_Camera = new wxBoxSizer(wxVERTICAL);
@@ -84,22 +96,28 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	m_panelCamera->SetSizer(bSizer_Camera);
 	m_panelCamera->Layout();
 	bSizer_Camera->Fit(m_panelCamera);
-	bSizer361->Add(m_panelCamera, 1, wxALL | wxEXPAND, 5);
+	bSizer38->Add(m_panelCamera, 0, wxALL, 5);
 
 
-	bSizer19->Add(bSizer361, 0, 0, 5);
+	bSizer361->Add(bSizer38, 1, wxEXPAND, 5);
 
 
-	bSizer19->Add(0, 0, 1, wxEXPAND, 5);
+	bSizer19->Add(bSizer361, 1, wxEXPAND, 5);
 
 
 	bSizerCameraTop->Add(bSizer19, 1, wxEXPAND, 5);
 
 
-	BoxSizer_PanelTop->Add(bSizerCameraTop, 1, wxEXPAND, 5);
+	bSizer362->Add(bSizerCameraTop, 1, wxEXPAND, 5);
 
 
-	BoxSizer_PanelTop->Add(30, 0, 0, 0, 5);
+	BoxSizer_PanelTop->Add(bSizer362, 1, wxEXPAND, 5);
+
+
+	BoxSizer_PanelTop->Add(40, 0, 0, wxEXPAND, 5);
+
+	wxBoxSizer* bSizer37;
+	bSizer37 = new wxBoxSizer(wxHORIZONTAL);
 
 	wxBoxSizer* bSizerIdentify;
 	bSizerIdentify = new wxBoxSizer(wxVERTICAL);
@@ -116,6 +134,9 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 
 	bSizerIdentify->Add(bSizer17, 0, wxEXPAND, 5);
+
+
+	bSizerIdentify->Add(0, 20, 0, wxEXPAND, 5);
 
 	wxBoxSizer* bSizerIdentifyTop;
 	bSizerIdentifyTop = new wxBoxSizer(wxHORIZONTAL);
@@ -273,16 +294,18 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	BoxSizer_IDInfoMain->Add(FlexGridSizer_IDInfoDetail, 0, wxSHAPED, 5);
 
 
-	fgSizer3->Add(BoxSizer_IDInfoMain, 0, 0, 5);
+	fgSizer3->Add(BoxSizer_IDInfoMain, 1, wxEXPAND, 5);
 
 	wxGridSizer* GridSizer_IDImage;
 	GridSizer_IDImage = new wxGridSizer(1, 1, 0, 0);
 
 	StaticBitmap_IDImage = new wxStaticBitmap(m_panelMiddleTop, wxID_ANY, wxBitmap(wxT("resource/identify.png"), wxBITMAP_TYPE_ANY), wxDefaultPosition, wxSize(-1, -1), 0);
-	GridSizer_IDImage->Add(StaticBitmap_IDImage, 0, wxALL | wxALIGN_CENTER_HORIZONTAL | wxEXPAND, 5);
+	StaticBitmap_IDImage->SetMinSize(wxSize(132, 163));
+
+	GridSizer_IDImage->Add(StaticBitmap_IDImage, 1, wxALL | wxALIGN_CENTER_HORIZONTAL | wxEXPAND, 5);
 
 
-	fgSizer3->Add(GridSizer_IDImage, 0, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL, 5);
+	fgSizer3->Add(GridSizer_IDImage, 1, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL | wxEXPAND, 5);
 
 
 	bSizer18->Add(fgSizer3, 0, wxEXPAND, 5);
@@ -371,7 +394,10 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	bSizerIdentify->Add(bSizerIdentifyTop, 1, wxEXPAND, 5);
 
 
-	BoxSizer_PanelTop->Add(bSizerIdentify, 1, wxEXPAND, 5);
+	bSizer37->Add(bSizerIdentify, 1, wxEXPAND, 5);
+
+
+	BoxSizer_PanelTop->Add(bSizer37, 1, wxEXPAND, 5);
 
 
 	m_panelMiddleTop->SetSizer(BoxSizer_PanelTop);

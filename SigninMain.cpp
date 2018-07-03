@@ -306,7 +306,7 @@ void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
 		}
 		else
 		{
-			wxClientDC dc(this);
+			wxClientDC dc(this->m_panel4);
 			TileBitmap(rect, dc, m_background);
 		}
 	}
@@ -332,7 +332,7 @@ void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
 		}
 		else
 		{
-			wxClientDC dc(this);
+			wxClientDC dc(this->m_panel4);
 			TileBitmap(rect, dc, m_background);
 		}
 	}
