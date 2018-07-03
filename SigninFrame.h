@@ -38,7 +38,8 @@ class SigninFrame : public wxFrame
 private:
 
 protected:
-	wxBoxSizer * bSizerTop;
+	wxPanel * m_panel4;
+	wxBoxSizer* bSizerTop;
 	wxBoxSizer* bSizerLogo;
 	wxPanel* m_panelMiddleTop;
 	wxStaticText* m_staticTextCemra;
@@ -66,11 +67,13 @@ protected:
 	virtual void OnClose(wxCloseEvent& event) { event.Skip(); }
 	virtual void OnEraseBackground(wxEraseEvent& event) { event.Skip(); }
 	virtual void OnPaint(wxPaintEvent& event) { event.Skip(); }
+	virtual void OnEraseBackgroundPanel(wxEraseEvent& event) { event.Skip(); }
+	virtual void OnPaintPanel(wxPaintEvent& event) { event.Skip(); }
 
 
 public:
 
-	SigninFrame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("闸机注册系统"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(-1, -1), long style = 0 | wxSIMPLE_BORDER | wxSTATIC_BORDER | wxTAB_TRAVERSAL | wxTRANSPARENT_WINDOW);
+	SigninFrame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("闸机注册系统"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(-1, -1), long style = 0 | wxSIMPLE_BORDER | wxSTATIC_BORDER);
 
 	~SigninFrame();
 

@@ -17,6 +17,10 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* BoxSizer_Main;
 	BoxSizer_Main = new wxBoxSizer(wxVERTICAL);
 
+	m_panel4 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+	wxBoxSizer* bSizer341;
+	bSizer341 = new wxBoxSizer(wxVERTICAL);
+
 	bSizerTop = new wxBoxSizer(wxVERTICAL);
 
 	bSizerTop->SetMinSize(wxSize(-1, 100));
@@ -33,12 +37,12 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	bSizerTop->Add(0, 0, 0, 0, 5);
 
 
-	BoxSizer_Main->Add(bSizerTop, 0, wxEXPAND, 5);
+	bSizer341->Add(bSizerTop, 0, wxEXPAND, 5);
 
 	wxBoxSizer* bSizerMiddle;
 	bSizerMiddle = new wxBoxSizer(wxVERTICAL);
 
-	m_panelMiddleTop = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxNO_BORDER | wxTAB_TRAVERSAL | wxTRANSPARENT_WINDOW);
+	m_panelMiddleTop = new wxPanel(m_panel4, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxNO_BORDER | wxTAB_TRAVERSAL | wxTRANSPARENT_WINDOW);
 	m_panelMiddleTop->Enable(false);
 
 	wxBoxSizer* BoxSizer_PanelTop;
@@ -64,10 +68,14 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	bSizer16->Add(m_staticTextCemra, 0, wxALL, 5);
 
 
-	bSizer19->Add(bSizer16, 1, wxEXPAND, 5);
+	bSizer19->Add(bSizer16, 0, wxEXPAND, 5);
 
-	m_panelCamera = new wxPanel(m_panelMiddleTop, wxID_ANY, wxDefaultPosition, wxSize(680, 680), wxTAB_TRAVERSAL);
-	m_panelCamera->SetMinSize(wxSize(680, 680));
+	wxBoxSizer* bSizer361;
+	bSizer361 = new wxBoxSizer(wxVERTICAL);
+
+	m_panelCamera = new wxPanel(m_panelMiddleTop, wxID_ANY, wxDefaultPosition, wxSize(-1, -1), wxTAB_TRAVERSAL);
+	m_panelCamera->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT));
+	m_panelCamera->SetMinSize(wxSize(640, 640));
 
 	bSizer_Camera = new wxBoxSizer(wxVERTICAL);
 
@@ -75,7 +83,14 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	m_panelCamera->SetSizer(bSizer_Camera);
 	m_panelCamera->Layout();
-	bSizer19->Add(m_panelCamera, 2, wxEXPAND | wxALL, 5);
+	bSizer_Camera->Fit(m_panelCamera);
+	bSizer361->Add(m_panelCamera, 1, wxALL | wxEXPAND, 5);
+
+
+	bSizer19->Add(bSizer361, 0, 0, 5);
+
+
+	bSizer19->Add(0, 0, 1, wxEXPAND, 5);
 
 
 	bSizerCameraTop->Add(bSizer19, 1, wxEXPAND, 5);
@@ -364,7 +379,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	BoxSizer_PanelTop->Fit(m_panelMiddleTop);
 	bSizerMiddle->Add(m_panelMiddleTop, 1, wxEXPAND | wxALL, 5);
 
-	m_panelMiddleButtom = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+	m_panelMiddleButtom = new wxPanel(m_panel4, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
 	wxBoxSizer* bSizerProgress;
 	bSizerProgress = new wxBoxSizer(wxVERTICAL);
 
@@ -388,7 +403,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	bSizerMiddle->Add(m_panelMiddleButtom, 0, wxALL | wxEXPAND, 5);
 
 
-	BoxSizer_Main->Add(bSizerMiddle, 1, wxEXPAND, 5);
+	bSizer341->Add(bSizerMiddle, 1, wxEXPAND, 5);
 
 	bSizerButtom = new wxBoxSizer(wxHORIZONTAL);
 
@@ -397,7 +412,13 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	bSizerButtom->Add(0, 0, 1, wxEXPAND, 5);
 
 
-	BoxSizer_Main->Add(bSizerButtom, 0, wxEXPAND, 5);
+	bSizer341->Add(bSizerButtom, 0, wxEXPAND, 5);
+
+
+	m_panel4->SetSizer(bSizer341);
+	m_panel4->Layout();
+	bSizer341->Fit(m_panel4);
+	BoxSizer_Main->Add(m_panel4, 1, wxEXPAND | wxALL, 0);
 
 
 	this->SetSizer(BoxSizer_Main);
@@ -410,6 +431,8 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	this->Connect(wxEVT_CLOSE_WINDOW, wxCloseEventHandler(SigninFrame::OnClose));
 	this->Connect(wxEVT_ERASE_BACKGROUND, wxEraseEventHandler(SigninFrame::OnEraseBackground));
 	this->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaint));
+	m_panel4->Connect(wxEVT_ERASE_BACKGROUND, wxEraseEventHandler(SigninFrame::OnEraseBackgroundPanel), NULL, this);
+	m_panel4->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintPanel), NULL, this);
 }
 
 SigninFrame::~SigninFrame()
@@ -418,5 +441,7 @@ SigninFrame::~SigninFrame()
 	this->Disconnect(wxEVT_CLOSE_WINDOW, wxCloseEventHandler(SigninFrame::OnClose));
 	this->Disconnect(wxEVT_ERASE_BACKGROUND, wxEraseEventHandler(SigninFrame::OnEraseBackground));
 	this->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaint));
+	m_panel4->Disconnect(wxEVT_ERASE_BACKGROUND, wxEraseEventHandler(SigninFrame::OnEraseBackgroundPanel), NULL, this);
+	m_panel4->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintPanel), NULL, this);
 
 }

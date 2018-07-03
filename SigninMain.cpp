@@ -27,16 +27,28 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 	//this->bSizerButtom->SetMinSize(-1, this->GetSize().GetHeight() - this->GetSize().GetHeight() * 82 / 100);
 
 	this->Connect(WORKER_EVENT, wxEVT_THREAD, wxThreadEventHandler(SigninMain::OnWorkerEvent));
+	
+
 	m_CameraView = new CameraView(this->m_panelCamera, wxID_ANY);
+	m_CameraView->SetSize(wxSize(640, 640));
+	m_CameraView->SetMinSize(wxSize(640, 640));
+	m_CameraView->SetMaxSize(wxSize(640, 640));
 	m_CameraView->SetBackgroundColour(wxColour(wxT("#000000")));
-	this->bSizer_Camera->Add(m_CameraView, 1, wxALL, 0);
+	//m_CameraView->SetSizer(bSizer_Camera);
+	m_CameraView->Layout();
+	bSizer_Camera->Add(m_CameraView, 1, wxALL , 5);
+
+	//this->bSizer_Camera->Add(m_CameraView, 1, wxALL, 0);
+	//this->bSizer_Camera->Fit(m_CameraView);
+	//this->m_panelCamera->Layout();
+
 	this->Layout();
 	this->Centre(wxBOTH);
 
 	this->m_CertCard = new CertCard();
 	this->m_CertCard->RegisterListener(this);
 	this->m_CameraView->RegisterListener(this->m_CertCard);
-	this->GetCameraView()->OpenCamera();
+	this->m_CameraView->OpenCamera();
 	this->m_CertCard->OpenCertCardReader();
 }
 
@@ -167,6 +179,114 @@ SigninMain::~SigninMain()
 
 void SigninMain::OnEraseBackground(wxEraseEvent& event)
 {
+	//wxImage image;
+	//wxBitmap m_background;
+
+	//if (image.LoadFile(_T("./resource/top.png"), wxBITMAP_TYPE_PNG))
+	//{
+	//	m_background = wxBitmap(image);
+	//}
+	//if (m_background.Ok())
+	//{
+	//	wxSize sz = GetClientSize();
+	//	m_background.SetSize(sz.GetWidth(), 100);
+	//	wxRect rect(0, 0, sz.x, 100);
+
+	//	if (event.GetDC())
+	//	{
+	//		TileBitmap(rect, *(event.GetDC()), m_background);
+	//	}
+	//	else
+	//	{
+	//		wxClientDC dc(this);
+	//		TileBitmap(rect, dc, m_background);
+	//	}
+	//}
+	//else {
+	//	event.Skip(); // The official way of doing it
+	//}
+
+	//if (image.LoadFile(_T("./resource/buttom.png"), wxBITMAP_TYPE_PNG))
+	//{
+	//	m_background = wxBitmap(image);
+	//}
+	//if (m_background.Ok())
+	//{
+	//	wxSize sz = GetClientSize();
+	//	m_background.SetSize(sz.GetWidth(),72);
+
+	//	wxRect rect(0, sz.y-72, sz.x, 72);
+
+	//	if (event.GetDC())
+	//	{
+
+	//		TileBitmap(rect, *(event.GetDC()), m_background);
+	//	}
+	//	else
+	//	{
+	//		wxClientDC dc(this);
+	//		TileBitmap(rect, dc, m_background);
+	//	}
+	//}
+	//else {
+	//	event.Skip(); // The official way of doing it
+	//}
+
+	//if (image.LoadFile(_T("./resource/middle.png"), wxBITMAP_TYPE_PNG))
+	//{
+	//	m_background = wxBitmap(image);
+	//}
+	//if (m_background.Ok())
+	//{
+	//	wxSize sz = GetClientSize();
+	//	m_background.SetSize(sz.GetWidth(), sz.y-180);
+
+	//	wxRect rect(0, 100, sz.x, sz.y - 180);
+
+	//	if (event.GetDC())
+	//	{
+	//		TileBitmap(rect, *(event.GetDC()), m_background);
+	//	}
+	//	else
+	//	{
+	//		wxClientDC dc(this);
+	//		TileBitmap(rect, dc, m_background);
+	//	}
+	//}
+	//else {
+	//	event.Skip(); // The official way of doing it
+	//}
+}
+
+void SigninMain::OnPaint(wxPaintEvent& event)
+{
+	//wxPaintDC dc(this);
+	//PrepareDC(dc);
+
+	//wxImage image;
+	//wxBitmap logo;
+	//if (image.LoadFile(_T("./resource/logo.png"), wxBITMAP_TYPE_PNG))
+	//{
+	//	image.SetMask(false);
+	//	logo = wxBitmap(image);
+	//}
+	//int x = 30;
+	//int y = 8;
+	//dc.DrawBitmap(logo, x, y, true);
+
+	//wxPoint point_1(x + logo.GetSize().GetWidth() + 40,	y + (logo.GetSize().GetHeight() - 36) / 2);
+	//wxFont font_1(36, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("SourceHanSerifCN-Bold"));
+	//TileText(dc, "大学闸机注册系统", font_1, point_1);
+
+	//wxFont font_2(18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI"));
+	//y = this->bSizerButtom->GetPosition().y;
+	//int offset = (this->bSizerButtom->GetSize().GetHeight()-18) / 2;
+	//wxPoint point_2(this->bSizerButtom->GetSize().GetWidth()*45/100, y + offset);
+	//TileText(dc, "联深泰科技有限公司", font_2, point_2);
+}
+
+void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
+{
 	wxImage image;
 	wxBitmap m_background;
 
@@ -176,7 +296,7 @@ void SigninMain::OnEraseBackground(wxEraseEvent& event)
 	}
 	if (m_background.Ok())
 	{
-		wxSize sz = GetClientSize();
+		wxSize sz = this->m_panel4->GetClientSize();
 		m_background.SetSize(sz.GetWidth(), 100);
 		wxRect rect(0, 0, sz.x, 100);
 
@@ -200,39 +320,14 @@ void SigninMain::OnEraseBackground(wxEraseEvent& event)
 	}
 	if (m_background.Ok())
 	{
-		wxSize sz = GetClientSize();
-		m_background.SetSize(sz.GetWidth(),72);
+		wxSize sz = this->m_panel4->GetClientSize();
+		m_background.SetSize(sz.GetWidth(), 72);
 
-		wxRect rect(0, sz.y-72, sz.x, 72);
-
-		if (event.GetDC())
-		{
-
-			TileBitmap(rect, *(event.GetDC()), m_background);
-		}
-		else
-		{
-			wxClientDC dc(this);
-			TileBitmap(rect, dc, m_background);
-		}
-	}
-	else {
-		event.Skip(); // The official way of doing it
-	}
-
-	if (image.LoadFile(_T("./resource/middle.png"), wxBITMAP_TYPE_PNG))
-	{
-		m_background = wxBitmap(image);
-	}
-	if (m_background.Ok())
-	{
-		wxSize sz = GetClientSize();
-		m_background.SetSize(sz.GetWidth(), sz.y-180);
-
-		wxRect rect(0, 100, sz.x, sz.y - 180);
+		wxRect rect(0, sz.y - 72, sz.x, 72);
 
 		if (event.GetDC())
 		{
+
 			TileBitmap(rect, *(event.GetDC()), m_background);
 		}
 		else
@@ -246,9 +341,9 @@ void SigninMain::OnEraseBackground(wxEraseEvent& event)
 	}
 }
 
-void SigninMain::OnPaint(wxPaintEvent& event)
+void SigninMain::OnPaintPanel(wxPaintEvent& event)
 {
-	wxPaintDC dc(this);
+	wxPaintDC dc(this->m_panel4);
 	PrepareDC(dc);
 
 	wxImage image;
@@ -262,17 +357,16 @@ void SigninMain::OnPaint(wxPaintEvent& event)
 	int y = 8;
 	dc.DrawBitmap(logo, x, y, true);
 
-	wxPoint point_1(x + logo.GetSize().GetWidth() + 40,	y + (logo.GetSize().GetHeight() - 36) / 2);
+	wxPoint point_1(x + logo.GetSize().GetWidth() + 40, y + (logo.GetSize().GetHeight() - 36) / 2);
 	wxFont font_1(36, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("SourceHanSerifCN-Bold"));
 	TileText(dc, "大学闸机注册系统", font_1, point_1);
 
 	wxFont font_2(18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI"));
 	y = this->bSizerButtom->GetPosition().y;
-	int offset = (this->bSizerButtom->GetSize().GetHeight()-18) / 2;
-	wxPoint point_2(this->bSizerButtom->GetSize().GetWidth()*45/100, y + offset);
+	int offset = (this->bSizerButtom->GetSize().GetHeight() - 18) / 2;
+	wxPoint point_2(this->bSizerButtom->GetSize().GetWidth() * 45 / 100, y + offset);
 	TileText(dc, "联深泰科技有限公司", font_2, point_2);
 }
-
 bool SigninMain::TileBitmap(const wxRect& rect, wxDC& dc, wxBitmap& bitmap)
 {
 	int w = bitmap.GetWidth();

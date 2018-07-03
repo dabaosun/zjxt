@@ -18,7 +18,7 @@
 using namespace cv;
 
 CameraView::CameraView(wxWindow *parent, wxWindowID winid) : 
-	wxPanel(parent, winid, wxPoint(0, 0), wxSize(640,640))
+	wxPanel(parent, winid, wxDefaultPosition, wxSize(640,640))
 {
     m_p_picture = NULL;
     m_timer.reset(new wxTimer(this, -1));
@@ -46,19 +46,24 @@ void CameraView::OnPaint(wxPaintEvent& event)
     cv::Mat capture;
     if (m_p_cap->read(capture))
     {
-		capture.resize(m_height);
-		bool ret = SetPicture(capture);
+		Size size;
+		size.height = m_height;
+		size.width = m_width;
+		Mat outimage;
+		cv::resize(capture, outimage,size);
+
+		bool ret = SetPicture(outimage);
         if (!ret)
         {
             return;
         }
-		std::shared_ptr<cv::Mat> updated = std::make_shared<cv::Mat>(capture.clone());
+		std::shared_ptr<cv::Mat> updated = std::make_shared<cv::Mat>(outimage.clone());
 		this->NotifyCapture(updated);
         wxImage image(m_width, m_height, m_p_picture.get(), true);
         wxBitmap current_capture(image);
 
         wxBufferedPaintDC dc(this);
-        dc.DrawBitmap(current_capture, wxPoint(0, 0));
+        dc.DrawBitmap(current_capture, this->GetPosition(),true);
     }
 }
 
