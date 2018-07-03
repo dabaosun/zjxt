@@ -46,6 +46,7 @@ protected:
 	wxPanel* m_panelCamera;
 	wxBoxSizer* bSizer_Camera;
 	wxStaticText* m_staticTextIdentify;
+	wxStaticText* m_staticTextStep;
 	wxStaticText* m_staticTextName;
 	wxStaticText* m_staticTextGender;
 	wxStaticText* m_staticTextBirth;

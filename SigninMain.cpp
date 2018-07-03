@@ -85,7 +85,19 @@ void SigninMain::OnWorkerEvent(wxThreadEvent& event)
 {
 	int n = event.GetInt();
 	wxString msg = event.GetString();
-	this->m_staticTextProgress->SetLabelText(msg);
+	wxFont font = this->m_staticTextStep->GetFont();
+	if ("正在处理中" == msg) {
+		this->m_staticTextStep->SetLabelText(msg);
+		this->m_staticTextStep->SetForegroundColour(wxColour(33, 33, 33));
+	}
+	
+	if ("正在处理中" == msg) {
+		this->m_staticTextProgress->SetLabelText("Loading");
+	}
+	else {
+		this->m_staticTextProgress->SetLabelText("");
+	}
+	
 	this->m_gaugeProgress->SetValue(n);
 }
 
