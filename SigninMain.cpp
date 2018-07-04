@@ -28,7 +28,6 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 
 	this->Connect(WORKER_EVENT, wxEVT_THREAD, wxThreadEventHandler(SigninMain::OnWorkerEvent));
 	
-
 	m_CameraView = new CameraView(this->m_panelCamera, wxID_ANY);
 	m_CameraView->SetSize(wxSize(640, 640));
 	m_CameraView->SetMinSize(wxSize(640, 640));
@@ -36,7 +35,7 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 	m_CameraView->SetBackgroundColour(wxColour(wxT("#000000")));
 	//m_CameraView->SetSizer(bSizer_Camera);
 	m_CameraView->Layout();
-	bSizer_Camera->Add(m_CameraView, 1, wxALL , 5);
+	bSizer_Camera->Add(m_CameraView, 1, wxALL , 0);
 
 	//this->bSizer_Camera->Add(m_CameraView, 1, wxALL, 0);
 	//this->bSizer_Camera->Fit(m_CameraView);
@@ -138,12 +137,13 @@ void SigninMain::UpdateCertCardInfo(const std::shared_ptr<CertCardInfo>& info)
 	else {
 		this->m_radioBtnFemale->SetValue(true);
 	}
+	
 	wxClientDC dc(this->StaticBitmap_IDImage);
-	wxImage img;
-	img.LoadFile(Config::GetInstance()->GetPwd() + "certcard.bmp");
-	//img.SetData((unsigned char*)(info->bmpdata.get()));
-	img.Rescale(204, 252);
+	dc.Clear();
 
+	wxImage img;
+	img.LoadFile(Config::GetInstance()->GetPwd() + "certcard.bmp");	
+	img.Rescale(132, 163);
 	wxBitmap bitmap = wxBitmap(img);
 	dc.DrawBitmap(bitmap, 0, 0);
 
@@ -182,6 +182,12 @@ void SigninMain::EndProcess(int result, const std::string& info)
 
 	wxClientDC dc(this->StaticBitmap_IDImage);
 	dc.Clear();
+
+	wxImage img;
+	img.LoadFile(Config::GetInstance()->GetPwd() + "./resource/identify.png");
+	img.Rescale(132, 163);
+	wxBitmap bitmap = wxBitmap(img);
+	dc.DrawBitmap(bitmap, 0, 0);
 }
 
 void SigninMain::UpdateProgressInfo(int progress, const std::string& info)

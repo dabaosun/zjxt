@@ -40,7 +40,10 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	bSizer341->Add(bSizerTop, 0, wxEXPAND, 5);
 
 
-	bSizer341->Add(0, 40, 0, 0, 5);
+	bSizer341->Add(0, 0, 0, 0, 5);
+
+	m_panel5 = new wxPanel(m_panel4, wxID_ANY, wxDefaultPosition, wxSize(-1, 40), wxTAB_TRAVERSAL);
+	bSizer341->Add(m_panel5, 0, wxEXPAND | wxALL, 0);
 
 	wxBoxSizer* bSizerMiddle;
 	bSizerMiddle = new wxBoxSizer(wxVERTICAL);
@@ -96,10 +99,10 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	m_panelCamera->SetSizer(bSizer_Camera);
 	m_panelCamera->Layout();
 	bSizer_Camera->Fit(m_panelCamera);
-	bSizer38->Add(m_panelCamera, 0, wxALL, 5);
+	bSizer38->Add(m_panelCamera, 0, wxALL, 0);
 
 
-	bSizer361->Add(bSizer38, 1, wxEXPAND, 5);
+	bSizer361->Add(bSizer38, 1, wxEXPAND, 0);
 
 
 	bSizer19->Add(bSizer361, 1, wxEXPAND, 5);
@@ -317,13 +320,13 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxGridSizer* GridSizer_IDImage;
 	GridSizer_IDImage = new wxGridSizer(1, 1, 0, 0);
 
-	StaticBitmap_IDImage = new wxStaticBitmap(m_panelMiddleTop, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxSize(-1, -1), 0);
+	StaticBitmap_IDImage = new wxStaticBitmap(m_panelMiddleTop, wxID_ANY, wxBitmap(wxT("resource/identify.png"), wxBITMAP_TYPE_ANY), wxDefaultPosition, wxSize(-1, -1), 0);
 	StaticBitmap_IDImage->SetMinSize(wxSize(132, 163));
 
-	GridSizer_IDImage->Add(StaticBitmap_IDImage, 1, wxALL | wxALIGN_CENTER_HORIZONTAL | wxEXPAND, 5);
+	GridSizer_IDImage->Add(StaticBitmap_IDImage, 1, wxALL | wxALIGN_CENTER_VERTICAL | wxALIGN_CENTER_HORIZONTAL | wxEXPAND, 5);
 
 
-	fgSizer3->Add(GridSizer_IDImage, 1, wxALIGN_CENTER_HORIZONTAL | wxALIGN_CENTER_VERTICAL | wxEXPAND, 5);
+	fgSizer3->Add(GridSizer_IDImage, 1, wxEXPAND | wxALIGN_CENTER_VERTICAL | wxALIGN_CENTER_HORIZONTAL, 5);
 
 
 	bSizer18->Add(fgSizer3, 0, wxEXPAND, 5);
@@ -421,7 +424,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	m_panelMiddleTop->SetSizer(BoxSizer_PanelTop);
 	m_panelMiddleTop->Layout();
 	BoxSizer_PanelTop->Fit(m_panelMiddleTop);
-	bSizerMiddle->Add(m_panelMiddleTop, 1, wxEXPAND | wxALL, 5);
+	bSizerMiddle->Add(m_panelMiddleTop, 1, wxEXPAND | wxALL, 0);
 
 	m_panelMiddleButtom = new wxPanel(m_panel4, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
 	wxBoxSizer* bSizerProgress;
@@ -456,7 +459,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	m_panelMiddleButtom->SetSizer(bSizerProgress);
 	m_panelMiddleButtom->Layout();
 	bSizerProgress->Fit(m_panelMiddleButtom);
-	bSizerMiddle->Add(m_panelMiddleButtom, 0, wxALL | wxEXPAND, 5);
+	bSizerMiddle->Add(m_panelMiddleButtom, 0, wxALL | wxEXPAND, 0);
 
 
 	bSizer341->Add(bSizerMiddle, 1, wxEXPAND, 5);
