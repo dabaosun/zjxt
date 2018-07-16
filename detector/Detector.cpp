@@ -7,24 +7,24 @@
  **************************************************************/
 
 #include "Detector.h"
-#include <FaceSDK.h>
+//#include <FaceSDK.h>
 
 Detector* Detector::m_pInstance = new Detector();
 
-Detector::Garbo Detector::garbo;
+//Detector::Garbo Detector::garbo;
 
 Detector::Detector()
 {
     //ctor
     this->eyes_cascade_name="./data/haarcascades/haarcascade_eye_tree_eyeglasses.xml";
     this->face_cascade_name="./data/haarcascades/haarcascade_frontalface_default.xml";
-	InitSDK();
+	//InitSDK();
 }
 
 Detector::~Detector()
 {
     //dtor
-	DelSDK();
+	//DelSDK();
 }
 
 bool Detector::LoadCascadeClassifier()
@@ -70,6 +70,7 @@ bool Detector::DetectAndDisplay( Mat* frame )
 
 bool Detector::DetectAndComparseWithSDK(const std::shared_ptr<cv::Mat>& frame, const std::shared_ptr<char>& pImgBuf, long bufLen, float& score)
 {
+/*
 	std::shared_ptr<cv::Mat> tmp = frame;
 	FaceCheckInfo faceinfo;
 	memset(&faceinfo, 0, sizeof(FaceCheckInfo));
@@ -83,5 +84,6 @@ bool Detector::DetectAndComparseWithSDK(const std::shared_ptr<cv::Mat>& frame, c
 			return CalcModel(&faceinfo.faceModelInfo[0], &faceinfo2.faceModelInfo[0], &score);
 		}
 	}
+	*/
 	return false;
 }

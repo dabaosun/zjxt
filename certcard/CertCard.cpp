@@ -7,11 +7,11 @@
 **************************************************************/
 
 #include "CertCard.h"
-#include <HD_SDTapi_x64.h>
+//#include <HD_SDTapi_x64.h>
 #include <fstream>
 #include <chrono>
 #include <ctime>
-#include <direct.h>
+//#include <direct.h>
 #include <wx/process.h>
 #include <wx/txtstrm.h>
 
@@ -20,7 +20,9 @@
 #include "../imgstorage/ImgStorage.h"
 #include "../dataserver/DataServer.h"
 
-const std::map<int, std::string> errlist { { -1 ,"设备连接错" },
+const std::map<int, std::string> errlist {
+/*
+{ -1 ,"设备连接错" },
 { SHD_UnConnected, "设备未建立连" },
 { SHD_BadLoadDLL_Error, "(动态库)加载失败 " },
 { SHD_Parameter_Error ,"(发给动态库的)参数错 " },
@@ -32,7 +34,8 @@ const std::map<int, std::string> errlist { { -1 ,"设备连接错" },
 { SHD_Sam_Error ,"管理通信失败" },
 { SHD_CheckSam_Error,"检验通信失败" },
 { SHD_SamToFinger_Error ,"管理通信模块不支持获取指纹 " },
-{ SHD_OTHER_ERROR ,"其他异常错误" }
+{ HD_OTHER_ERROR ,"其他异常错误" }
+*/
 };
 
 CertCard::CertCard()
@@ -52,7 +55,7 @@ std::string CertCard::GetErrMsg(int errcode)
 	if (errlist.end() == found) {
 		return "未定义错误码";
 	}
-	
+
 	return found->second;
 }
 
@@ -95,14 +98,14 @@ void CertCard::CloseCertCardReader()
 	if (NULL != this->m_thread) {
 		auto threadid = m_thread->native_handle();
 		if (NULL != this->m_hSubProcess) {
-			TerminateProcess(this->m_hSubProcess, -1);
+			//TerminateProcess(this->m_hSubProcess, -1);
 		}
-		m_bNeedexit = true;	
+		m_bNeedexit = true;
 
 		//WaitForSingleObject(threadid, INFINITE);
 		m_thread = NULL;
 	}
-	
+
 	//HD_CloseComm(Config::GetInstance()->GetData().certcard.port);
 }
 
@@ -145,13 +148,14 @@ void CertCard::NotifyProgressUpdate(int progress, const std::string& info)
 
 void CertCard::thread_workd(CertCard* instance)
 {
+/*
 	HANDLE ghJob = CreateJobObject(NULL, NULL);
 	JOBOBJECT_EXTENDED_LIMIT_INFORMATION jeli = { 0 };
 
 	// Configure all child processes associated with the job to terminate when the
 	jeli.BasicLimitInformation.LimitFlags = JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE;
 	SetInformationJobObject(ghJob, JobObjectExtendedLimitInformation, &jeli, sizeof(jeli));
-	
+*/
 	while (true) {
 		if (instance->m_bNeedexit) {
 			return;
@@ -160,7 +164,7 @@ void CertCard::thread_workd(CertCard* instance)
 		int result = HD_Authenticate(true);
 		instance->NotifyCardAuthed(result);
 
-		if (0 == result) {			
+		if (0 == result) {
 			std::shared_ptr<char> name(new char[256], std::default_delete<char[]>());
 			std::shared_ptr<char> gendar(new char[256], std::default_delete<char[]>());
 			std::shared_ptr<char> nation(new char[256], std::default_delete<char[]>());
@@ -171,7 +175,7 @@ void CertCard::thread_workd(CertCard* instance)
 			std::shared_ptr<char> effectdata(new char[256], std::default_delete<char[]>());
 			std::shared_ptr<char> expire(new char[256], std::default_delete<char[]>());
 			std::shared_ptr<char> bmpdata(new char[77725], std::default_delete<char[]>());
-			
+
 			result = HD_Read_BaseInfo(bmpdata.get(), name.get(), gendar.get(), nation.get(),
 				birth.get(), address.get(), certno.get(), department.get(), effectdata.get(), expire.get());
 			if (0 == result)
@@ -191,11 +195,12 @@ void CertCard::thread_workd(CertCard* instance)
 				//Notify listeners
 				instance->NotifyCardInfoUpdated(info);
 
-				//Handle 
+				//Handle
 				instance->HandleCardInfo(info);
 			}
 		}
 		*/
+		/*
 		PROCESS_INFORMATION pi;
 		STARTUPINFO si;
 		si.cb = sizeof(STARTUPINFO);
@@ -278,11 +283,12 @@ void CertCard::thread_workd(CertCard* instance)
 					//Notify listeners
 					instance->NotifyCardInfoUpdated(info);
 
-					//Handle 
+					//Handle
 					instance->HandleCardInfo(info);
 				}
 			}
 		}
+		*/
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(300));
 	}
@@ -290,6 +296,7 @@ void CertCard::thread_workd(CertCard* instance)
 
 bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 {
+/*
 	this->NofifyProcessStart("正在处理中");
 	chrono::steady_clock::time_point start = chrono::steady_clock::now();
 	chrono::steady_clock::time_point end = chrono::steady_clock::now();
@@ -328,11 +335,12 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 		end = chrono::steady_clock::now();
 		elapsed = end - start;
 
-	} 
+	}
 	while (std::chrono::duration_cast<std::chrono::seconds>(end - start).count() < Config::GetInstance()->GetData().camera.elapsed);
-		
+
 	this->NofityProcessEnd(100, "注册失败");
 	return false;
+	*/
 }
 
 void CertCard::UpdateCapture(const std::shared_ptr<cv::Mat> & capture)

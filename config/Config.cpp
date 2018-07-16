@@ -10,9 +10,9 @@
 #include "json.hpp"
 #include <fstream>
 #include <iostream>
-#include <direct.h>
-#include <io.h>
-#include <iostream>  
+//#include <direct.h>
+//#include <io.h>
+#include <iostream>
 
 using json = nlohmann::json;
 namespace ns {
@@ -75,11 +75,13 @@ Config::Garbo Config::garbo;
 
 Config::Config()
 {
+/*
 	char pwd[256];
 	std::memset(pwd, 0, 256);
 	_getcwd(pwd, sizeof(pwd));
 	this->m_pwd = pwd;
 	this->m_pwd.append("/");
+*/
 }
 
 Config::~Config()
@@ -103,14 +105,16 @@ void Config::SaveDataToFile(const std::string& filepath)
 	char fname[256];
 	char ext[256];
 
+	/*
 	_splitpath_s(filepath.c_str(), drive, dir, fname, ext);
 	if (_access(dir, 6) == -1)
 	{
-		_mkdir(dir);  
+		_mkdir(dir);
 	}
+	*/
 	json j = m_data;
 	std::ofstream out(filepath);
-	
+
 	out << j << std::endl;
 }
 

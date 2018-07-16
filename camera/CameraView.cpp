@@ -8,7 +8,7 @@
 
 #include "CameraView.h"
 #include <fstream>
-#include <iostream>  
+#include <iostream>
 #include <opencv2/objdetect.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
@@ -17,7 +17,7 @@
 
 using namespace cv;
 
-CameraView::CameraView(wxWindow *parent, wxWindowID winid) : 
+CameraView::CameraView(wxWindow *parent, wxWindowID winid) :
 	wxPanel(parent, winid, wxDefaultPosition, wxSize(640,640))
 {
     m_p_picture = NULL;
@@ -38,6 +38,7 @@ CameraView::~CameraView()
 
 void CameraView::OnPaint(wxPaintEvent& event)
 {
+/*
     if (!m_is_display)
     {
         return;
@@ -65,6 +66,7 @@ void CameraView::OnPaint(wxPaintEvent& event)
         wxBufferedPaintDC dc(this);
         dc.DrawBitmap(current_capture, this->GetPosition(),true);
     }
+    */
 }
 
 void CameraView::OnTimer(wxTimerEvent & event)
@@ -85,30 +87,9 @@ void CameraView::CloseCamera()
     Refresh();
 }
 
-wxImage wx_from_mat(Mat &img) {
-	Mat im2;
-	if (img.channels() == 1) { cvtColor(img, im2, CV_GRAY2RGB); }
-	else if (img.channels() == 4) { cvtColor(img, im2, CV_BGRA2RGB); }
-	else { cvtColor(img, im2, CV_BGR2RGB); }
-	long imsize = im2.rows*im2.cols*im2.channels();
-	wxImage wx(im2.cols, im2.rows, (unsigned char*)malloc(imsize), false);
-	unsigned char* s = im2.data;
-	unsigned char* d = wx.GetData();
-	for (long i = 0; i < imsize; i++) { d[i] = s[i]; }
-	
-	return wx;
-}
-
-byte * matToBytes(Mat image)
-{
-	int size = image.total() * image.elemSize();
-	byte * bytes = new byte[size];  // you will have to delete[] that later
-	std::memcpy(bytes, image.data, size * sizeof(byte));
-	return bytes;
-}
-
 bool CameraView::OpenCamera()
 {
+/*
     if (m_is_display)
     {
 		return true;
@@ -135,6 +116,7 @@ bool CameraView::OpenCamera()
     m_timer->Start(1000 / 30);
 
 	return true;
+	*/
 }
 
 bool CameraView::SetPicture(const cv::Mat& mat)

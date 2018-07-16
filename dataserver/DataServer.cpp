@@ -11,14 +11,15 @@
 #include <cpprest/filestream.h>
 #include "../config/Config.h"
 
+/*
 using namespace utility;
 using namespace web::http;
 using namespace web::http::client;
 using namespace concurrency::streams;
-
+*/
 DataServer* DataServer::m_pInstance = new DataServer();
 
-DataServer::Garbo DataServer::garbo;
+//DataServer::Garbo DataServer::garbo;
 
 DataServer::DataServer()
 {
@@ -32,6 +33,7 @@ DataServer::~DataServer()
 
 int DataServer::UploadData(const std::string& cardno, const std::string& imgpath)
 {
+/*
 	const string_t host = utility::conversions::to_string_t(Config::GetInstance()->GetData().server.ip);
 	web::uri_builder clientbuilder;
 	clientbuilder.set_scheme(U("http"));
@@ -64,5 +66,5 @@ int DataServer::UploadData(const std::string& cardno, const std::string& imgpath
 		}
 	}
 	return response.status_code();
-
+*/
 }

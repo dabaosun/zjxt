@@ -7,7 +7,7 @@
 **************************************************************/
 
 #include "ImgStorage.h"
-#include "FastSDK.h"
+//#include "FastSDK.h"
 #include "../config/Config.h"
 
 ImgStorage* ImgStorage::m_pInstance = new ImgStorage();
@@ -26,6 +26,7 @@ ImgStorage::~ImgStorage()
 
 int ImgStorage::UploadFile(const std::string& filename,std::string& remoteurl)
 {
+/*
 	std::string ip = Config::GetInstance()->GetData().storage.ip;
 	int port = Config::GetInstance()->GetData().storage.port;
 	fastdfs_sdk sdk;
@@ -35,7 +36,9 @@ int ImgStorage::UploadFile(const std::string& filename,std::string& remoteurl)
 	memset(url, 0, 256);
 	code = sdk.remote_file_to_ulr(data, url);
 	remoteurl = url;
+
 	return code;
+	*/
 }
 
 

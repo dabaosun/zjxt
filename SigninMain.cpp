@@ -21,13 +21,13 @@ enum
 SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 {
 	if (0 != Config::GetInstance()->LoadConfig()) {
-		
+
 	}
 	//this->bSizerTop->SetMinSize(-1, this->GetSize().GetHeight()*10/100);
 	//this->bSizerButtom->SetMinSize(-1, this->GetSize().GetHeight() - this->GetSize().GetHeight() * 82 / 100);
 
 	this->Connect(WORKER_EVENT, wxEVT_THREAD, wxThreadEventHandler(SigninMain::OnWorkerEvent));
-	
+
 	m_CameraView = new CameraView(this->m_panelCamera, wxID_ANY);
 	m_CameraView->SetSize(wxSize(640, 640));
 	m_CameraView->SetMinSize(wxSize(640, 640));
@@ -52,7 +52,7 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 }
 
 void SigninMain::OnClose( wxCloseEvent& event )
-{	
+{
 	if (NULL != this->m_threadProgress) {
 		this->m_threadProgress->Delete();
 		if (!this->m_threadProgress->IsDetached()) {
@@ -63,9 +63,9 @@ void SigninMain::OnClose( wxCloseEvent& event )
 	this->m_CertCard->CloseCertCardReader();
 	this->m_CameraView->CloseCamera();
 
-	this->m_CameraView->RemoveListener(this->m_CertCard);	
+	this->m_CameraView->RemoveListener(this->m_CertCard);
 	this->m_CertCard->RemoveListener(this);
-	
+
 	delete m_CertCard;
 	delete m_CameraView;
 
@@ -109,7 +109,7 @@ void SigninMain::OnWorkerEvent(wxThreadEvent& event)
 	else {
 		this->m_staticTextProgress->SetLabelText("");
 	}
-	
+
 	this->m_gaugeProgress->SetValue(n);
 }
 
@@ -131,18 +131,18 @@ void SigninMain::UpdateCertCardInfo(const std::shared_ptr<CertCardInfo>& info)
 	this->m_textCtrlIDNumber->SetLabelText(info->certno.get());
 	this->m_radioBtnFemale->SetValue(false);
 	this->m_radioBtnMale->SetValue(false);
-	if (wxT("ÄÐ") == wxString(info->gendar.get())) {
+	if (wxT("asdf") == wxString(info->gendar.get())) {
 		this->m_radioBtnMale->SetValue(true);
 	}
 	else {
 		this->m_radioBtnFemale->SetValue(true);
 	}
-	
+
 	wxClientDC dc(this->StaticBitmap_IDImage);
 	dc.Clear();
 
 	wxImage img;
-	img.LoadFile(Config::GetInstance()->GetPwd() + "certcard.bmp");	
+	img.LoadFile(Config::GetInstance()->GetPwd() + "certcard.bmp");
 	img.Rescale(132, 163);
 	wxBitmap bitmap = wxBitmap(img);
 	dc.DrawBitmap(bitmap, 0, 0);
@@ -155,7 +155,7 @@ void SigninMain::StartProcess(const std::string& info)
 	do {
 
 	} while (NULL != m_threadProgress);
-	
+
 	m_threadProgress = new ProgressThread(this);
 	m_threadProgress->m_message = info;
 	m_threadProgress->Run();
@@ -328,7 +328,7 @@ void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
 	if (m_background.Ok())
 	{
 		wxSize sz = this->m_panel4->GetClientSize();
-		m_background.SetSize(sz.GetWidth(), 100);
+		//m_background.SetSize(sz.GetWidth(), 100);
 		wxRect rect(0, 0, sz.x, 100);
 
 		if (event.GetDC())
@@ -352,7 +352,7 @@ void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
 	if (m_background.Ok())
 	{
 		wxSize sz = this->m_panel4->GetClientSize();
-		m_background.SetSize(sz.GetWidth(), 72);
+		//m_background.SetSize(sz.GetWidth(), 72);
 
 		wxRect rect(0, sz.y - 72, sz.x, 72);
 
@@ -378,7 +378,7 @@ void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
 	if (m_background.Ok())
 	{
 		wxSize sz = this->m_panel4->GetClientSize();
-		m_background.SetSize(sz.GetWidth(), sz.y-180);
+		//m_background.SetSize(sz.GetWidth(), sz.y-180);
 
 		wxRect rect(0, 100, sz.x, sz.y - 180);
 
