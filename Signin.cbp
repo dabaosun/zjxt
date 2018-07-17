@@ -31,11 +31,16 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="`wx-config --cflags`" />
 			<Add option="-Wall" />
+			<Add option="`wx-config --cflags`" />
 		</Compiler>
 		<Linker>
 			<Add option="`wx-config --libs`" />
+			<Add library="opencv_world" />
+			<Add library="boost_system" />
+			<Add library="cpprest" />
+			<Add library="ssl" />
+			<Add library="crypto" />
 		</Linker>
 		<Unit filename="ProgressThread.cpp" />
 		<Unit filename="ProgressThread.h" />
@@ -54,6 +59,10 @@
 		<Unit filename="config/Config.cpp" />
 		<Unit filename="config/Config.h" />
 		<Unit filename="config/json.hpp" />
+		<Unit filename="dataserver/DataServer.cpp" />
+		<Unit filename="dataserver/DataServer.h" />
+		<Unit filename="detector/Detector.cpp" />
+		<Unit filename="detector/Detector.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
