@@ -41,6 +41,8 @@
 			<Add library="cpprest" />
 			<Add library="ssl" />
 			<Add library="crypto" />
+			<Add library="fastcommon" />
+			<Add library="fdfsclient" />
 		</Linker>
 		<Unit filename="ProgressThread.cpp" />
 		<Unit filename="ProgressThread.h" />
@@ -63,6 +65,8 @@
 		<Unit filename="dataserver/DataServer.h" />
 		<Unit filename="detector/Detector.cpp" />
 		<Unit filename="detector/Detector.h" />
+		<Unit filename="imgstorage/ImgStorage.cpp" />
+		<Unit filename="imgstorage/ImgStorage.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

@@ -22,19 +22,19 @@
 
 const std::map<int, std::string> errlist {
 /*
-{ -1 ,"Éè±¸Á¬½Ó´í" },
-{ SHD_UnConnected, "Éè±¸Î´½¨Á¢Á¬" },
-{ SHD_BadLoadDLL_Error, "(¶¯Ì¬¿â)¼ÓÔØÊ§°Ü " },
-{ SHD_Parameter_Error ,"(·¢¸ø¶¯Ì¬¿âµÄ)²ÎÊı´í " },
-{ SHD_Request_Error , "Ñ°¿¨Ê§°Ü " },
-{ SHD_Select_Error ,"Ñ¡¿¨Ê§°Ü " },
-{ SHD_ReadBase_Error , "¶Á¿¨Ê§°Ü" },
-{ SHD_ReadBaseFP_Error , "¶ÁÈ¡×·¼ÓĞÅÏ¢Ê§°Ü" },
-{ SHD_ReadADD_Error ,"¶ÁÈ¡×·¼ÓĞÅÏ¢Ê§°Ü" },
-{ SHD_Sam_Error ,"¹ÜÀíÍ¨ĞÅÊ§°Ü" },
-{ SHD_CheckSam_Error,"¼ìÑéÍ¨ĞÅÊ§°Ü" },
-{ SHD_SamToFinger_Error ,"¹ÜÀíÍ¨ĞÅÄ£¿é²»Ö§³Ö»ñÈ¡Ö¸ÎÆ " },
-{ HD_OTHER_ERROR ,"ÆäËûÒì³£´íÎó" }
+{ -1 ,"è®¾å¤‡é“¾æ¥é”™è¯¯" },
+{ SHD_UnConnected, "è®¾å¤‡æœªå»ºç«‹é“¾æ¥" },
+{ SHD_BadLoadDLL_Error, "(åŠ¨æ€åº“)åŠ è½½å¤±è´¥" },
+{ SHD_Parameter_Error ,"(å‘ç»™åŠ¨æ€åº“çš„)å‚æ•°é”™è¯¯" },
+{ SHD_Request_Error , "å¯»å¡å¤±è´¥" },
+{ SHD_Select_Error ,"é€‰å¡å¤±è´¥" },
+{ SHD_ReadBase_Error , "è¯»å¡å¤±è´¥" },
+{ SHD_ReadBaseFP_Error , "è¯»å–è¿½åŠ ä¿¡æ¯å¤±è´¥" },
+{ SHD_ReadADD_Error ,"è¯»å–è¿½åŠ ä¿¡æ¯å¤±è´¥" },
+{ SHD_Sam_Error ,"ç®¡ç†é€šä¿¡å¤±è´¥" },
+{ SHD_CheckSam_Error,"æ ¡éªŒé€šä¿¡å¤±è´¥" },
+{ SHD_SamToFinger_Error ,"ç®¡ç†é€šä¿¡æ¨¡å—ä¸æ”¯æŒè·å–æŒ‡çº¹" },
+{ HD_OTHER_ERROR ,"å…¶ä»–å¼‚å¸¸é”™è¯¯" }
 */
 };
 
@@ -53,7 +53,7 @@ std::string CertCard::GetErrMsg(int errcode)
 {
 	std::map<int, std::string>::const_iterator found = errlist.find(errcode);
 	if (errlist.end() == found) {
-		return "Î´¶¨Òå´íÎóÂë";
+		return "æœªå®šä¹‰é”™è¯¯";
 	}
 
 	return found->second;
@@ -297,7 +297,7 @@ void CertCard::thread_workd(CertCard* instance)
 bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 {
 /*
-	this->NofifyProcessStart("ÕıÔÚ´¦ÀíÖĞ");
+	this->NofifyProcessStart("æ­£åœ¨å¤„ç†ä¸­");
 	chrono::steady_clock::time_point start = chrono::steady_clock::now();
 	chrono::steady_clock::time_point end = chrono::steady_clock::now();
 	auto elapsed = end - start;
@@ -324,7 +324,7 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 					{
 						//update data info to remote server by http request.
 						if (0 == DataServer::GetInstance()->UploadData(info->certno.get(), remoteurl)) {
-							this->NofityProcessEnd(100, "×¢²á³É¹¦");
+							this->NofityProcessEnd(100, "æ³¨å†ŒæˆåŠŸ");
 							return true;
 						}
 					}
@@ -338,7 +338,7 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 	}
 	while (std::chrono::duration_cast<std::chrono::seconds>(end - start).count() < Config::GetInstance()->GetData().camera.elapsed);
 
-	this->NofityProcessEnd(100, "×¢²áÊ§°Ü");
+	this->NofityProcessEnd(100, "æ³¨å†Œå¤±è´¥");
 	return false;
 	*/
 }

@@ -25,7 +25,7 @@ bool SigninApp::OnInit()
     wxInitAllImageHandlers();
     if ( wxsOK )
     {
-		SigninMain* Frame = new SigninMain(0);
+	SigninMain* Frame = new SigninMain(0);
     	//Frame->Show();
     	Frame->ShowFullScreen(true);
     	SetTopWindow(Frame);

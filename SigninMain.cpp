@@ -85,25 +85,25 @@ void SigninMain::OnWorkerEvent(wxThreadEvent& event)
 	int n = event.GetInt();
 	wxString msg = event.GetString();
 
-	this->m_staticTextStep->SetLabelText("£¨"+msg+"£©");
+	this->m_staticTextStep->SetLabelText("ï¼ˆ"+msg+"ï¼‰");
 
-	if ("ÕıÔÚ´¦ÀíÖĞ" == msg) {
+	if ("æ­£åœ¨å¤„ç†ä¸­" == msg) {
 		this->m_staticTextStep->SetForegroundColour(wxColour(33, 33, 33));
 	}
 
-	if ("×¢²áÊ§°Ü" == msg) {
+	if ("æ³¨å†Œå¤±è´¥" == msg) {
 		this->m_staticTextStep->SetForegroundColour(wxColour(226, 62, 49));
 	}
 
-	if ("×¢²á³É¹¦" == msg) {
+	if ("æ³¨å†ŒæˆåŠŸ" == msg) {
 		this->m_staticTextStep->SetForegroundColour(wxColour(43, 111, 143));
 	}
 
-	if ("ÇëË¢Éí·İÖ¤" == msg) {
+	if ("è¯·åˆ·èº«ä»½è¯" == msg) {
 		this->m_staticTextStep->SetForegroundColour(wxColour(33, 33, 33));
 	}
 
-	if ("ÕıÔÚ´¦ÀíÖĞ" == msg) {
+	if ("æ­£åœ¨å¤„ç†ä¸­" == msg) {
 		this->m_staticTextProgress->SetLabelText("Loading");
 	}
 	else {
@@ -192,10 +192,8 @@ void SigninMain::EndProcess(int result, const std::string& info)
 
 void SigninMain::UpdateProgressInfo(int progress, const std::string& info)
 {
-	/*
 	m_threadProgress->m_count = progress;
 	m_threadProgress->m_message = info;
-	*/
 }
 
 CameraView* SigninMain::GetCameraView()
@@ -307,13 +305,13 @@ void SigninMain::OnPaint(wxPaintEvent& event)
 
 	//wxPoint point_1(x + logo.GetSize().GetWidth() + 40,	y + (logo.GetSize().GetHeight() - 36) / 2);
 	//wxFont font_1(36, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("SourceHanSerifCN-Bold"));
-	//TileText(dc, "´óÑ§Õ¢»ú×¢²áÏµÍ³", font_1, point_1);
+	//TileText(dc, "Å½Ã³Ã‘Â§Ã•Â¢Â»ÃºÃ—Â¢Â²Ã¡ÃÂµÃÂ³", font_1, point_1);
 
 	//wxFont font_2(18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI"));
 	//y = this->bSizerButtom->GetPosition().y;
 	//int offset = (this->bSizerButtom->GetSize().GetHeight()-18) / 2;
 	//wxPoint point_2(this->bSizerButtom->GetSize().GetWidth()*45/100, y + offset);
-	//TileText(dc, "ÁªÉîÌ©¿Æ¼¼ÓĞÏŞ¹«Ë¾", font_2, point_2);
+	//TileText(dc, "ÃÂªÃ‰Ã®ÃŒÂ©Â¿Ã†Å’Å’Ã“ÃÃÃÂ¹Â«Ã‹Å¸", font_2, point_2);
 }
 
 void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
@@ -328,7 +326,8 @@ void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
 	if (m_background.Ok())
 	{
 		wxSize sz = this->m_panel4->GetClientSize();
-		//m_background.SetSize(sz.GetWidth(), 100);
+		m_background.SetHeight(100);
+		m_background.SetWidth(sz.GetWidth());
 		wxRect rect(0, 0, sz.x, 100);
 
 		if (event.GetDC())
@@ -352,8 +351,8 @@ void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
 	if (m_background.Ok())
 	{
 		wxSize sz = this->m_panel4->GetClientSize();
-		//m_background.SetSize(sz.GetWidth(), 72);
-
+		m_background.SetHeight(72);
+		m_background.SetWidth(sz.GetWidth());
 		wxRect rect(0, sz.y - 72, sz.x, 72);
 
 		if (event.GetDC())
@@ -378,8 +377,8 @@ void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
 	if (m_background.Ok())
 	{
 		wxSize sz = this->m_panel4->GetClientSize();
-		//m_background.SetSize(sz.GetWidth(), sz.y-180);
-
+		m_background.SetHeight(sz.y-180);
+		m_background.SetWidth(sz.GetWidth());
 		wxRect rect(0, 100, sz.x, sz.y - 180);
 
 		if (event.GetDC())
@@ -415,13 +414,13 @@ void SigninMain::OnPaintPanel(wxPaintEvent& event)
 
 	wxPoint point_1(x + logo.GetSize().GetWidth() + 40, y + (logo.GetSize().GetHeight() - 36) / 2);
 	wxFont font_1(36, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("SourceHanSerifCN-Bold"));
-	TileText(dc, "XX´óÑ§ÖÇ»ÛĞ£Ô°ÈËÁ³Õ¢»ú×¢²áÏµÍ³", font_1, point_1);
+	TileText(dc, wxT("æ™ºæ…§æ ¡å›­äººè„¸é—¸æœºæ³¨å†Œç³»ç»Ÿ"), font_1, point_1);
 
 	wxFont font_2(18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI"));
 	y = this->bSizerButtom->GetPosition().y;
 	int offset = (this->bSizerButtom->GetSize().GetHeight() - 18) / 2;
 	wxPoint point_2(this->bSizerButtom->GetSize().GetWidth() * 45 / 100, y + offset);
-	TileText(dc, "ÁªÉîÌ©¿Æ¼¼ÓĞÏŞ¹«Ë¾", font_2, point_2);
+	TileText(dc, wxT("é”æ„åå®‰ï¼ˆå¤©æ´¥ï¼‰ç§‘æŠ€æœ‰é™å…¬å¸"), font_2, point_2);
 }
 bool SigninMain::TileBitmap(const wxRect& rect, wxDC& dc, wxBitmap& bitmap)
 {
