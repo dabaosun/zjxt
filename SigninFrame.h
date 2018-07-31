@@ -71,6 +71,7 @@ protected:
 	virtual void OnPaint(wxPaintEvent& event) { event.Skip(); }
 	virtual void OnEraseBackgroundPanel(wxEraseEvent& event) { event.Skip(); }
 	virtual void OnPaintPanel(wxPaintEvent& event) { event.Skip(); }
+	virtual void OnPaintStaticText(wxPaintEvent& event) { event.Skip(); }
 
 
 public:

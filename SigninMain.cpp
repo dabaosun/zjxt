@@ -321,7 +321,7 @@ void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
 	wxImage image;
 	wxBitmap m_background;
 
-	image.Clear();
+	//image.Clear();
 	if (image.LoadFile(_T("./resource/top.png"), wxBITMAP_TYPE_PNG))
 	{
 		image.SetMask(false);
@@ -449,4 +449,15 @@ bool SigninMain::TileText( wxDC& dc, const wxString& text, wxFont& font, wxPoint
 	dc.SetTextForeground(wxColour(255, 255, 255));
 	dc.DrawText(text, point);
 	return true;
+}
+
+void SigninMain::OnPaintStaticText(wxPaintEvent& event)
+{
+	if (event.GetEventObject()->IsKindOf(wxCLASSINFO(wxStaticText))) {
+		wxStaticText* statictext = (wxStaticText*)event.GetEventObject();
+		wxPaintDC dc(statictext);
+		dc.SetFont(statictext->GetFont());
+		dc.SetTextForeground(statictext->GetForegroundColour());
+		dc.DrawText(statictext->GetLabel(), 0, 0); // simple, no aligment check
+	}
 }

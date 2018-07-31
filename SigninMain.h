@@ -37,6 +37,8 @@ class SigninMain : public SigninFrame, public ICertCardListener
 		virtual void OnPaint(wxPaintEvent& event);
 		virtual void OnEraseBackgroundPanel(wxEraseEvent& event);
 		virtual void OnPaintPanel(wxPaintEvent& event);
+		virtual void OnPaintStaticText(wxPaintEvent& event);
+
 		bool TileBitmap(const wxRect& rect, wxDC& dc, wxBitmap& bitmap);
 		bool TileText(wxDC& dc,const wxString& text, wxFont& font, wxPoint& point);
 public:

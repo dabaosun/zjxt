@@ -500,6 +500,14 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	this->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaint));
 	m_panel4->Connect(wxEVT_ERASE_BACKGROUND, wxEraseEventHandler(SigninFrame::OnEraseBackgroundPanel), NULL, this);
 	m_panel4->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintPanel), NULL, this);
+	m_staticTextCemra->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
+	m_staticTextIdentify->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
+	m_staticTextStep->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
+	m_staticTextName->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
+	m_staticTextGender->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
+	m_staticTextBirth->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
+	m_staticTextIDNumber->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
+	m_staticTextAddr->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
 }
 
 SigninFrame::~SigninFrame()
@@ -510,5 +518,13 @@ SigninFrame::~SigninFrame()
 	this->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaint));
 	m_panel4->Disconnect(wxEVT_ERASE_BACKGROUND, wxEraseEventHandler(SigninFrame::OnEraseBackgroundPanel), NULL, this);
 	m_panel4->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintPanel), NULL, this);
+	m_staticTextCemra->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
+	m_staticTextIdentify->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
+	m_staticTextStep->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
+	m_staticTextName->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
+	m_staticTextGender->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
+	m_staticTextBirth->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
+	m_staticTextIDNumber->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
+	m_staticTextAddr->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
 
 }
