@@ -93,11 +93,11 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	m_panelCamera = new wxPanel(m_panelMiddleTop, wxID_ANY, wxDefaultPosition, wxSize(-1, -1), wxTAB_TRAVERSAL);
 	m_panelCamera->SetBackgroundColour(wxColour(0, 0, 0));
-	m_panelCamera->SetMinSize(wxSize(640, 640));
+	m_panelCamera->SetMinSize(wxSize(640, 480));
 
 	bSizer_Camera = new wxBoxSizer(wxVERTICAL);
 
-	bSizer_Camera->SetMinSize(wxSize(640, 640));
+	bSizer_Camera->SetMinSize(wxSize(640, 480));
 
 	m_panelCamera->SetSizer(bSizer_Camera);
 	m_panelCamera->Layout();

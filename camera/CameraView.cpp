@@ -18,13 +18,13 @@
 using namespace cv;
 
 CameraView::CameraView(wxWindow *parent, wxWindowID winid) : 
-	wxPanel(parent, winid, wxDefaultPosition, wxSize(640,640))
+	wxPanel(parent, winid, wxDefaultPosition, wxSize(640,480))
 {
     m_p_picture = NULL;
     m_timer.reset(new wxTimer(this, -1));
 
     m_width = 640;
-    m_height = 640;
+    m_height = 480;
     m_is_display = false;
 
     Connect(wxEVT_TIMER, wxTimerEventHandler(CameraView::OnTimer));

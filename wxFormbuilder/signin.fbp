@@ -541,11 +541,11 @@
                                                                                 <property name="width">0</property>
                                                                             </object>
                                                                         </object>
-                                                                        <object class="sizeritem" expanded="0">
+                                                                        <object class="sizeritem" expanded="1">
                                                                             <property name="border">5</property>
                                                                             <property name="flag">wxEXPAND</property>
                                                                             <property name="proportion">1</property>
-                                                                            <object class="wxBoxSizer" expanded="0">
+                                                                            <object class="wxBoxSizer" expanded="1">
                                                                                 <property name="minimum_size">-1,-1</property>
                                                                                 <property name="name">bSizer361</property>
                                                                                 <property name="orient">wxHORIZONTAL</property>
@@ -560,20 +560,20 @@
                                                                                         <property name="width">75</property>
                                                                                     </object>
                                                                                 </object>
-                                                                                <object class="sizeritem" expanded="0">
+                                                                                <object class="sizeritem" expanded="1">
                                                                                     <property name="border">0</property>
                                                                                     <property name="flag">wxEXPAND</property>
                                                                                     <property name="proportion">1</property>
-                                                                                    <object class="wxBoxSizer" expanded="0">
+                                                                                    <object class="wxBoxSizer" expanded="1">
                                                                                         <property name="minimum_size"></property>
                                                                                         <property name="name">bSizer38</property>
                                                                                         <property name="orient">wxVERTICAL</property>
                                                                                         <property name="permission">none</property>
-                                                                                        <object class="sizeritem" expanded="0">
+                                                                                        <object class="sizeritem" expanded="1">
                                                                                             <property name="border">0</property>
                                                                                             <property name="flag">wxALL</property>
                                                                                             <property name="proportion">0</property>
-                                                                                            <object class="wxPanel" expanded="0">
+                                                                                            <object class="wxPanel" expanded="1">
                                                                                                 <property name="BottomDockable">1</property>
                                                                                                 <property name="LeftDockable">1</property>
                                                                                                 <property name="RightDockable">1</property>
@@ -606,7 +606,7 @@
                                                                                                 <property name="maximum_size">-1,-1</property>
                                                                                                 <property name="min_size"></property>
                                                                                                 <property name="minimize_button">0</property>
-                                                                                                <property name="minimum_size">640,640</property>
+                                                                                                <property name="minimum_size">640,480</property>
                                                                                                 <property name="moveable">1</property>
                                                                                                 <property name="name">m_panelCamera</property>
                                                                                                 <property name="pane_border">1</property>
@@ -648,7 +648,7 @@
                                                                                                 <event name="OnSize"></event>
                                                                                                 <event name="OnUpdateUI"></event>
                                                                                                 <object class="wxBoxSizer" expanded="0">
-                                                                                                    <property name="minimum_size">640,640</property>
+                                                                                                    <property name="minimum_size">640,480</property>
                                                                                                     <property name="name">bSizer_Camera</property>
                                                                                                     <property name="orient">wxVERTICAL</property>
                                                                                                     <property name="permission">protected</property>
