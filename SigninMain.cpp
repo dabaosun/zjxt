@@ -312,6 +312,9 @@ void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
 {
 	wxImage image;
 	wxBitmap m_background;
+	int top = 146;
+	int buttom = 72;
+	int middle = 1080 - top - buttom;
 	
 	//image.Clear();
 	if (image.LoadFile(_T("./resource/top.png"), wxBITMAP_TYPE_PNG))
@@ -319,12 +322,12 @@ void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
 		wxSize sz = this->m_panel4->GetClientSize();
 
 		image.SetMask(false);
-		image.Rescale(sz.GetWidth(), 100);
+		image.Rescale(sz.GetWidth(), top);
 		m_background = wxBitmap(image);
 
 		if (m_background.IsOk())
 		{			
-			wxRect rect(0, 0, sz.x, 100);
+			wxRect rect(0, 0, sz.x, top);
 
 			if (event.GetDC())
 			{
@@ -346,13 +349,13 @@ void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
 	if (image.LoadFile(_T("./resource/buttom.png"), wxBITMAP_TYPE_PNG))
 	{
 		wxSize sz = this->m_panel4->GetClientSize();
-		image.Rescale(sz.GetWidth(), 72);
+		image.Rescale(sz.GetWidth(), buttom);
 		image.SetMask(false);
 		m_background = wxBitmap(image);
 
 		if (m_background.IsOk())
 		{
-			wxRect rect(0, sz.y - 72, sz.x, 72);
+			wxRect rect(0, sz.y - buttom, sz.x, buttom);
 
 			if (event.GetDC())
 			{
@@ -374,13 +377,13 @@ void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
 	if (image.LoadFile(_T("./resource/middle.png"), wxBITMAP_TYPE_PNG))
 	{
 		wxSize sz = this->m_panel4->GetClientSize();
-		image.Rescale(sz.GetWidth(), sz.y - 180);
+		image.Rescale(sz.GetWidth(), sz.y - top- buttom);
 		image.SetMask(false);
 
 		m_background = wxBitmap(image);
 		if (m_background.IsOk())
 		{
-			wxRect rect(0, 100, sz.x, sz.y - 180);
+			wxRect rect(0, top, sz.x, sz.y - top - buttom);
 
 			if (event.GetDC())
 			{
