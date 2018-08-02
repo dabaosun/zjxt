@@ -64,7 +64,13 @@ void CameraView::OnPaint(wxPaintEvent& event)
 
         wxBufferedPaintDC dc(this);
         dc.DrawBitmap(current_capture, this->GetPosition(),true);
-    }
+	}
+	else {
+		m_p_cap->release();
+		int index = Config::GetInstance()->GetData().camera.index;
+		m_p_cap.reset(new cv::VideoCapture(index));
+		m_p_cap->open(index);
+	}
 }
 
 void CameraView::OnTimer(wxTimerEvent & event)

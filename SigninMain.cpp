@@ -125,18 +125,11 @@ void SigninMain::UpdateCardAuthed(bool authed, const std::string& info)
 
 void SigninMain::UpdateCertCardInfo(const std::shared_ptr<CertCardInfo>& info)
 {
-	this->m_textCtrlName->SetLabelText(info->name.get());
-	this->m_textCtrlBirth->SetLabelText(info->birth.get());
-	this->m_textCtrlAddr->SetLabelText(info->address.get());
-	this->m_textCtrlIDNumber->SetLabelText(info->certno.get());
-	this->m_radioBtnFemale->SetValue(false);
-	this->m_radioBtnMale->SetValue(false);
-	if (wxT("ÄÐ") == wxString(info->gendar.get())) {
-		this->m_radioBtnMale->SetValue(true);
-	}
-	else {
-		this->m_radioBtnFemale->SetValue(true);
-	}
+	this->m_Name->SetLabelText(info->name.get());
+	this->m_Birth->SetLabelText(info->birth.get());
+	this->m_Addr->SetLabelText(info->address.get());
+	this->m_IDNumber->SetLabelText(info->certno.get());
+	this->m_Gender->SetLabelText(info->gendar.get());
 	
 	wxClientDC dc(this->StaticBitmap_IDImage);
 	dc.Clear();
@@ -173,12 +166,11 @@ void SigninMain::EndProcess(int result, const std::string& info)
 		this->m_threadProgress = NULL;
 	}
 
-	this->m_textCtrlName->SetLabelText("");
-	this->m_textCtrlBirth->SetLabelText("");
-	this->m_textCtrlAddr->SetLabelText("");
-	this->m_textCtrlIDNumber->SetLabelText("");
-	this->m_radioBtnFemale->SetValue(false);
-	this->m_radioBtnMale->SetValue(false);
+	this->m_Name->SetLabelText("");
+	this->m_Birth->SetLabelText("");
+	this->m_Addr->SetLabelText("");
+	this->m_IDNumber->SetLabelText("");
+	this->m_Gender->SetLabelText("");
 
 	wxClientDC dc(this->StaticBitmap_IDImage);
 	dc.Clear();
@@ -320,104 +312,107 @@ void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
 {
 	wxImage image;
 	wxBitmap m_background;
-
+	
 	//image.Clear();
 	if (image.LoadFile(_T("./resource/top.png"), wxBITMAP_TYPE_PNG))
 	{
-		image.SetMask(false);
-		m_background = wxBitmap(image);
-	}
-	if (m_background.IsOk())
-	{
 		wxSize sz = this->m_panel4->GetClientSize();
-		m_background.SetSize(sz.GetWidth(), 100);
-		wxRect rect(0, 0, sz.x, 100);
 
-		if (event.GetDC())
-		{
-			TileBitmap(rect, *(event.GetDC()), m_background);
+		image.SetMask(false);
+		image.Rescale(sz.GetWidth(), 100);
+		m_background = wxBitmap(image);
+
+		if (m_background.IsOk())
+		{			
+			wxRect rect(0, 0, sz.x, 100);
+
+			if (event.GetDC())
+			{
+				TileBitmap(rect, *(event.GetDC()), m_background);
+			}
+			else
+			{
+				wxClientDC dc(this->m_panel4);
+				TileBitmap(rect, dc, m_background);
+			}
 		}
-		else
-		{
-			wxClientDC dc(this->m_panel4);
-			TileBitmap(rect, dc, m_background);
+		else {
+			event.Skip(); // The official way of doing it
 		}
 	}
-	else {
-		event.Skip(); // The official way of doing it
-	}
+
 
 	image.Clear();
 	if (image.LoadFile(_T("./resource/buttom.png"), wxBITMAP_TYPE_PNG))
 	{
+		wxSize sz = this->m_panel4->GetClientSize();
+		image.Rescale(sz.GetWidth(), 72);
 		image.SetMask(false);
 		m_background = wxBitmap(image);
-	}
-	if (m_background.IsOk())
-	{
-		wxSize sz = this->m_panel4->GetClientSize();
-		m_background.SetSize(sz.GetWidth(), 72);
 
-		wxRect rect(0, sz.y - 72, sz.x, 72);
-
-		if (event.GetDC())
+		if (m_background.IsOk())
 		{
+			wxRect rect(0, sz.y - 72, sz.x, 72);
 
-			TileBitmap(rect, *(event.GetDC()), m_background);
+			if (event.GetDC())
+			{
+				TileBitmap(rect, *(event.GetDC()), m_background);
+			}
+			else
+			{
+				wxClientDC dc(this->m_panel4);
+				TileBitmap(rect, dc, m_background);
+			}
 		}
-		else
-		{
-			wxClientDC dc(this->m_panel4);
-			TileBitmap(rect, dc, m_background);
+		else {
+			event.Skip(); // The official way of doing it
 		}
 	}
-	else {
-		event.Skip(); // The official way of doing it
-	}
+
 
 	image.Clear();
 	if (image.LoadFile(_T("./resource/middle.png"), wxBITMAP_TYPE_PNG))
 	{
-		image.SetMask(false);
-		m_background = wxBitmap(image);
-	}
-	if (m_background.IsOk())
-	{
 		wxSize sz = this->m_panel4->GetClientSize();
-		m_background.SetSize(sz.GetWidth(), sz.y-180);
+		image.Rescale(sz.GetWidth(), sz.y - 180);
+		image.SetMask(false);
 
-		wxRect rect(0, 100, sz.x, sz.y - 180);
+		m_background = wxBitmap(image);
+		if (m_background.IsOk())
+		{
+			wxRect rect(0, 100, sz.x, sz.y - 180);
 
-		if (event.GetDC())
-		{
-			TileBitmap(rect, *(event.GetDC()), m_background);
+			if (event.GetDC())
+			{
+				TileBitmap(rect, *(event.GetDC()), m_background);
+			}
+			else
+			{
+				wxClientDC dc(this->m_panel4);
+				TileBitmap(rect, dc, m_background);
+			}
 		}
-		else
-		{
-			wxClientDC dc(this->m_panel4);
-			TileBitmap(rect, dc, m_background);
+		else {
+			event.Skip(); // The official way of doing it
 		}
-	}
-	else {
-		event.Skip(); // The official way of doing it
 	}
 }
 
 void SigninMain::OnPaintPanel(wxPaintEvent& event)
 {
-	wxPaintDC dc(this->m_panel4);
-	PrepareDC(dc);
+	//wxPaintDC dc(this->m_panel4);
+	//PrepareDC(dc);
 
-	wxImage image;
-	wxBitmap logo;
-	if (image.LoadFile(_T("./resource/logo.png"), wxBITMAP_TYPE_PNG))
-	{
-		image.SetMask(false);
-		logo = wxBitmap(image);
-	}
-	int x = 30;
-	int y = 8;
-	dc.DrawBitmap(logo, x, y, true);
+	//wxImage image;
+	//wxBitmap logo;
+	//if (image.LoadFile(_T("./resource/logo.png"), wxBITMAP_TYPE_PNG))
+	//{
+	//	image.SetMask(false);
+	//	logo = wxBitmap(image);
+	//}
+	//int x = 30;
+	//int y = 8;
+	//dc.DrawBitmap(logo, x, y, true);
 
 	//wxPoint point_1(x + logo.GetSize().GetWidth() + 40, y + (logo.GetSize().GetHeight() - 36) / 2);
 	//wxFont font_1(36, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("SourceHanSerifCN-Bold"));
@@ -455,8 +450,11 @@ void SigninMain::OnPaintStaticText(wxPaintEvent& event)
 {
 	if (event.GetEventObject()->IsKindOf(wxCLASSINFO(wxStaticText))) {
 		wxStaticText* statictext = (wxStaticText*)event.GetEventObject();
+		wxFont font = statictext->GetFont();
+
 		wxPaintDC dc(statictext);
-		dc.SetFont(statictext->GetFont());
+		wxFont font_2(font.GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei"));
+		dc.SetFont(font_2);
 		dc.SetTextForeground(statictext->GetForegroundColour());
 		dc.DrawText(statictext->GetLabel(), 0, 0); // simple, no aligment check
 	}

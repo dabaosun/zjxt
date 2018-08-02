@@ -18,8 +18,6 @@
 #include <wx/settings.h>
 #include <wx/string.h>
 #include <wx/stattext.h>
-#include <wx/textctrl.h>
-#include <wx/radiobut.h>
 #include <wx/bitmap.h>
 #include <wx/image.h>
 #include <wx/icon.h>
@@ -51,15 +49,14 @@ protected:
 	wxStaticText* m_staticTextName;
 	wxStaticText* m_staticTextGender;
 	wxStaticText* m_staticTextBirth;
-	wxTextCtrl* m_textCtrlName;
-	wxRadioButton* m_radioBtnMale;
-	wxRadioButton* m_radioBtnFemale;
-	wxTextCtrl* m_textCtrlBirth;
+	wxStaticText* m_Name;
+	wxStaticText* m_Gender;
+	wxStaticText* m_Birth;
 	wxStaticBitmap* StaticBitmap_IDImage;
 	wxStaticText* m_staticTextIDNumber;
 	wxStaticText* m_staticTextAddr;
-	wxTextCtrl* m_textCtrlIDNumber;
-	wxTextCtrl* m_textCtrlAddr;
+	wxStaticText* m_IDNumber;
+	wxStaticText* m_Addr;
 	wxPanel* m_panelMiddleButtom;
 	wxStaticText* m_staticTextProgress;
 	wxGauge* m_gaugeProgress;
