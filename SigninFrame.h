@@ -38,7 +38,6 @@ private:
 protected:
 	wxPanel * m_panel4;
 	wxBoxSizer* bSizerTop;
-	wxBoxSizer* bSizerLogo;
 	wxPanel* m_panelMiddleTop;
 	wxStaticText* m_staticTextCemra;
 	wxPanel* m_panelCamera;

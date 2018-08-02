@@ -29,15 +29,6 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	bSizerTop->Add(0, 0, 0, 0, 0);
 
-	bSizerLogo = new wxBoxSizer(wxHORIZONTAL);
-
-	bSizerLogo->SetMinSize(wxSize(84, 84));
-
-	bSizerTop->Add(bSizerLogo, 1, wxEXPAND, 0);
-
-
-	bSizerTop->Add(0, 0, 0, 0, 0);
-
 
 	bSizer341->Add(bSizerTop, 0, wxEXPAND, 0);
 
@@ -73,20 +64,20 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	bSizer16->SetMinSize(wxSize(640, -1));
 
-	bSizer16->Add(242, 0, 0, 0, 5);
+	bSizer16->Add(242, 0, 0, 0, 0);
 
 	m_staticTextCemra = new wxStaticText(m_panelMiddleTop, wxID_ANY, wxT("ÊµÊ±Í¼ÏñÇø"), wxPoint(346, 250), wxDefaultSize, 0);
 	m_staticTextCemra->Wrap(-1);
 	m_staticTextCemra->SetFont(wxFont(20, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_staticTextCemra->SetForegroundColour(wxColour(33, 33, 33));
 
-	bSizer16->Add(m_staticTextCemra, 0, wxALL, 5);
+	bSizer16->Add(m_staticTextCemra, 0, wxALL, 0);
 
 
-	bSizer19->Add(bSizer16, 0, wxEXPAND, 5);
+	bSizer19->Add(bSizer16, 0, wxEXPAND, 0);
 
 
-	bSizer19->Add(0, 47, 0, 0, 5);
+	bSizer19->Add(0, 47, 0, 0, 0);
 
 	wxBoxSizer* bSizer38;
 	bSizer38 = new wxBoxSizer(wxVERTICAL);
@@ -110,7 +101,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	bSizer19->Add(bSizer38, 1, wxEXPAND, 0);
 
 
-	bSizerCameraTop->Add(bSizer19, 1, wxEXPAND, 5);
+	bSizerCameraTop->Add(bSizer19, 1, wxEXPAND, 0);
 
 
 	bSizer362->Add(bSizerCameraTop, 1, wxEXPAND, 0);
@@ -170,7 +161,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	bSizerIdentifyTop->SetMinSize(wxSize(609, -1));
 
-	bSizerIdentifyTop->Add(63, 0, 0, 0, 5);
+	bSizerIdentifyTop->Add(63, 0, 0, 0, 0);
 
 	wxBoxSizer* bSizer18;
 	bSizer18 = new wxBoxSizer(wxVERTICAL);
