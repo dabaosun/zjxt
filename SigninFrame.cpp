@@ -119,7 +119,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	BoxSizer_PanelTop->Add(bSizer362, 1, wxEXPAND, 0);
 
 
-	BoxSizer_PanelTop->Add(246, 0, 0, wxEXPAND, 0);
+	BoxSizer_PanelTop->Add(264, 0, 0, wxEXPAND, 0);
 
 	wxBoxSizer* bSizer37;
 	bSizer37 = new wxBoxSizer(wxHORIZONTAL);
@@ -160,13 +160,17 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	bSizer17->Add(bSizer41, 1, wxALIGN_CENTER_VERTICAL | wxEXPAND, 0);
 
 
-	bSizerIdentify->Add(bSizer17, 0, 0, 0);
+	bSizerIdentify->Add(bSizer17, 0, wxEXPAND, 0);
 
 
 	bSizerIdentify->Add(0, 115, 0, wxEXPAND, 0);
 
 	wxBoxSizer* bSizerIdentifyTop;
 	bSizerIdentifyTop = new wxBoxSizer(wxHORIZONTAL);
+
+	bSizerIdentifyTop->SetMinSize(wxSize(609, -1));
+
+	bSizerIdentifyTop->Add(63, 0, 0, 0, 5);
 
 	wxBoxSizer* bSizer18;
 	bSizer18 = new wxBoxSizer(wxVERTICAL);
@@ -419,7 +423,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	BoxSizer_PanelTop->Add(bSizer37, 1, wxEXPAND, 0);
 
 
-	BoxSizer_PanelTop->Add(320, 0, 0, 0, 0);
+	BoxSizer_PanelTop->Add(257, 0, 0, 0, 0);
 
 
 	m_panelMiddleTop->SetSizer(BoxSizer_PanelTop);
@@ -437,7 +441,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	bSizer42 = new wxBoxSizer(wxVERTICAL);
 
 	bSizer42->SetMinSize(wxSize(-1, 18));
-	m_staticTextProgress = new wxStaticText(m_panelMiddleButtom, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(-1, 18), wxALIGN_RIGHT);
+	m_staticTextProgress = new wxStaticText(m_panelMiddleButtom, wxID_ANY, wxEmptyString, wxPoint(1778, 946), wxSize(142, 18), wxALIGN_RIGHT);
 	m_staticTextProgress->Wrap(-1);
 	m_staticTextProgress->SetFont(wxFont(12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_staticTextProgress->SetForegroundColour(wxColour(0, 45, 93));
@@ -450,16 +454,17 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizer43;
 	bSizer43 = new wxBoxSizer(wxVERTICAL);
 
+	bSizer43->SetMinSize(wxSize(-1, 8));
 	m_gaugeProgress = new wxGauge(m_panelMiddleButtom, wxID_ANY, 100, wxDefaultPosition, wxSize(-1, 8), wxGA_HORIZONTAL);
 	m_gaugeProgress->SetValue(0);
 	m_gaugeProgress->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_gaugeProgress->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
 	m_gaugeProgress->SetMinSize(wxSize(-1, 8));
 
-	bSizer43->Add(m_gaugeProgress, 0, wxTOP | wxBOTTOM | wxEXPAND, 0);
+	bSizer43->Add(m_gaugeProgress, 1, wxTOP | wxBOTTOM | wxEXPAND, 0);
 
 
-	bSizerProgress->Add(bSizer43, 1, wxEXPAND, 0);
+	bSizerProgress->Add(bSizer43, 0, wxEXPAND, 0);
 
 
 	m_panelMiddleButtom->SetSizer(bSizerProgress);
@@ -511,6 +516,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	m_staticTextAddr->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
 	m_IDNumber->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
 	m_Addr->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
+	m_staticTextProgress->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
 }
 
 SigninFrame::~SigninFrame()
@@ -534,5 +540,6 @@ SigninFrame::~SigninFrame()
 	m_staticTextAddr->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
 	m_IDNumber->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
 	m_Addr->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
+	m_staticTextProgress->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
 
 }

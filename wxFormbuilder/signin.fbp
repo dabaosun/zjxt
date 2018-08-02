@@ -315,7 +315,7 @@
                                             <event name="OnSetFocus"></event>
                                             <event name="OnSize"></event>
                                             <event name="OnUpdateUI"></event>
-                                            <object class="wxBoxSizer" expanded="1">
+                                            <object class="wxBoxSizer" expanded="0">
                                                 <property name="minimum_size">-1,-1</property>
                                                 <property name="name">BoxSizer_PanelTop</property>
                                                 <property name="orient">wxHORIZONTAL</property>
@@ -330,7 +330,7 @@
                                                         <property name="width">104</property>
                                                     </object>
                                                 </object>
-                                                <object class="sizeritem" expanded="1">
+                                                <object class="sizeritem" expanded="0">
                                                     <property name="border">0</property>
                                                     <property name="flag">wxEXPAND</property>
                                                     <property name="proportion">1</property>
@@ -581,32 +581,32 @@
                                                     <object class="spacer" expanded="0">
                                                         <property name="height">0</property>
                                                         <property name="permission">protected</property>
-                                                        <property name="width">246</property>
+                                                        <property name="width">264</property>
                                                     </object>
                                                 </object>
-                                                <object class="sizeritem" expanded="1">
+                                                <object class="sizeritem" expanded="0">
                                                     <property name="border">0</property>
                                                     <property name="flag">wxEXPAND</property>
                                                     <property name="proportion">1</property>
-                                                    <object class="wxBoxSizer" expanded="1">
+                                                    <object class="wxBoxSizer" expanded="0">
                                                         <property name="minimum_size"></property>
                                                         <property name="name">bSizer37</property>
                                                         <property name="orient">wxHORIZONTAL</property>
                                                         <property name="permission">none</property>
-                                                        <object class="sizeritem" expanded="1">
+                                                        <object class="sizeritem" expanded="0">
                                                             <property name="border">0</property>
                                                             <property name="flag">wxEXPAND</property>
                                                             <property name="proportion">1</property>
-                                                            <object class="wxBoxSizer" expanded="1">
+                                                            <object class="wxBoxSizer" expanded="0">
                                                                 <property name="minimum_size"></property>
                                                                 <property name="name">bSizerIdentify</property>
                                                                 <property name="orient">wxVERTICAL</property>
                                                                 <property name="permission">none</property>
-                                                                <object class="sizeritem" expanded="1">
+                                                                <object class="sizeritem" expanded="0">
                                                                     <property name="border">0</property>
-                                                                    <property name="flag"></property>
+                                                                    <property name="flag">wxEXPAND</property>
                                                                     <property name="proportion">0</property>
-                                                                    <object class="wxBoxSizer" expanded="1">
+                                                                    <object class="wxBoxSizer" expanded="0">
                                                                         <property name="minimum_size">609,-1</property>
                                                                         <property name="name">bSizer17</property>
                                                                         <property name="orient">wxHORIZONTAL</property>
@@ -621,11 +621,11 @@
                                                                                 <property name="width">188</property>
                                                                             </object>
                                                                         </object>
-                                                                        <object class="sizeritem" expanded="1">
+                                                                        <object class="sizeritem" expanded="0">
                                                                             <property name="border">0</property>
                                                                             <property name="flag">wxALIGN_CENTER_VERTICAL</property>
                                                                             <property name="proportion">0</property>
-                                                                            <object class="wxBoxSizer" expanded="1">
+                                                                            <object class="wxBoxSizer" expanded="0">
                                                                                 <property name="minimum_size"></property>
                                                                                 <property name="name">bSizer40</property>
                                                                                 <property name="orient">wxVERTICAL</property>
@@ -715,11 +715,11 @@
                                                                                 </object>
                                                                             </object>
                                                                         </object>
-                                                                        <object class="sizeritem" expanded="1">
+                                                                        <object class="sizeritem" expanded="0">
                                                                             <property name="border">0</property>
                                                                             <property name="flag">wxALIGN_CENTER_VERTICAL|wxEXPAND</property>
                                                                             <property name="proportion">1</property>
-                                                                            <object class="wxBoxSizer" expanded="1">
+                                                                            <object class="wxBoxSizer" expanded="0">
                                                                                 <property name="minimum_size"></property>
                                                                                 <property name="name">bSizer41</property>
                                                                                 <property name="orient">wxHORIZONTAL</property>
@@ -821,29 +821,39 @@
                                                                         <property name="width">0</property>
                                                                     </object>
                                                                 </object>
-                                                                <object class="sizeritem" expanded="1">
+                                                                <object class="sizeritem" expanded="0">
                                                                     <property name="border">0</property>
                                                                     <property name="flag">wxEXPAND</property>
                                                                     <property name="proportion">1</property>
-                                                                    <object class="wxBoxSizer" expanded="1">
-                                                                        <property name="minimum_size"></property>
+                                                                    <object class="wxBoxSizer" expanded="0">
+                                                                        <property name="minimum_size">609,-1</property>
                                                                         <property name="name">bSizerIdentifyTop</property>
                                                                         <property name="orient">wxHORIZONTAL</property>
                                                                         <property name="permission">none</property>
-                                                                        <object class="sizeritem" expanded="1">
+                                                                        <object class="sizeritem" expanded="0">
+                                                                            <property name="border">5</property>
+                                                                            <property name="flag"></property>
+                                                                            <property name="proportion">0</property>
+                                                                            <object class="spacer" expanded="0">
+                                                                                <property name="height">0</property>
+                                                                                <property name="permission">protected</property>
+                                                                                <property name="width">63</property>
+                                                                            </object>
+                                                                        </object>
+                                                                        <object class="sizeritem" expanded="0">
                                                                             <property name="border">0</property>
                                                                             <property name="flag">wxEXPAND</property>
                                                                             <property name="proportion">1</property>
-                                                                            <object class="wxBoxSizer" expanded="1">
+                                                                            <object class="wxBoxSizer" expanded="0">
                                                                                 <property name="minimum_size"></property>
                                                                                 <property name="name">bSizer18</property>
                                                                                 <property name="orient">wxVERTICAL</property>
                                                                                 <property name="permission">none</property>
-                                                                                <object class="sizeritem" expanded="1">
+                                                                                <object class="sizeritem" expanded="0">
                                                                                     <property name="border">0</property>
                                                                                     <property name="flag">wxEXPAND</property>
                                                                                     <property name="proportion">0</property>
-                                                                                    <object class="wxFlexGridSizer" expanded="1">
+                                                                                    <object class="wxFlexGridSizer" expanded="0">
                                                                                         <property name="cols">2</property>
                                                                                         <property name="flexible_direction">wxBOTH</property>
                                                                                         <property name="growablecols">1</property>
@@ -855,20 +865,20 @@
                                                                                         <property name="permission">none</property>
                                                                                         <property name="rows">1</property>
                                                                                         <property name="vgap">0</property>
-                                                                                        <object class="sizeritem" expanded="1">
+                                                                                        <object class="sizeritem" expanded="0">
                                                                                             <property name="border">0</property>
                                                                                             <property name="flag">wxEXPAND</property>
                                                                                             <property name="proportion">1</property>
-                                                                                            <object class="wxBoxSizer" expanded="1">
+                                                                                            <object class="wxBoxSizer" expanded="0">
                                                                                                 <property name="minimum_size"></property>
                                                                                                 <property name="name">BoxSizer_IDInfoMain</property>
                                                                                                 <property name="orient">wxVERTICAL</property>
                                                                                                 <property name="permission">none</property>
-                                                                                                <object class="sizeritem" expanded="1">
+                                                                                                <object class="sizeritem" expanded="0">
                                                                                                     <property name="border">0</property>
                                                                                                     <property name="flag">wxSHAPED</property>
                                                                                                     <property name="proportion">0</property>
-                                                                                                    <object class="wxFlexGridSizer" expanded="1">
+                                                                                                    <object class="wxFlexGridSizer" expanded="0">
                                                                                                         <property name="cols">2</property>
                                                                                                         <property name="flexible_direction">wxBOTH</property>
                                                                                                         <property name="growablecols">0</property>
@@ -880,7 +890,7 @@
                                                                                                         <property name="permission">none</property>
                                                                                                         <property name="rows">1</property>
                                                                                                         <property name="vgap">0</property>
-                                                                                                        <object class="sizeritem" expanded="1">
+                                                                                                        <object class="sizeritem" expanded="0">
                                                                                                             <property name="border">0</property>
                                                                                                             <property name="flag"></property>
                                                                                                             <property name="proportion">0</property>
@@ -1214,20 +1224,20 @@
                                                                                                                 </object>
                                                                                                             </object>
                                                                                                         </object>
-                                                                                                        <object class="sizeritem" expanded="1">
+                                                                                                        <object class="sizeritem" expanded="0">
                                                                                                             <property name="border">0</property>
                                                                                                             <property name="flag"></property>
                                                                                                             <property name="proportion">0</property>
-                                                                                                            <object class="wxBoxSizer" expanded="1">
+                                                                                                            <object class="wxBoxSizer" expanded="0">
                                                                                                                 <property name="minimum_size"></property>
                                                                                                                 <property name="name">bSizer23</property>
                                                                                                                 <property name="orient">wxVERTICAL</property>
                                                                                                                 <property name="permission">none</property>
-                                                                                                                <object class="sizeritem" expanded="1">
+                                                                                                                <object class="sizeritem" expanded="0">
                                                                                                                     <property name="border">0</property>
                                                                                                                     <property name="flag">wxEXPAND</property>
                                                                                                                     <property name="proportion">0</property>
-                                                                                                                    <object class="wxBoxSizer" expanded="1">
+                                                                                                                    <object class="wxBoxSizer" expanded="0">
                                                                                                                         <property name="minimum_size"></property>
                                                                                                                         <property name="name">bSizer24</property>
                                                                                                                         <property name="orient">wxVERTICAL</property>
@@ -1327,11 +1337,11 @@
                                                                                                                         <property name="width">0</property>
                                                                                                                     </object>
                                                                                                                 </object>
-                                                                                                                <object class="sizeritem" expanded="1">
+                                                                                                                <object class="sizeritem" expanded="0">
                                                                                                                     <property name="border">0</property>
                                                                                                                     <property name="flag">wxEXPAND</property>
                                                                                                                     <property name="proportion">0</property>
-                                                                                                                    <object class="wxBoxSizer" expanded="1">
+                                                                                                                    <object class="wxBoxSizer" expanded="0">
                                                                                                                         <property name="minimum_size"></property>
                                                                                                                         <property name="name">BoxSizer_Gender</property>
                                                                                                                         <property name="orient">wxHORIZONTAL</property>
@@ -1552,11 +1562,11 @@
                                                                                                 </object>
                                                                                             </object>
                                                                                         </object>
-                                                                                        <object class="sizeritem" expanded="1">
+                                                                                        <object class="sizeritem" expanded="0">
                                                                                             <property name="border">0</property>
                                                                                             <property name="flag">wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</property>
                                                                                             <property name="proportion">1</property>
-                                                                                            <object class="wxBoxSizer" expanded="1">
+                                                                                            <object class="wxBoxSizer" expanded="0">
                                                                                                 <property name="minimum_size"></property>
                                                                                                 <property name="name">bSizer44</property>
                                                                                                 <property name="orient">wxVERTICAL</property>
@@ -1646,29 +1656,29 @@
                                                                                         </object>
                                                                                     </object>
                                                                                 </object>
-                                                                                <object class="sizeritem" expanded="1">
+                                                                                <object class="sizeritem" expanded="0">
                                                                                     <property name="border">0</property>
                                                                                     <property name="flag">wxEXPAND</property>
                                                                                     <property name="proportion">0</property>
-                                                                                    <object class="wxBoxSizer" expanded="1">
+                                                                                    <object class="wxBoxSizer" expanded="0">
                                                                                         <property name="minimum_size"></property>
                                                                                         <property name="name">bSizer32</property>
                                                                                         <property name="orient">wxHORIZONTAL</property>
                                                                                         <property name="permission">none</property>
-                                                                                        <object class="sizeritem" expanded="1">
+                                                                                        <object class="sizeritem" expanded="0">
                                                                                             <property name="border">0</property>
                                                                                             <property name="flag">wxEXPAND</property>
                                                                                             <property name="proportion">0</property>
-                                                                                            <object class="wxBoxSizer" expanded="1">
+                                                                                            <object class="wxBoxSizer" expanded="0">
                                                                                                 <property name="minimum_size"></property>
                                                                                                 <property name="name">bSizer35</property>
                                                                                                 <property name="orient">wxVERTICAL</property>
                                                                                                 <property name="permission">none</property>
-                                                                                                <object class="sizeritem" expanded="1">
+                                                                                                <object class="sizeritem" expanded="0">
                                                                                                     <property name="border">0</property>
                                                                                                     <property name="flag"></property>
                                                                                                     <property name="proportion">1</property>
-                                                                                                    <object class="wxBoxSizer" expanded="1">
+                                                                                                    <object class="wxBoxSizer" expanded="0">
                                                                                                         <property name="minimum_size"></property>
                                                                                                         <property name="name">bSizer33</property>
                                                                                                         <property name="orient">wxVERTICAL</property>
@@ -1864,20 +1874,20 @@
                                                                                                 </object>
                                                                                             </object>
                                                                                         </object>
-                                                                                        <object class="sizeritem" expanded="1">
+                                                                                        <object class="sizeritem" expanded="0">
                                                                                             <property name="border">0</property>
                                                                                             <property name="flag">wxEXPAND</property>
                                                                                             <property name="proportion">1</property>
-                                                                                            <object class="wxBoxSizer" expanded="1">
+                                                                                            <object class="wxBoxSizer" expanded="0">
                                                                                                 <property name="minimum_size"></property>
                                                                                                 <property name="name">bSizer36</property>
                                                                                                 <property name="orient">wxVERTICAL</property>
                                                                                                 <property name="permission">none</property>
-                                                                                                <object class="sizeritem" expanded="1">
+                                                                                                <object class="sizeritem" expanded="0">
                                                                                                     <property name="border">0</property>
                                                                                                     <property name="flag">wxEXPAND</property>
                                                                                                     <property name="proportion">1</property>
-                                                                                                    <object class="wxBoxSizer" expanded="1">
+                                                                                                    <object class="wxBoxSizer" expanded="0">
                                                                                                         <property name="minimum_size"></property>
                                                                                                         <property name="name">bSizer27</property>
                                                                                                         <property name="orient">wxVERTICAL</property>
@@ -1977,11 +1987,11 @@
                                                                                                         <property name="width">0</property>
                                                                                                     </object>
                                                                                                 </object>
-                                                                                                <object class="sizeritem" expanded="1">
+                                                                                                <object class="sizeritem" expanded="0">
                                                                                                     <property name="border">0</property>
                                                                                                     <property name="flag">wxEXPAND</property>
                                                                                                     <property name="proportion">1</property>
-                                                                                                    <object class="wxBoxSizer" expanded="1">
+                                                                                                    <object class="wxBoxSizer" expanded="0">
                                                                                                         <property name="minimum_size"></property>
                                                                                                         <property name="name">bSizer29</property>
                                                                                                         <property name="orient">wxHORIZONTAL</property>
@@ -2083,14 +2093,14 @@
                                                         </object>
                                                     </object>
                                                 </object>
-                                                <object class="sizeritem" expanded="1">
+                                                <object class="sizeritem" expanded="0">
                                                     <property name="border">0</property>
                                                     <property name="flag"></property>
                                                     <property name="proportion">0</property>
-                                                    <object class="spacer" expanded="1">
+                                                    <object class="spacer" expanded="0">
                                                         <property name="height">0</property>
                                                         <property name="permission">protected</property>
-                                                        <property name="width">320</property>
+                                                        <property name="width">257</property>
                                                     </object>
                                                 </object>
                                             </object>
@@ -2234,10 +2244,10 @@
                                                                 <property name="pane_size"></property>
                                                                 <property name="permission">protected</property>
                                                                 <property name="pin_button">1</property>
-                                                                <property name="pos"></property>
+                                                                <property name="pos">1778,946</property>
                                                                 <property name="resize">Resizable</property>
                                                                 <property name="show">1</property>
-                                                                <property name="size">-1,18</property>
+                                                                <property name="size">142,18</property>
                                                                 <property name="style">wxALIGN_RIGHT</property>
                                                                 <property name="subclass">; forward_declare</property>
                                                                 <property name="toolbar_pane">0</property>
@@ -2262,7 +2272,7 @@
                                                                 <event name="OnMotion"></event>
                                                                 <event name="OnMouseEvents"></event>
                                                                 <event name="OnMouseWheel"></event>
-                                                                <event name="OnPaint"></event>
+                                                                <event name="OnPaint">OnPaintStaticText</event>
                                                                 <event name="OnRightDClick"></event>
                                                                 <event name="OnRightDown"></event>
                                                                 <event name="OnRightUp"></event>
@@ -2276,16 +2286,16 @@
                                                 <object class="sizeritem" expanded="1">
                                                     <property name="border">0</property>
                                                     <property name="flag">wxEXPAND</property>
-                                                    <property name="proportion">1</property>
+                                                    <property name="proportion">0</property>
                                                     <object class="wxBoxSizer" expanded="1">
-                                                        <property name="minimum_size"></property>
+                                                        <property name="minimum_size">-1,8</property>
                                                         <property name="name">bSizer43</property>
                                                         <property name="orient">wxVERTICAL</property>
                                                         <property name="permission">none</property>
                                                         <object class="sizeritem" expanded="0">
                                                             <property name="border">0</property>
                                                             <property name="flag">wxTOP|wxBOTTOM|wxEXPAND</property>
-                                                            <property name="proportion">0</property>
+                                                            <property name="proportion">1</property>
                                                             <object class="wxGauge" expanded="0">
                                                                 <property name="BottomDockable">1</property>
                                                                 <property name="LeftDockable">1</property>
