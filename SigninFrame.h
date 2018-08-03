@@ -38,7 +38,6 @@ private:
 protected:
 	wxPanel * m_panel4;
 	wxBoxSizer* bSizerTop;
-	wxPanel* m_panelMiddleTop;
 	wxStaticText* m_staticTextCemra;
 	wxPanel* m_panelCamera;
 	wxBoxSizer* bSizer_Camera;
@@ -55,7 +54,6 @@ protected:
 	wxStaticText* m_staticTextAddr;
 	wxStaticText* m_IDNumber;
 	wxStaticText* m_Addr;
-	wxPanel* m_panelMiddleButtom;
 	wxStaticText* m_staticTextProgress;
 	wxGauge* m_gaugeProgress;
 	wxBoxSizer* bSizerButtom;

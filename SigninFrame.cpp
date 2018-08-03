@@ -17,7 +17,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* BoxSizer_Main;
 	BoxSizer_Main = new wxBoxSizer(wxVERTICAL);
 
-	m_panel4 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+	m_panel4 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL | wxTRANSPARENT_WINDOW);
 	m_panel4->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 
 	wxBoxSizer* bSizer341;
@@ -37,11 +37,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	bSizerMiddle->SetMinSize(wxSize(-1, 862));
 
-	bSizerMiddle->Add(0, 104, 0, 0, 0);
-
-	m_panelMiddleTop = new wxPanel(m_panel4, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxNO_BORDER | wxTAB_TRAVERSAL | wxTRANSPARENT_WINDOW);
-	m_panelMiddleTop->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
-	m_panelMiddleTop->Enable(false);
+	bSizerMiddle->Add(0, 110, 0, 0, 0);
 
 	wxBoxSizer* BoxSizer_PanelTop;
 	BoxSizer_PanelTop = new wxBoxSizer(wxHORIZONTAL);
@@ -66,7 +62,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	bSizer16->Add(242, 0, 0, 0, 0);
 
-	m_staticTextCemra = new wxStaticText(m_panelMiddleTop, wxID_ANY, wxT("实时图像区"), wxPoint(346, 250), wxDefaultSize, 0);
+	m_staticTextCemra = new wxStaticText(m_panel4, wxID_ANY, wxT("实时图像区"), wxPoint(346, 250), wxDefaultSize, 0 | wxTRANSPARENT_WINDOW);
 	m_staticTextCemra->Wrap(-1);
 	m_staticTextCemra->SetFont(wxFont(20, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_staticTextCemra->SetForegroundColour(wxColour(33, 33, 33));
@@ -83,7 +79,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	bSizer38 = new wxBoxSizer(wxVERTICAL);
 
 	bSizer38->SetMinSize(wxSize(640, 480));
-	m_panelCamera = new wxPanel(m_panelMiddleTop, wxID_ANY, wxDefaultPosition, wxSize(-1, -1), wxTAB_TRAVERSAL);
+	m_panelCamera = new wxPanel(m_panel4, wxID_ANY, wxDefaultPosition, wxSize(-1, -1), wxTAB_TRAVERSAL);
 	m_panelCamera->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_panelCamera->SetBackgroundColour(wxColour(0, 0, 0));
 	m_panelCamera->SetMinSize(wxSize(640, 480));
@@ -128,7 +124,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizer40;
 	bSizer40 = new wxBoxSizer(wxVERTICAL);
 
-	m_staticTextIdentify = new wxStaticText(m_panelMiddleTop, wxID_ANY, wxT("身份证信息区"), wxPoint(1196, 250), wxDefaultSize, 0 | wxTRANSPARENT_WINDOW);
+	m_staticTextIdentify = new wxStaticText(m_panel4, wxID_ANY, wxT("身份证信息区"), wxPoint(1196, 250), wxDefaultSize, 0 | wxTRANSPARENT_WINDOW);
 	m_staticTextIdentify->Wrap(-1);
 	m_staticTextIdentify->SetFont(wxFont(20, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_staticTextIdentify->SetForegroundColour(wxColour(33, 33, 33));
@@ -141,7 +137,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizer41;
 	bSizer41 = new wxBoxSizer(wxHORIZONTAL);
 
-	m_staticTextStep = new wxStaticText(m_panelMiddleTop, wxID_ANY, wxT("（请刷身份证）"), wxDefaultPosition, wxDefaultSize, 0 | wxTRANSPARENT_WINDOW);
+	m_staticTextStep = new wxStaticText(m_panel4, wxID_ANY, wxT("（请刷身份证）"), wxDefaultPosition, wxDefaultSize, 0 | wxTRANSPARENT_WINDOW);
 	m_staticTextStep->Wrap(-1);
 	m_staticTextStep->SetFont(wxFont(18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 
@@ -189,7 +185,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizer191;
 	bSizer191 = new wxBoxSizer(wxVERTICAL);
 
-	m_staticTextName = new wxStaticText(m_panelMiddleTop, wxID_ANY, wxT("姓名："), wxDefaultPosition, wxDefaultSize, 0);
+	m_staticTextName = new wxStaticText(m_panel4, wxID_ANY, wxT("姓名："), wxDefaultPosition, wxDefaultSize, 0);
 	m_staticTextName->Wrap(-1);
 	m_staticTextName->SetFont(wxFont(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_staticTextName->SetForegroundColour(wxColour(33, 33, 33));
@@ -205,7 +201,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizer20;
 	bSizer20 = new wxBoxSizer(wxVERTICAL);
 
-	m_staticTextGender = new wxStaticText(m_panelMiddleTop, wxID_ANY, wxT("性别："), wxDefaultPosition, wxDefaultSize, 0);
+	m_staticTextGender = new wxStaticText(m_panel4, wxID_ANY, wxT("性别："), wxDefaultPosition, wxDefaultSize, 0);
 	m_staticTextGender->Wrap(-1);
 	m_staticTextGender->SetFont(wxFont(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_staticTextGender->SetForegroundColour(wxColour(33, 33, 33));
@@ -221,7 +217,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizer21;
 	bSizer21 = new wxBoxSizer(wxVERTICAL);
 
-	m_staticTextBirth = new wxStaticText(m_panelMiddleTop, wxID_ANY, wxT("出生日期："), wxDefaultPosition, wxDefaultSize, 0);
+	m_staticTextBirth = new wxStaticText(m_panel4, wxID_ANY, wxT("出生日期："), wxDefaultPosition, wxDefaultSize, 0);
 	m_staticTextBirth->Wrap(-1);
 	m_staticTextBirth->SetFont(wxFont(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_staticTextBirth->SetForegroundColour(wxColour(33, 33, 33));
@@ -249,7 +245,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizer24;
 	bSizer24 = new wxBoxSizer(wxVERTICAL);
 
-	m_Name = new wxStaticText(m_panelMiddleTop, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
+	m_Name = new wxStaticText(m_panel4, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 | wxTRANSPARENT_WINDOW);
 	m_Name->Wrap(-1);
 	m_Name->SetFont(wxFont(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_Name->SetForegroundColour(wxColour(33, 33, 33));
@@ -266,10 +262,11 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* BoxSizer_Gender;
 	BoxSizer_Gender = new wxBoxSizer(wxHORIZONTAL);
 
-	m_Gender = new wxStaticText(m_panelMiddleTop, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
+	m_Gender = new wxStaticText(m_panel4, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 | wxTRANSPARENT_WINDOW);
 	m_Gender->Wrap(-1);
 	m_Gender->SetFont(wxFont(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_Gender->SetForegroundColour(wxColour(33, 33, 33));
+	m_Gender->SetMinSize(wxSize(179, -1));
 
 	BoxSizer_Gender->Add(m_Gender, 1, wxALL | wxEXPAND, 0);
 
@@ -282,10 +279,11 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizer25;
 	bSizer25 = new wxBoxSizer(wxVERTICAL);
 
-	m_Birth = new wxStaticText(m_panelMiddleTop, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
+	m_Birth = new wxStaticText(m_panel4, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 | wxTRANSPARENT_WINDOW);
 	m_Birth->Wrap(-1);
 	m_Birth->SetFont(wxFont(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_Birth->SetForegroundColour(wxColour(33, 33, 33));
+	m_Birth->SetMinSize(wxSize(179, -1));
 
 	bSizer25->Add(m_Birth, 1, wxALL | wxEXPAND, 0);
 
@@ -313,7 +311,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizer44;
 	bSizer44 = new wxBoxSizer(wxVERTICAL);
 
-	StaticBitmap_IDImage = new wxStaticBitmap(m_panelMiddleTop, wxID_ANY, wxBitmap(wxT("resource/identify.png"), wxBITMAP_TYPE_ANY), wxPoint(1469, 387), wxSize(-1, -1), 0);
+	StaticBitmap_IDImage = new wxStaticBitmap(m_panel4, wxID_ANY, wxBitmap(wxT("resource/identify.png"), wxBITMAP_TYPE_ANY), wxPoint(1469, 387), wxSize(-1, -1), 0);
 	StaticBitmap_IDImage->SetMinSize(wxSize(132, 163));
 
 	bSizer44->Add(StaticBitmap_IDImage, 0, wxALL | wxALIGN_CENTER_VERTICAL | wxALIGN_CENTER_HORIZONTAL, 0);
@@ -333,7 +331,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizer33;
 	bSizer33 = new wxBoxSizer(wxVERTICAL);
 
-	m_staticTextIDNumber = new wxStaticText(m_panelMiddleTop, wxID_ANY, wxT("身份证号："), wxDefaultPosition, wxDefaultSize, 0);
+	m_staticTextIDNumber = new wxStaticText(m_panel4, wxID_ANY, wxT("身份证号："), wxDefaultPosition, wxDefaultSize, 0);
 	m_staticTextIDNumber->Wrap(-1);
 	m_staticTextIDNumber->SetFont(wxFont(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_staticTextIDNumber->SetForegroundColour(wxColour(33, 33, 33));
@@ -349,7 +347,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizer34;
 	bSizer34 = new wxBoxSizer(wxVERTICAL);
 
-	m_staticTextAddr = new wxStaticText(m_panelMiddleTop, wxID_ANY, wxT("地址："), wxDefaultPosition, wxDefaultSize, 0);
+	m_staticTextAddr = new wxStaticText(m_panel4, wxID_ANY, wxT("地址："), wxDefaultPosition, wxDefaultSize, 0);
 	m_staticTextAddr->Wrap(-1);
 	m_staticTextAddr->SetFont(wxFont(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_staticTextAddr->SetForegroundColour(wxColour(33, 33, 33));
@@ -368,10 +366,11 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizer27;
 	bSizer27 = new wxBoxSizer(wxVERTICAL);
 
-	m_IDNumber = new wxStaticText(m_panelMiddleTop, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
+	m_IDNumber = new wxStaticText(m_panel4, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
 	m_IDNumber->Wrap(-1);
 	m_IDNumber->SetFont(wxFont(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_IDNumber->SetForegroundColour(wxColour(33, 33, 33));
+	m_IDNumber->SetMinSize(wxSize(485, -1));
 
 	bSizer27->Add(m_IDNumber, 1, wxALL | wxEXPAND, 0);
 
@@ -384,7 +383,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizer29;
 	bSizer29 = new wxBoxSizer(wxHORIZONTAL);
 
-	m_Addr = new wxStaticText(m_panelMiddleTop, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
+	m_Addr = new wxStaticText(m_panel4, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
 	m_Addr->Wrap(-1);
 	m_Addr->SetFont(wxFont(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_Addr->SetForegroundColour(wxColour(33, 33, 33));
@@ -417,13 +416,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	BoxSizer_PanelTop->Add(257, 0, 0, 0, 0);
 
 
-	m_panelMiddleTop->SetSizer(BoxSizer_PanelTop);
-	m_panelMiddleTop->Layout();
-	BoxSizer_PanelTop->Fit(m_panelMiddleTop);
-	bSizerMiddle->Add(m_panelMiddleTop, 1, wxEXPAND | wxALL, 0);
-
-	m_panelMiddleButtom = new wxPanel(m_panel4, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL | wxTRANSPARENT_WINDOW);
-	m_panelMiddleButtom->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
+	bSizerMiddle->Add(BoxSizer_PanelTop, 1, wxEXPAND, 5);
 
 	wxBoxSizer* bSizerProgress;
 	bSizerProgress = new wxBoxSizer(wxVERTICAL);
@@ -432,7 +425,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	bSizer42 = new wxBoxSizer(wxVERTICAL);
 
 	bSizer42->SetMinSize(wxSize(-1, 18));
-	m_staticTextProgress = new wxStaticText(m_panelMiddleButtom, wxID_ANY, wxEmptyString, wxPoint(1778, 946), wxSize(142, 18), wxALIGN_RIGHT);
+	m_staticTextProgress = new wxStaticText(m_panel4, wxID_ANY, wxEmptyString, wxPoint(1778, 946), wxSize(142, 18), wxALIGN_RIGHT | wxTRANSPARENT_WINDOW);
 	m_staticTextProgress->Wrap(-1);
 	m_staticTextProgress->SetFont(wxFont(12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_staticTextProgress->SetForegroundColour(wxColour(0, 45, 93));
@@ -446,7 +439,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	bSizer43 = new wxBoxSizer(wxVERTICAL);
 
 	bSizer43->SetMinSize(wxSize(-1, 8));
-	m_gaugeProgress = new wxGauge(m_panelMiddleButtom, wxID_ANY, 100, wxDefaultPosition, wxSize(-1, 8), wxGA_HORIZONTAL);
+	m_gaugeProgress = new wxGauge(m_panel4, wxID_ANY, 100, wxDefaultPosition, wxSize(-1, 8), wxGA_HORIZONTAL | wxTRANSPARENT_WINDOW);
 	m_gaugeProgress->SetValue(0);
 	m_gaugeProgress->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_gaugeProgress->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
@@ -458,10 +451,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	bSizerProgress->Add(bSizer43, 0, wxEXPAND, 0);
 
 
-	m_panelMiddleButtom->SetSizer(bSizerProgress);
-	m_panelMiddleButtom->Layout();
-	bSizerProgress->Fit(m_panelMiddleButtom);
-	bSizerMiddle->Add(m_panelMiddleButtom, 0, wxALL | wxEXPAND, 0);
+	bSizerMiddle->Add(bSizerProgress, 0, wxEXPAND, 5);
 
 
 	bSizer341->Add(bSizerMiddle, 1, wxEXPAND, 0);

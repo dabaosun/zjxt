@@ -29,9 +29,9 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 	this->Connect(WORKER_EVENT, wxEVT_THREAD, wxThreadEventHandler(SigninMain::OnWorkerEvent));
 	
 	m_CameraView = new CameraView(this->m_panelCamera, wxID_ANY);
-	m_CameraView->SetSize(wxSize(640, 640));
-	m_CameraView->SetMinSize(wxSize(640, 640));
-	m_CameraView->SetMaxSize(wxSize(640, 640));
+	m_CameraView->SetSize(wxSize(640, 480));
+	m_CameraView->SetMinSize(wxSize(640, 480));
+	m_CameraView->SetMaxSize(wxSize(640, 480));
 	m_CameraView->SetBackgroundColour(wxColour(wxT("#000000")));
 	//m_CameraView->SetSizer(bSizer_Camera);
 	m_CameraView->Layout();
@@ -454,11 +454,12 @@ void SigninMain::OnPaintStaticText(wxPaintEvent& event)
 	if (event.GetEventObject()->IsKindOf(wxCLASSINFO(wxStaticText))) {
 		wxStaticText* statictext = (wxStaticText*)event.GetEventObject();
 		wxFont font = statictext->GetFont();
-
 		wxPaintDC dc(statictext);
+		dc.Clear();		
 		wxFont font_2(font.GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei"));
 		dc.SetFont(font_2);
-		dc.SetTextForeground(statictext->GetForegroundColour());
-		dc.DrawText(statictext->GetLabel(), 0, 0); // simple, no aligment check
+		dc.SetTextBackground(statictext->GetBackgroundColour());
+		dc.SetTextForeground(statictext->GetForegroundColour());		
+		dc.DrawLabel(statictext->GetLabel(), statictext->GetClientRect(), wxALIGN_CENTER_VERTICAL); // simple, no aligment check
 	}
 }
