@@ -38,33 +38,44 @@ private:
 protected:
 	wxPanel * m_panel4;
 	wxBoxSizer* bSizerTop;
+	wxBoxSizer* bSizer16;
 	wxStaticText* m_staticTextCemra;
 	wxPanel* m_panelCamera;
 	wxBoxSizer* bSizer_Camera;
+	wxBoxSizer* bSizer40;
 	wxStaticText* m_staticTextIdentify;
+	wxBoxSizer* bSizer41;
 	wxStaticText* m_staticTextStep;
+	wxBoxSizer* bSizer191;
 	wxStaticText* m_staticTextName;
+	wxBoxSizer* bSizer20;
 	wxStaticText* m_staticTextGender;
+	wxBoxSizer* bSizer21;
 	wxStaticText* m_staticTextBirth;
+	wxBoxSizer* bSizer30;
+	wxBoxSizer* bSizer24;
 	wxStaticText* m_Name;
+	wxBoxSizer* BoxSizer_Gender;
 	wxStaticText* m_Gender;
+	wxBoxSizer* bSizer25;
 	wxStaticText* m_Birth;
 	wxStaticBitmap* StaticBitmap_IDImage;
+	wxBoxSizer* bSizer33;
 	wxStaticText* m_staticTextIDNumber;
+	wxBoxSizer* bSizer34;
 	wxStaticText* m_staticTextAddr;
+	wxBoxSizer* bSizer27;
 	wxStaticText* m_IDNumber;
+	wxBoxSizer* bSizer29;
 	wxStaticText* m_Addr;
+	wxBoxSizer* bSizer42;
 	wxStaticText* m_staticTextProgress;
 	wxGauge* m_gaugeProgress;
 	wxBoxSizer* bSizerButtom;
 
 	// Virtual event handlers, overide them in your derived class
 	virtual void OnClose(wxCloseEvent& event) { event.Skip(); }
-	virtual void OnEraseBackground(wxEraseEvent& event) { event.Skip(); }
-	virtual void OnPaint(wxPaintEvent& event) { event.Skip(); }
 	virtual void OnEraseBackgroundPanel(wxEraseEvent& event) { event.Skip(); }
-	virtual void OnPaintPanel(wxPaintEvent& event) { event.Skip(); }
-	virtual void OnPaintStaticText(wxPaintEvent& event) { event.Skip(); }
 
 
 public:

@@ -24,6 +24,7 @@
     <ClCompile Include="config\Config.cpp" />
     <ClCompile Include="dataserver\DataServer.cpp" />
     <ClCompile Include="detector\Detector.cpp" />
+    <ClCompile Include="DhStaticText.cpp" />
     <ClCompile Include="imgstorage\ImgStorage.cpp" />
     <ClCompile Include="ProgressThread.cpp" />
     <ClCompile Include="SigninApp.cpp" />
@@ -39,6 +40,7 @@
     <ClInclude Include="config\json.hpp" />
     <ClInclude Include="dataserver\DataServer.h" />
     <ClInclude Include="detector\Detector.h" />
+    <ClInclude Include="DhStaticText.h" />
     <ClInclude Include="imgstorage\ImgStorage.h" />
     <ClInclude Include="ProgressThread.h" />
     <ClInclude Include="SigninApp.h" />

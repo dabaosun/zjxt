@@ -33,19 +33,15 @@ class SigninMain : public SigninFrame, public ICertCardListener
 
 		// Handlers for SigninFrame events.
 		void OnClose( wxCloseEvent& event );
-		virtual void OnEraseBackground(wxEraseEvent& event);
-		virtual void OnPaint(wxPaintEvent& event);
 		virtual void OnEraseBackgroundPanel(wxEraseEvent& event);
-		virtual void OnPaintPanel(wxPaintEvent& event);
-		virtual void OnPaintStaticText(wxPaintEvent& event);
-
 		bool TileBitmap(const wxRect& rect, wxDC& dc, wxBitmap& bitmap);
 		bool TileText(wxDC& dc,const wxString& text, wxFont& font, wxPoint& point);
+		void ReplaceStaticText(wxBitmap* background, wxStaticText** replaced, wxSizer* sizer);
 public:
 		/** Constructor */
 		SigninMain( wxWindow* parent );
 	//// end generated class members
-
+		wxBitmap * bg_;
 
 public:
 		~SigninMain();

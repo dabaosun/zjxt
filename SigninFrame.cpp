@@ -17,7 +17,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* BoxSizer_Main;
 	BoxSizer_Main = new wxBoxSizer(wxVERTICAL);
 
-	m_panel4 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL | wxTRANSPARENT_WINDOW);
+	m_panel4 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
 	m_panel4->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 
 	wxBoxSizer* bSizer341;
@@ -55,7 +55,6 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizer19;
 	bSizer19 = new wxBoxSizer(wxVERTICAL);
 
-	wxBoxSizer* bSizer16;
 	bSizer16 = new wxBoxSizer(wxHORIZONTAL);
 
 	bSizer16->SetMinSize(wxSize(640, -1));
@@ -121,7 +120,6 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	bSizer17->Add(188, 0, 0, 0, 0);
 
-	wxBoxSizer* bSizer40;
 	bSizer40 = new wxBoxSizer(wxVERTICAL);
 
 	m_staticTextIdentify = new wxStaticText(m_panel4, wxID_ANY, wxT("身份证信息区"), wxPoint(1196, 250), wxDefaultSize, 0 | wxTRANSPARENT_WINDOW);
@@ -134,7 +132,6 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	bSizer17->Add(bSizer40, 0, wxALIGN_CENTER_VERTICAL, 0);
 
-	wxBoxSizer* bSizer41;
 	bSizer41 = new wxBoxSizer(wxHORIZONTAL);
 
 	m_staticTextStep = new wxStaticText(m_panel4, wxID_ANY, wxT("（请刷身份证）"), wxDefaultPosition, wxDefaultSize, 0 | wxTRANSPARENT_WINDOW);
@@ -182,7 +179,6 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizer22;
 	bSizer22 = new wxBoxSizer(wxVERTICAL);
 
-	wxBoxSizer* bSizer191;
 	bSizer191 = new wxBoxSizer(wxVERTICAL);
 
 	m_staticTextName = new wxStaticText(m_panel4, wxID_ANY, wxT("姓名："), wxDefaultPosition, wxDefaultSize, 0);
@@ -198,7 +194,6 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	bSizer22->Add(0, 45, 0, wxEXPAND, 0);
 
-	wxBoxSizer* bSizer20;
 	bSizer20 = new wxBoxSizer(wxVERTICAL);
 
 	m_staticTextGender = new wxStaticText(m_panel4, wxID_ANY, wxT("性别："), wxDefaultPosition, wxDefaultSize, 0);
@@ -214,7 +209,6 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	bSizer22->Add(0, 45, 0, wxEXPAND, 0);
 
-	wxBoxSizer* bSizer21;
 	bSizer21 = new wxBoxSizer(wxVERTICAL);
 
 	m_staticTextBirth = new wxStaticText(m_panel4, wxID_ANY, wxT("出生日期："), wxDefaultPosition, wxDefaultSize, 0);
@@ -227,7 +221,6 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	bSizer22->Add(bSizer21, 0, 0, 0);
 
-	wxBoxSizer* bSizer30;
 	bSizer30 = new wxBoxSizer(wxVERTICAL);
 
 
@@ -242,7 +235,6 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizer23;
 	bSizer23 = new wxBoxSizer(wxVERTICAL);
 
-	wxBoxSizer* bSizer24;
 	bSizer24 = new wxBoxSizer(wxVERTICAL);
 
 	m_Name = new wxStaticText(m_panel4, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 | wxTRANSPARENT_WINDOW);
@@ -259,7 +251,6 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	bSizer23->Add(0, 45, 0, 0, 0);
 
-	wxBoxSizer* BoxSizer_Gender;
 	BoxSizer_Gender = new wxBoxSizer(wxHORIZONTAL);
 
 	m_Gender = new wxStaticText(m_panel4, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 | wxTRANSPARENT_WINDOW);
@@ -276,7 +267,6 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	bSizer23->Add(0, 45, 0, wxEXPAND, 0);
 
-	wxBoxSizer* bSizer25;
 	bSizer25 = new wxBoxSizer(wxVERTICAL);
 
 	m_Birth = new wxStaticText(m_panel4, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 | wxTRANSPARENT_WINDOW);
@@ -328,7 +318,6 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizer35;
 	bSizer35 = new wxBoxSizer(wxVERTICAL);
 
-	wxBoxSizer* bSizer33;
 	bSizer33 = new wxBoxSizer(wxVERTICAL);
 
 	m_staticTextIDNumber = new wxStaticText(m_panel4, wxID_ANY, wxT("身份证号："), wxDefaultPosition, wxDefaultSize, 0);
@@ -344,7 +333,6 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	bSizer35->Add(0, 45, 0, wxEXPAND, 0);
 
-	wxBoxSizer* bSizer34;
 	bSizer34 = new wxBoxSizer(wxVERTICAL);
 
 	m_staticTextAddr = new wxStaticText(m_panel4, wxID_ANY, wxT("地址："), wxDefaultPosition, wxDefaultSize, 0);
@@ -363,7 +351,6 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizer36;
 	bSizer36 = new wxBoxSizer(wxVERTICAL);
 
-	wxBoxSizer* bSizer27;
 	bSizer27 = new wxBoxSizer(wxVERTICAL);
 
 	m_IDNumber = new wxStaticText(m_panel4, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
@@ -380,7 +367,6 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	bSizer36->Add(0, 45, 0, wxEXPAND, 0);
 
-	wxBoxSizer* bSizer29;
 	bSizer29 = new wxBoxSizer(wxHORIZONTAL);
 
 	m_Addr = new wxStaticText(m_panel4, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0);
@@ -421,16 +407,18 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizerProgress;
 	bSizerProgress = new wxBoxSizer(wxVERTICAL);
 
-	wxBoxSizer* bSizer42;
-	bSizer42 = new wxBoxSizer(wxVERTICAL);
+	bSizer42 = new wxBoxSizer(wxHORIZONTAL);
 
 	bSizer42->SetMinSize(wxSize(-1, 18));
-	m_staticTextProgress = new wxStaticText(m_panel4, wxID_ANY, wxEmptyString, wxPoint(1778, 946), wxSize(142, 18), wxALIGN_RIGHT | wxTRANSPARENT_WINDOW);
+
+	bSizer42->Add(0, 0, 1, wxEXPAND, 5);
+
+	m_staticTextProgress = new wxStaticText(m_panel4, wxID_ANY, wxEmptyString, wxPoint(1778, 946), wxSize(142, 18), wxALIGN_RIGHT);
 	m_staticTextProgress->Wrap(-1);
 	m_staticTextProgress->SetFont(wxFont(12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_staticTextProgress->SetForegroundColour(wxColour(0, 45, 93));
 
-	bSizer42->Add(m_staticTextProgress, 0, wxALL | wxALIGN_RIGHT, 0);
+	bSizer42->Add(m_staticTextProgress, 0, wxALL, 0);
 
 
 	bSizerProgress->Add(bSizer42, 0, wxEXPAND, 0);
@@ -480,47 +468,13 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	// Connect Events
 	this->Connect(wxEVT_CLOSE_WINDOW, wxCloseEventHandler(SigninFrame::OnClose));
-	this->Connect(wxEVT_ERASE_BACKGROUND, wxEraseEventHandler(SigninFrame::OnEraseBackground));
-	this->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaint));
 	m_panel4->Connect(wxEVT_ERASE_BACKGROUND, wxEraseEventHandler(SigninFrame::OnEraseBackgroundPanel), NULL, this);
-	m_panel4->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintPanel), NULL, this);
-	m_staticTextCemra->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_staticTextIdentify->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_staticTextStep->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_staticTextName->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_staticTextGender->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_staticTextBirth->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_Name->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_Gender->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_Birth->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_staticTextIDNumber->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_staticTextAddr->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_IDNumber->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_Addr->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_staticTextProgress->Connect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
 }
 
 SigninFrame::~SigninFrame()
 {
 	// Disconnect Events
 	this->Disconnect(wxEVT_CLOSE_WINDOW, wxCloseEventHandler(SigninFrame::OnClose));
-	this->Disconnect(wxEVT_ERASE_BACKGROUND, wxEraseEventHandler(SigninFrame::OnEraseBackground));
-	this->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaint));
 	m_panel4->Disconnect(wxEVT_ERASE_BACKGROUND, wxEraseEventHandler(SigninFrame::OnEraseBackgroundPanel), NULL, this);
-	m_panel4->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintPanel), NULL, this);
-	m_staticTextCemra->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_staticTextIdentify->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_staticTextStep->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_staticTextName->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_staticTextGender->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_staticTextBirth->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_Name->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_Gender->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_Birth->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_staticTextIDNumber->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_staticTextAddr->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_IDNumber->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_Addr->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
-	m_staticTextProgress->Disconnect(wxEVT_PAINT, wxPaintEventHandler(SigninFrame::OnPaintStaticText), NULL, this);
 
 }
