@@ -61,13 +61,7 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 	do {
 		if (image.LoadFile(_T("./resource/middle.png"), wxBITMAP_TYPE_PNG)) {
 			image.SetMask(false);
-			wxSize sz = this->m_panel4->GetClientSize();
-			int top = 146;
-			int buttom = 72;
-			int middle = 1080 - top - buttom;
-
-			image.Rescale(sz.GetWidth(), middle);
-
+			image.Rescale(1920, 1080);
 			bg_ = new wxBitmap(image);
 			if (bg_->IsOk()){
 				break;

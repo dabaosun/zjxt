@@ -19,6 +19,7 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 
 	m_panel4 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
 	m_panel4->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
+	m_panel4->SetMinSize(wxSize(1920, 1080));
 
 	wxBoxSizer* bSizer341;
 	bSizer341 = new wxBoxSizer(wxVERTICAL);
@@ -407,21 +408,34 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxBoxSizer* bSizerProgress;
 	bSizerProgress = new wxBoxSizer(wxVERTICAL);
 
+	wxBoxSizer* bSizer83;
+	bSizer83 = new wxBoxSizer(wxHORIZONTAL);
+
+
+	bSizer83->Add(0, 0, 1, wxEXPAND, 5);
+
 	bSizer42 = new wxBoxSizer(wxHORIZONTAL);
 
 	bSizer42->SetMinSize(wxSize(-1, 18));
-
-	bSizer42->Add(0, 0, 1, wxEXPAND, 5);
-
-	m_staticTextProgress = new wxStaticText(m_panel4, wxID_ANY, wxEmptyString, wxPoint(1778, 946), wxSize(142, 18), wxALIGN_RIGHT);
+	m_staticTextProgress = new wxStaticText(m_panel4, wxID_ANY, wxT("Loading..."), wxPoint(-1, -1), wxSize(-1, -1), 0);
 	m_staticTextProgress->Wrap(-1);
 	m_staticTextProgress->SetFont(wxFont(12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_staticTextProgress->SetForegroundColour(wxColour(0, 45, 93));
+	m_staticTextProgress->SetMinSize(wxSize(-1, 18));
 
-	bSizer42->Add(m_staticTextProgress, 0, wxALL, 0);
+	bSizer42->Add(m_staticTextProgress, 0, wxALL | wxEXPAND, 0);
 
 
-	bSizerProgress->Add(bSizer42, 0, wxEXPAND, 0);
+	bSizer83->Add(bSizer42, 0, wxEXPAND, 0);
+
+
+	bSizer83->Add(20, 0, 0, 0, 5);
+
+
+	bSizerProgress->Add(bSizer83, 1, wxEXPAND | wxALIGN_RIGHT, 5);
+
+
+	bSizerProgress->Add(0, 10, 1, wxEXPAND, 5);
 
 	wxBoxSizer* bSizer43;
 	bSizer43 = new wxBoxSizer(wxVERTICAL);
