@@ -295,7 +295,6 @@ void CertCard::thread_workd(CertCard* instance)
 			else {
 				if (instance->errorlog.is_open()) {
 					instance->errorlog << "hdconsole exit code : " << dwExitCode << std::endl;
-					instance->errorlog.flush();
 				}
 			}
 		}
@@ -340,14 +339,12 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 						else {
 							if (errorlog.is_open()) {
 								errorlog << "transfer data failed :" << code << std::endl;
-								errorlog.flush();
 							}
 						}
 					}
 					else {
 						if (errorlog.is_open()) {
 							errorlog << wxT("upload file failed :") << code << std::endl;
-							errorlog.flush();
 						}
 					}
 				}
@@ -355,7 +352,6 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 			else {
 				if (errorlog.is_open()) {
 					errorlog << "face compare failed: result:"<< result << ", score:" << score << std::endl;
-					errorlog.flush();
 				}
 			}
 		}
