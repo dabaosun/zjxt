@@ -1,20 +1,20 @@
-#include "./DhStaticText.h"
+#include "CustomStaticText.h"
 
-BEGIN_EVENT_TABLE(DhStaticText, wxStaticText)
-EVT_ERASE_BACKGROUND(DhStaticText::OnEraseBackground)
+BEGIN_EVENT_TABLE(CustomStaticText, wxStaticText)
+EVT_ERASE_BACKGROUND(CustomStaticText::OnEraseBackground)
 END_EVENT_TABLE()
 
-bool DhStaticText::HasTransparentBackground()
+bool CustomStaticText::HasTransparentBackground()
 {
 	return true;
 }
 
-void DhStaticText::SetBg(wxBitmap* bg)
+void CustomStaticText::SetBg(wxBitmap* bg)
 {
 	bg_ = bg;
 }
 
-DhStaticText::DhStaticText()
+CustomStaticText::CustomStaticText()
 {
 	bg_ = NULL;
 	SetBackgroundStyle(wxBG_STYLE_ERASE);
@@ -22,7 +22,7 @@ DhStaticText::DhStaticText()
 	brush_ = new wxBrush(wxNullColour, wxBRUSHSTYLE_TRANSPARENT);
 }
 
-void DhStaticText::OnEraseBackground(wxEraseEvent& event)
+void CustomStaticText::OnEraseBackground(wxEraseEvent& event)
 {
 	wxRect rect = GetRect();
 	if (last_rect_ != rect)
@@ -41,7 +41,7 @@ void DhStaticText::OnEraseBackground(wxEraseEvent& event)
 	event.GetDC()->DrawBitmap(bg_cache_, 0, 0);
 }
 
-WXHBRUSH DhStaticText::DoMSWControlColor(WXHDC pDC, wxColour colBg, WXHWND hWnd)
+WXHBRUSH CustomStaticText::DoMSWControlColor(WXHDC pDC, wxColour colBg, WXHWND hWnd)
 {
 	HDC hdc = (HDC)pDC;
 	::SetTextColor(hdc, wxColourToRGB(GetForegroundColour()));

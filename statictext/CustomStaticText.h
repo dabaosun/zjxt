@@ -1,17 +1,16 @@
 
-#ifndef DHSTATICTEXT_H_
-#define DHSTATICTEXT_H_
+#ifndef CUSTOMSTATICTEXT_H_
+#define CUSTOMSTATICTEXT_H_
 
-#include "./DhStaticText.h"
 #include "wx/wx.h"
 #include "wx/msw/private.h"
 
-class DhStaticText :public wxStaticText
+class CustomStaticText :public wxStaticText
 {
 	DECLARE_EVENT_TABLE()
 public:
-	DhStaticText();
-	virtual ~DhStaticText() {}
+	CustomStaticText();
+	virtual ~CustomStaticText() {}
 	wxBitmap * bg_;
 	virtual bool HasTransparentBackground();
 	void SetBg(wxBitmap* bg);
@@ -26,4 +25,4 @@ private:
 	wxBitmap bg_cache_;
 };
 
-#endif /* DHSTATICTEXT_H_ */
+#endif /* CUSTOMSTATICTEXT_H_ */

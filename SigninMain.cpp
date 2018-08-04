@@ -11,7 +11,7 @@
 #include "ProgressThread.h"
 #include "./certcard/CertCard.h"
 #include "./config/Config.h"
-#include "./DhStaticText.h"
+#include "./statictext/CustomStaticText.h"
 
 enum
 {
@@ -19,7 +19,7 @@ enum
 	GUITHREAD_EVENT                  // this one gets sent from MyGUIThread
 };
 void SigninMain::ReplaceStaticText(wxBitmap* background, wxStaticText** replaced, wxSizer* sizer) {
-	DhStaticText* obj = new DhStaticText();
+	CustomStaticText* obj = new CustomStaticText();
 	obj->Create((*replaced)->GetParent(), wxID_ANY, (*replaced)->GetLabel(), 
 		(*replaced)->GetPosition(), (*replaced)->GetSize(),(*replaced)->GetAlignment());
 	obj->SetMinSize((*replaced)->GetMinSize());
@@ -39,8 +39,6 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 	if (0 != Config::GetInstance()->LoadConfig()) {
 		
 	}
-	//this->bSizerTop->SetMinSize(-1, this->GetSize().GetHeight()*10/100);
-	//this->bSizerButtom->SetMinSize(-1, this->GetSize().GetHeight() - this->GetSize().GetHeight() * 82 / 100);
 
 	this->Connect(WORKER_EVENT, wxEVT_THREAD, wxThreadEventHandler(SigninMain::OnWorkerEvent));
 	
@@ -49,13 +47,8 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 	m_CameraView->SetMinSize(wxSize(640, 480));
 	m_CameraView->SetMaxSize(wxSize(640, 480));
 	m_CameraView->SetBackgroundColour(wxColour(wxT("#000000")));
-	//m_CameraView->SetSizer(bSizer_Camera);
 	m_CameraView->Layout();
 	bSizer_Camera->Add(m_CameraView, 1, wxALL , 0);
-
-	//this->bSizer_Camera->Add(m_CameraView, 1, wxALL, 0);
-	//this->bSizer_Camera->Fit(m_CameraView);
-	//this->m_panelCamera->Layout();
 
 	wxImage image;
 	do {
@@ -69,7 +62,6 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 		}
 	} while (1 > 0);
 
-	
 	ReplaceStaticText(bg_, &m_staticTextCemra, bSizer16);
 	ReplaceStaticText(bg_, &m_staticTextIdentify, bSizer40);
 	ReplaceStaticText(bg_, &m_staticTextStep, bSizer41);
