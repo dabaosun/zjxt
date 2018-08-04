@@ -39,11 +39,21 @@ CertCard::CertCard()
 {
 	m_hSubProcess = NULL;
 	m_bNeedexit = false;
+
+	const std::string& pwd = Config::GetInstance()->GetPwd();
+	std::string errorfile(pwd);
+
+	errorfile.append("/error.log");
+	
+	errorlog.open(errorfile, std::ios::out | std::ios::app);
 }
 
 CertCard::~CertCard()
 {
-
+	if (errorlog.is_open()) {
+		errorlog.flush();
+		errorlog.close();
+	}
 }
 
 std::string CertCard::GetErrMsg(int errcode)
@@ -95,7 +105,7 @@ void CertCard::CloseCertCardReader()
 	if (NULL != this->m_thread) {
 		auto threadid = m_thread->native_handle();
 		if (NULL != this->m_hSubProcess) {
-			TerminateProcess(this->m_hSubProcess, -1);
+			TerminateProcess(this->m_hSubProcess, 0);
 		}
 		m_bNeedexit = true;	
 
@@ -282,6 +292,12 @@ void CertCard::thread_workd(CertCard* instance)
 					instance->HandleCardInfo(info);
 				}
 			}
+			else {
+				if (instance->errorlog.is_open()) {
+					instance->errorlog << "hdconsole exit code : " << dwExitCode << std::endl;
+					instance->errorlog.flush();
+				}
+			}
 		}
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(300));
@@ -316,11 +332,30 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 					if (0 == code)
 					{
 						//update data info to remote server by http request.
-						if (0 == DataServer::GetInstance()->UploadData(info->certno.get(), remoteurl)) {
+						code = DataServer::GetInstance()->UploadData(info->certno.get(), remoteurl);
+						if (0 == code) {
 							this->NofityProcessEnd(100, "×¢²á³É¹¦");
 							return true;
 						}
+						else {
+							if (errorlog.is_open()) {
+								errorlog << "transfer data failed :" << code << std::endl;
+								errorlog.flush();
+							}
+						}
 					}
+					else {
+						if (errorlog.is_open()) {
+							errorlog << wxT("upload file failed :") << code << std::endl;
+							errorlog.flush();
+						}
+					}
+				}
+			}
+			else {
+				if (errorlog.is_open()) {
+					errorlog << "face compare failed: result:"<< result << ", score:" << score << std::endl;
+					errorlog.flush();
 				}
 			}
 		}
