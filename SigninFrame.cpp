@@ -412,12 +412,12 @@ SigninFrame::SigninFrame(wxWindow* parent, wxWindowID id, const wxString& title,
 	bSizer83 = new wxBoxSizer(wxHORIZONTAL);
 
 
-	bSizer83->Add(0, 0, 1, wxEXPAND, 5);
+	bSizer83->Add(1779, 0, 0, 0, 5);
 
 	bSizer42 = new wxBoxSizer(wxHORIZONTAL);
 
 	bSizer42->SetMinSize(wxSize(-1, 18));
-	m_staticTextProgress = new wxStaticText(m_panel4, wxID_ANY, wxT("Loading..."), wxPoint(-1, -1), wxSize(-1, -1), 0);
+	m_staticTextProgress = new wxStaticText(m_panel4, wxID_ANY, wxEmptyString, wxPoint(-1, -1), wxSize(-1, -1), 0);
 	m_staticTextProgress->Wrap(-1);
 	m_staticTextProgress->SetFont(wxFont(12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI")));
 	m_staticTextProgress->SetForegroundColour(wxColour(0, 45, 93));
