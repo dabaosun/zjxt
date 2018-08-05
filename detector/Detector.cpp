@@ -73,6 +73,7 @@ bool Detector::DetectAndComparseWithSDK(const std::shared_ptr<cv::Mat>& frame, c
 	std::shared_ptr<cv::Mat> tmp = frame;
 	FaceCheckInfo faceinfo;
 	memset(&faceinfo, 0, sizeof(FaceCheckInfo));
+	imwrite("./camera.jpg", *frame);
 	int result = DetectFaceForMat(tmp->data, tmp->cols, tmp->rows, &faceinfo);
 	if ((0 != result) && (faceinfo.nFacesize > 0)) {
 		FaceCheckInfo faceinfo2;

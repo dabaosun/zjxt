@@ -121,7 +121,7 @@ void SigninMain::OnWorkerEvent(wxThreadEvent& event)
 	int n = event.GetInt();
 	wxString msg = event.GetString();
 
-	this->m_staticTextStep->SetLabelText("（"+msg+"）");
+	this->m_staticTextStep->SetLabel("（"+msg+"）");
 
 	if ("正在处理中" == msg) {
 		this->m_staticTextStep->SetForegroundColour(wxColour(33, 33, 33));
@@ -140,10 +140,10 @@ void SigninMain::OnWorkerEvent(wxThreadEvent& event)
 	}
 
 	if ("正在处理中" == msg) {
-		this->m_staticTextProgress->SetLabelText("Loading");
+		this->m_staticTextProgress->SetLabel("Loading");
 	}
 	else {
-		this->m_staticTextProgress->SetLabelText("");
+		this->m_staticTextProgress->SetLabel("");
 	}
 	
 	this->m_gaugeProgress->SetValue(n);
@@ -161,11 +161,11 @@ void SigninMain::UpdateCardAuthed(bool authed, const std::string& info)
 
 void SigninMain::UpdateCertCardInfo(const std::shared_ptr<CertCardInfo>& info)
 {
-	this->m_Name->SetLabelText(info->name.get());
-	this->m_Birth->SetLabelText(info->birth.get());
-	this->m_Addr->SetLabelText(info->address.get());
-	this->m_IDNumber->SetLabelText(info->certno.get());
-	this->m_Gender->SetLabelText(info->gendar.get());
+	this->m_Name->SetLabel(info->name.get());
+	this->m_Birth->SetLabel(info->birth.get());
+	this->m_Addr->SetLabel(info->address.get());
+	this->m_IDNumber->SetLabel(info->certno.get());
+	this->m_Gender->SetLabel(info->gendar.get());
 	
 	wxClientDC dc(this->StaticBitmap_IDImage);
 	dc.Clear();
@@ -202,11 +202,11 @@ void SigninMain::EndProcess(int result, const std::string& info)
 		this->m_threadProgress = NULL;
 	}
 
-	this->m_Name->SetLabelText("");
-	this->m_Birth->SetLabelText("");
-	this->m_Addr->SetLabelText("");
-	this->m_IDNumber->SetLabelText("");
-	this->m_Gender->SetLabelText("");
+	this->m_Name->SetLabel("");
+	this->m_Birth->SetLabel("");
+	this->m_Addr->SetLabel("");
+	this->m_IDNumber->SetLabel("");
+	this->m_Gender->SetLabel("");
 
 	wxClientDC dc(this->StaticBitmap_IDImage);
 	dc.Clear();
@@ -216,6 +216,12 @@ void SigninMain::EndProcess(int result, const std::string& info)
 	img.Rescale(132, 163);
 	wxBitmap bitmap = wxBitmap(img);
 	dc.DrawBitmap(bitmap, 0, 0);
+
+	std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+
+	this->m_staticTextStep->SetForegroundColour(wxColour(33, 33, 33));
+	this->m_staticTextStep->SetLabel("请刷身份证");
+
 }
 
 void SigninMain::UpdateProgressInfo(int progress, const std::string& info)
