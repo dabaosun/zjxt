@@ -96,11 +96,12 @@ void SigninMain::OnClose( wxCloseEvent& event )
 		}
 		this->m_threadProgress = NULL;
 	}
+
+	this->m_CameraView->RemoveListener(this->m_CertCard);
+	this->m_CertCard->RemoveListener(this);
+
 	this->m_CertCard->CloseCertCardReader();
 	this->m_CameraView->CloseCamera();
-
-	this->m_CameraView->RemoveListener(this->m_CertCard);	
-	this->m_CertCard->RemoveListener(this);
 	
 	delete m_CertCard;
 	delete m_CameraView;
@@ -220,8 +221,7 @@ void SigninMain::EndProcess(int result, const std::string& info)
 	std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 
 	this->m_staticTextStep->SetForegroundColour(wxColour(33, 33, 33));
-	this->m_staticTextStep->SetLabel("请刷身份证");
-
+	this->m_staticTextStep->SetLabel("（请刷身份证）");
 }
 
 void SigninMain::UpdateProgressInfo(int progress, const std::string& info)

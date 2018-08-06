@@ -351,7 +351,7 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 			}
 			else {
 				if (errorlog.is_open()) {
-					errorlog << "face compare failed: result:"<< result << ", score:" << score << std::endl;
+					errorlog << "face compare failed: result:"<< result << ", score:" << score << ", thredhold:"<< Config::GetInstance()->GetData().camera.threshold << std::endl;
 				}
 			}
 		}
