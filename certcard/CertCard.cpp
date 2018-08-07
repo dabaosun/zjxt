@@ -105,7 +105,7 @@ void CertCard::CloseCertCardReader()
 	if (NULL != this->m_thread) {
 		auto threadid = m_thread->native_handle();
 		if (NULL != this->m_hSubProcess) {
-			TerminateProcess(this->m_hSubProcess, 0);
+			TerminateProcess(this->m_hSubProcess, -1);
 		}
 		m_bNeedexit = true;	
 
@@ -293,7 +293,7 @@ void CertCard::thread_workd(CertCard* instance)
 				}
 			}
 			else {
-				if (instance->errorlog.is_open()) {
+				if (instance->errorlog.is_open() && (-1 != dwExitCode)) {
 					instance->errorlog << "hdconsole exit code : " << dwExitCode << std::endl;
 				}
 			}
