@@ -109,7 +109,7 @@ void CertCard::CloseCertCardReader()
 		}
 		m_bNeedexit = true;	
 
-		//WaitForSingleObject(threadid, INFINITE);
+		WaitForSingleObject(threadid, INFINITE);
 		m_thread = NULL;
 	}
 	
@@ -232,6 +232,10 @@ void CertCard::thread_workd(CertCard* instance)
 				AssignProcessToJobObject(ghJob, pi.hProcess);
 			}
 
+			if (instance->m_bNeedexit) {
+				return;
+			}
+
 			CloseHandle(pi.hThread);
 			instance->m_hSubProcess = pi.hProcess;
 			WaitForSingleObject(pi.hProcess, INFINITE);
@@ -285,14 +289,23 @@ void CertCard::thread_workd(CertCard* instance)
 					info->expire = expire;
 					info->bmpdata = bmpdata;
 
+					if (instance->m_bNeedexit) {
+						return;
+					}
 					//Notify listeners
 					instance->NotifyCardInfoUpdated(info);
 
+					if (instance->m_bNeedexit) {
+						return;
+					}
 					//Handle 
 					instance->HandleCardInfo(info);
 				}
 			}
 			else {
+				if (instance->m_bNeedexit) {
+					return;
+				}
 				if (instance->errorlog.is_open() && (-1 != dwExitCode)) {
 					instance->errorlog << "hdconsole exit code : " << dwExitCode << std::endl;
 				}
