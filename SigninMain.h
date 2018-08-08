@@ -44,7 +44,7 @@ public:
 		wxBitmap * bg_;
 
 public:
-		~SigninMain();
+		virtual ~SigninMain();
 		bool Cancelled();
 		bool m_cancelled;
 		wxCriticalSection m_csCancelled;        // protects m_cancelled
