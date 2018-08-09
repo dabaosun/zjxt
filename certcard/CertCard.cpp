@@ -107,8 +107,9 @@ void CertCard::CloseCertCardReader()
 		if (NULL != this->m_hSubProcess) {
 			TerminateProcess(this->m_hSubProcess, -1);
 		}
-		m_bNeedexit = true;
-		WaitForSingleObject(threadid, INFINITE);
+		m_bNeedexit = true;		
+		TerminateThread(m_thread, -1);
+		WaitForSingleObject(threadid, 2);
 		m_thread = NULL;
 	}
 	
@@ -216,6 +217,8 @@ void CertCard::thread_workd(CertCard* instance)
 		si.cbReserved2 = NULL;
 		si.lpReserved2 = NULL;
 
+		instance->RecordLog("call hdconsole process.");
+
 		string process = Config::GetInstance()->GetPwd()+"hdconsole.exe";
 		size_t size = process.length();
 		wchar_t *tmp = new wchar_t[size + 1];
@@ -291,13 +294,16 @@ void CertCard::thread_workd(CertCard* instance)
 					if (instance->m_bNeedexit) {
 						return;
 					}
+					
 					//Notify listeners
+					instance->RecordLog("Notify to update card info.");
 					instance->NotifyCardInfoUpdated(info);
 
 					if (instance->m_bNeedexit) {
 						return;
 					}
 					//Handle 
+					instance->RecordLog("Handle card info.");
 					instance->HandleCardInfo(info);
 				}
 			}
@@ -305,8 +311,11 @@ void CertCard::thread_workd(CertCard* instance)
 				if (instance->m_bNeedexit) {
 					return;
 				}
-				if (instance->errorlog.is_open() && (-1 != dwExitCode)) {
-					instance->errorlog << "hdconsole exit code : " << dwExitCode << std::endl;
+				if (-1 != dwExitCode) {
+					char tmp[256];
+					memset(tmp, 0, 256);
+					sprintf_s(tmp, "hdconsole exit code : %d ", dwExitCode);
+					instance->RecordLog(tmp);
 				}
 			}
 		}
@@ -329,6 +338,8 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 		{
 			float score;
 			bool result;
+
+			this->RecordLog("detect and compare.");
 			result = Detector::GetInstance()->DetectAndComparseWithSDK(capture, info->bmpdata, 77725, score);
 
 			if (result && score >= Config::GetInstance()->GetData().camera.threshold)
@@ -339,32 +350,38 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 				if (imwrite(localImg, *capture)) {
 					//upload image to remote file sever
 					std::string remoteurl;
+					this->RecordLog("upload file.");
 					int code = ImgStorage::GetInstance()->UploadFile(localImg, remoteurl);
 					if (0 == code)
 					{
 						//update data info to remote server by http request.
+						this->RecordLog("upload data.");
 						code = DataServer::GetInstance()->UploadData(info->certno.get(), remoteurl);
 						if (0 == code) {
 							this->NofityProcessEnd(100, "×¢²á³É¹¦");
 							return true;
 						}
 						else {
-							if (errorlog.is_open()) {
-								errorlog << "transfer data failed :" << code << std::endl;
-							}
+							char tmp[256];
+							memset(tmp, 0, 256);
+							sprintf_s(tmp, "transfer data failed : %d ", code);
+							this->RecordLog(tmp);
 						}
 					}
 					else {
-						if (errorlog.is_open()) {
-							errorlog << wxT("upload file failed :") << code << std::endl;
-						}
+						char tmp[256];
+						memset(tmp, 0, 256);
+						sprintf_s(tmp, "upload file failed : %d ", code);
+						this->RecordLog(tmp);
 					}
 				}
 			}
 			else {
-				if (errorlog.is_open()) {
-					errorlog << "face compare failed: result:"<< result << ", score:" << score << ", thredhold:"<< Config::GetInstance()->GetData().camera.threshold << std::endl;
-				}
+				char tmp[256];
+				memset(tmp, 0, 256);
+				sprintf_s(tmp, "face compare failed, result: %d , score: %f, thredhold: %f", 
+					result, score, Config::GetInstance()->GetData().camera.threshold);				
+				this->RecordLog(tmp);
 			}
 		}
 		std::this_thread::sleep_for(std::chrono::milliseconds(300));
@@ -391,4 +408,15 @@ void CertCard::PopCapture(std::shared_ptr<cv::Mat>& capture)
 	capture = this->m_mat;
 	this->m_mat.reset();
 
+}
+
+void CertCard::RecordLog(const std::string msg)
+{
+	if (errorlog.is_open()) {
+		time_t timep;
+		time(&timep);
+		char tmp[64];
+		strftime(tmp, sizeof(tmp), "%Y-%m-%d %H:%M:%S", localtime(&timep));		
+		errorlog << tmp << "--" << msg << std::endl;
+	}
 }

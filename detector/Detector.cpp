@@ -18,13 +18,15 @@ Detector::Detector()
     //ctor
     this->eyes_cascade_name="./data/haarcascades/haarcascade_eye_tree_eyeglasses.xml";
     this->face_cascade_name="./data/haarcascades/haarcascade_frontalface_default.xml";
-	InitSDK();
+	bInitSDK = InitSDK();
 }
 
 Detector::~Detector()
 {
     //dtor
-	DelSDK();
+	if (bInitSDK) {
+		DelSDK();
+	}	
 }
 
 bool Detector::LoadCascadeClassifier()
