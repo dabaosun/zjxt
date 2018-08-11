@@ -45,7 +45,7 @@ CertCard::CertCard()
 
 	errorfile.append("/error.log");
 	
-	errorlog.open(errorfile, std::ios::out | std::ios::app);
+	errorlog.open(errorfile, std::ios::out);
 }
 
 CertCard::~CertCard()
