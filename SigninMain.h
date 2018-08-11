@@ -26,7 +26,7 @@ class ProgressThread;
 class SigninMain : public SigninFrame, public ICertCardListener
 {
 	protected:
-
+		bool m_bEraseBackground;
 		std::mutex m_mtxProgress;
 		CameraView* m_CameraView;
 		CertCard* m_CertCard;

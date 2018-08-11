@@ -138,7 +138,7 @@ bool CameraView::OpenCamera()
     m_is_display = true;
 
     //((wxFrame*)GetParent())->SetSize(wxSize(m_width, m_height));
-    m_timer->Start(1000 / 30);
+    m_timer->Start(200);
 
 	return true;
 }

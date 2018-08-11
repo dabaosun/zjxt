@@ -36,6 +36,7 @@ void SigninMain::ReplaceStaticText(wxBitmap* background, wxStaticText** replaced
 }
 SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 {
+	m_bEraseBackground = false;
 	if (0 != Config::GetInstance()->LoadConfig()) {
 		
 	}
@@ -244,6 +245,9 @@ SigninMain::~SigninMain()
 
 void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
 {
+	if (m_bEraseBackground) {
+		return;
+	}
 	wxImage image;
 	wxBitmap m_background;
 	int top = 146;
@@ -349,6 +353,7 @@ void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
 		}
 	} while (1 > 0);
 
+	m_bEraseBackground = true;
 }
 
 bool SigninMain::TileBitmap(const wxRect& rect, wxDC& dc, wxBitmap& bitmap)
