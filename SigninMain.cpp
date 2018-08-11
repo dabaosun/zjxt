@@ -293,17 +293,6 @@ SigninMain::~SigninMain()
 
 }
 
-void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
-{
-	
-	int top = 146;
-	int buttom = 72;
-	int middle = 1080 - top - buttom;
-	event.GetDC()->DrawBitmap(*m_Top, 0, 0);
-	event.GetDC()->DrawBitmap(*m_Middle, 0, top);
-	event.GetDC()->DrawBitmap(*m_Buttom, 0, top+middle);
-}
-
 void SigninMain::m_panel4OnPaint(wxPaintEvent& event)
 {
 	wxBufferedPaintDC dc(this->m_panel4);

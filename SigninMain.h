@@ -33,7 +33,6 @@ class SigninMain : public SigninFrame, public ICertCardListener
 
 		// Handlers for SigninFrame events.
 		void OnClose( wxCloseEvent& event );
-		virtual void OnEraseBackgroundPanel(wxEraseEvent& event);
 		virtual void m_panel4OnPaint(wxPaintEvent& event);
 
 		bool TileBitmap(const wxRect& rect, wxDC& dc, wxBitmap& bitmap);
