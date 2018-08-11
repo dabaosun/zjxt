@@ -113,6 +113,21 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 		}
 	} while (1 > 0);
 
+	do
+	{
+		if (image.LoadFile(_T("./resource/identify.png"), wxBITMAP_TYPE_PNG))
+		{
+			image.Rescale(132, 163);
+			image.SetMask(false);
+			m_Identify = new wxBitmap(image);
+			if (m_Identify->IsOk())
+			{
+				break;
+
+			}
+		}
+	} while (1 > 0);
+
 	ReplaceStaticText(bg_, &m_staticTextCemra, bSizer16);
 	ReplaceStaticText(bg_, &m_staticTextIdentify, bSizer40);
 	ReplaceStaticText(bg_, &m_staticTextStep, bSizer41);
@@ -264,12 +279,7 @@ void SigninMain::EndProcess(int result, const std::string& info)
 	wxClientDC dc(this->StaticBitmap_IDImage);
 	wxBufferedDC bufferDC(&dc);
 	bufferDC.Clear();
-
-	wxImage img;
-	img.LoadFile(Config::GetInstance()->GetPwd() + "./resource/identify.png");
-	img.Rescale(132, 163);
-	wxBitmap bitmap = wxBitmap(img);
-	bufferDC.DrawBitmap(bitmap, 0, 0);
+	bufferDC.DrawBitmap(*m_Identify, 0, 0);
 
 	std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 

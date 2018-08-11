@@ -46,6 +46,7 @@ public:
 		wxBitmap *m_Top;
 		wxBitmap *m_Middle;
 		wxBitmap *m_Buttom;
+		wxBitmap *m_Identify;
 
 public:
 		virtual ~SigninMain();
