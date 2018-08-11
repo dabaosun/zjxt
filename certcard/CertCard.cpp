@@ -107,9 +107,9 @@ void CertCard::CloseCertCardReader()
 		if (NULL != this->m_hSubProcess) {
 			TerminateProcess(this->m_hSubProcess, -1);
 		}
-		m_bNeedexit = true;		
-		TerminateThread(m_thread, -1);
-		WaitForSingleObject(threadid, 2);
+		m_bNeedexit = true;
+		TerminateThread(threadid, -1);
+		WaitForSingleObject(threadid, 1000);
 		m_thread = NULL;
 	}
 	

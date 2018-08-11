@@ -154,8 +154,8 @@ void SigninMain::OnClose( wxCloseEvent& event )
 	this->m_CertCard->CloseCertCardReader();
 	this->m_CameraView->CloseCamera();
 	
-	delete m_CertCard;
-	delete m_CameraView;
+	//delete m_CertCard;
+	//delete m_CameraView;
 
 	Destroy();
 }
@@ -220,13 +220,14 @@ void SigninMain::UpdateCertCardInfo(const std::shared_ptr<CertCardInfo>& info)
 	this->m_Gender->SetLabel(info->gendar.get());
 	
 	wxClientDC dc(this->StaticBitmap_IDImage);
-	dc.Clear();
+	wxBufferedDC buffDC(&dc);
+	buffDC.Clear();
 
 	wxImage img;
 	img.LoadFile(Config::GetInstance()->GetPwd() + "certcard.bmp");	
 	img.Rescale(132, 163);
 	wxBitmap bitmap = wxBitmap(img);
-	dc.DrawBitmap(bitmap, 0, 0);
+	buffDC.DrawBitmap(bitmap, 0, 0);
 
 }
 
@@ -261,13 +262,14 @@ void SigninMain::EndProcess(int result, const std::string& info)
 	this->m_Gender->SetLabel("");
 
 	wxClientDC dc(this->StaticBitmap_IDImage);
-	dc.Clear();
+	wxBufferedDC bufferDC(&dc);
+	bufferDC.Clear();
 
 	wxImage img;
 	img.LoadFile(Config::GetInstance()->GetPwd() + "./resource/identify.png");
 	img.Rescale(132, 163);
 	wxBitmap bitmap = wxBitmap(img);
-	dc.DrawBitmap(bitmap, 0, 0);
+	bufferDC.DrawBitmap(bitmap, 0, 0);
 
 	std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 
