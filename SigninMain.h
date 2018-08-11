@@ -26,7 +26,7 @@ class ProgressThread;
 class SigninMain : public SigninFrame, public ICertCardListener
 {
 	protected:
-		bool m_bEraseBackground;
+
 		std::mutex m_mtxProgress;
 		CameraView* m_CameraView;
 		CertCard* m_CertCard;
@@ -34,6 +34,8 @@ class SigninMain : public SigninFrame, public ICertCardListener
 		// Handlers for SigninFrame events.
 		void OnClose( wxCloseEvent& event );
 		virtual void OnEraseBackgroundPanel(wxEraseEvent& event);
+		virtual void m_panel4OnPaint(wxPaintEvent& event);
+
 		bool TileBitmap(const wxRect& rect, wxDC& dc, wxBitmap& bitmap);
 		bool TileText(wxDC& dc,const wxString& text, wxFont& font, wxPoint& point);
 		void ReplaceStaticText(wxBitmap* background, wxStaticText** replaced, wxSizer* sizer);
@@ -42,6 +44,9 @@ public:
 		SigninMain( wxWindow* parent );
 	//// end generated class members
 		wxBitmap * bg_;
+		wxBitmap *m_Top;
+		wxBitmap *m_Middle;
+		wxBitmap *m_Buttom;
 
 public:
 		virtual ~SigninMain();

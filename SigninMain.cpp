@@ -36,7 +36,6 @@ void SigninMain::ReplaceStaticText(wxBitmap* background, wxStaticText** replaced
 }
 SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 {
-	m_bEraseBackground = false;
 	if (0 != Config::GetInstance()->LoadConfig()) {
 		
 	}
@@ -59,6 +58,57 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 			bg_ = new wxBitmap(image);
 			if (bg_->IsOk()){
 				break;
+			}
+		}
+	} while (1 > 0);
+
+	int top = 146;
+	int buttom = 72;
+	int middle = 1080 - top - buttom;
+
+	//image.Clear();
+	do
+	{
+		if (image.LoadFile(_T("./resource/top.png"), wxBITMAP_TYPE_PNG))
+		{
+			wxSize sz = this->m_panel4->GetClientSize();
+			image.SetMask(false);
+			image.Rescale(sz.GetWidth(), top);
+			m_Top = new wxBitmap(image);
+			if (m_Top->IsOk()) {
+				break;
+			}
+		}
+	} while (1 > 0);
+
+	do
+	{
+		if (image.LoadFile(_T("./resource/buttom.png"), wxBITMAP_TYPE_PNG))
+		{
+			wxSize sz = this->m_panel4->GetClientSize();
+			image.Rescale(sz.GetWidth(), buttom);
+			image.SetMask(false);
+			m_Buttom = new wxBitmap(image);
+			if (m_Buttom->IsOk())
+			{
+				break;
+
+			}
+		}
+	} while (1 > 0);
+
+	do
+	{
+		if (image.LoadFile(_T("./resource/middle.png"), wxBITMAP_TYPE_PNG))
+		{
+			wxSize sz = this->m_panel4->GetClientSize();
+			image.Rescale(sz.GetWidth(), middle);
+			image.SetMask(false);
+			m_Middle = new wxBitmap(image);
+			if (m_Middle->IsOk())
+			{
+				break;
+
 			}
 		}
 	} while (1 > 0);
@@ -245,115 +295,24 @@ SigninMain::~SigninMain()
 
 void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
 {
-	if (m_bEraseBackground) {
-		return;
-	}
-	wxImage image;
-	wxBitmap m_background;
+	
 	int top = 146;
 	int buttom = 72;
 	int middle = 1080 - top - buttom;
-	
-	//image.Clear();
-	do
-	{
-		if (image.LoadFile(_T("./resource/top.png"), wxBITMAP_TYPE_PNG))
-		{
-			wxSize sz = this->m_panel4->GetClientSize();
+	event.GetDC()->DrawBitmap(*m_Top, 0, 0);
+	event.GetDC()->DrawBitmap(*m_Middle, 0, top);
+	event.GetDC()->DrawBitmap(*m_Buttom, 0, top+middle);
+}
 
-			image.SetMask(false);
-			image.Rescale(sz.GetWidth(), top);
-			m_background = wxBitmap(image);
-
-			if (m_background.IsOk())
-			{
-				wxRect rect(0, 0, sz.x, top);
-
-				if (event.GetDC())
-				{
-					TileBitmap(rect, *(event.GetDC()), m_background);
-				}
-				else
-				{
-					wxClientDC dc(this->m_panel4);
-					TileBitmap(rect, dc, m_background);
-				}
-				break;
-			}
-			else {
-				event.Skip(); // The official way of doing it
-			}
-			continue;
-		}
-	} while (1 > 0);
-	
-
-
-	image.Clear();
-	do
-	{
-		if (image.LoadFile(_T("./resource/buttom.png"), wxBITMAP_TYPE_PNG))
-		{
-			wxSize sz = this->m_panel4->GetClientSize();
-			image.Rescale(sz.GetWidth(), buttom);
-			image.SetMask(false);
-			m_background = wxBitmap(image);
-
-			if (m_background.IsOk())
-			{
-				wxRect rect(0, sz.y - buttom, sz.x, buttom);
-
-				if (event.GetDC())
-				{
-					TileBitmap(rect, *(event.GetDC()), m_background);
-				}
-				else
-				{
-					wxClientDC dc(this->m_panel4);
-					TileBitmap(rect, dc, m_background);
-				}
-				break;
-			}
-			else {
-				event.Skip(); // The official way of doing it
-			}
-			continue;
-		}
-	} while (1 > 0);
-
-
-	do {
-		image.Clear();
-		if (image.LoadFile(_T("./resource/middle.png"), wxBITMAP_TYPE_PNG))
-		{
-			wxSize sz = this->m_panel4->GetClientSize();
-			image.Rescale(sz.GetWidth(), sz.y - top - buttom);
-			image.SetMask(false);
-
-			m_background = wxBitmap(image);
-			if (m_background.IsOk())
-			{
-				wxRect rect(0, top, sz.x, sz.y - top - buttom);
-
-				if (event.GetDC())
-				{
-					TileBitmap(rect, *(event.GetDC()), m_background);
-				}
-				else
-				{
-					wxClientDC dc(this->m_panel4);
-					TileBitmap(rect, dc, m_background);
-				}
-				break;
-			}
-			else {
-				event.Skip(); // The official way of doing it
-			}
-			continue;
-		}
-	} while (1 > 0);
-
-	m_bEraseBackground = true;
+void SigninMain::m_panel4OnPaint(wxPaintEvent& event)
+{
+	wxBufferedPaintDC dc(this->m_panel4);
+	int top = 146;
+	int buttom = 72;
+	int middle = 1080 - top - buttom;
+	dc.DrawBitmap(*m_Top, 0, 0);
+	dc.DrawBitmap(*m_Middle, 0, top);
+	dc.DrawBitmap(*m_Buttom, 0, top + middle);
 }
 
 bool SigninMain::TileBitmap(const wxRect& rect, wxDC& dc, wxBitmap& bitmap)

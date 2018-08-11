@@ -75,14 +75,15 @@ protected:
 
 	// Virtual event handlers, overide them in your derived class
 	virtual void OnClose(wxCloseEvent& event) { event.Skip(); }
-	virtual void OnEraseBackgroundPanel(wxEraseEvent& event) { event.Skip(); }
+	virtual void m_panel4OnEraseBackground(wxEraseEvent& event) { event.Skip(); }
+	virtual void m_panel4OnPaint(wxPaintEvent& event) { event.Skip(); }
 
 
 public:
 
 	SigninFrame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Õ¢»ú×¢²áÏµÍ³"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(-1, -1), long style = 0 | wxSIMPLE_BORDER | wxSTATIC_BORDER);
 
-	virtual ~SigninFrame();
+	~SigninFrame();
 
 };
 
