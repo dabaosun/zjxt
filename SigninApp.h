@@ -10,9 +10,12 @@
 #define SIGNINAPP_H
 
 #include <wx/app.h>
+#include <wx/snglinst.h>
 
 class SigninApp : public wxApp
 {
+	private:
+		wxSingleInstanceChecker * m_checker;
     public:
         virtual bool OnInit();
 };

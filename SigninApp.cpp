@@ -20,6 +20,14 @@ IMPLEMENT_APP(SigninApp);
 
 bool SigninApp::OnInit()
 {
+	const wxString name = wxString::Format(wxT("Signin-%s"), wxGetUserId().c_str());
+	m_checker = new wxSingleInstanceChecker(name);
+	if (m_checker->IsAnotherRunning())
+	{
+		wxLogError(wxT("Program already running, aborting."));
+		return false;
+	}
+
 	//(*AppInitialize
     bool wxsOK = true;
     wxInitAllImageHandlers();

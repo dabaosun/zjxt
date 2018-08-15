@@ -56,6 +56,7 @@ class Detector
 		};
 
 		static Garbo garbo;
+		bool bInitSDK;
 };
 
 #endif // DETECTOR_H

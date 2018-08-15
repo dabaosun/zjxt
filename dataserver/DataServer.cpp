@@ -32,38 +32,42 @@ DataServer::~DataServer()
 
 int DataServer::UploadData(const std::string& cardno, const std::string& imgpath)
 {
-
 	const string_t host = utility::conversions::to_string_t(Config::GetInstance()->GetData().server.ip);
 	web::uri_builder clientbuilder;
 	clientbuilder.set_scheme(U("http"));
 	clientbuilder.set_host(host);
 	clientbuilder.set_port(Config::GetInstance()->GetData().server.port);
 
-	// Create http_client to send the request.
-	http_client client(clientbuilder.to_uri());
+	try
+	{
+		// Create http_client to send the request.
+		http_client client(clientbuilder.to_uri());
 
-	// Build request URI and start the request.
-	uri_builder builder(U("/device/register/register.do"));
-	builder.append_query(U("cardID"), cardno.c_str());
-	builder.append_query(U("path"), imgpath.c_str());
-	http_response response = client.request(methods::GET, builder.to_string()).get();
+		// Build request URI and start the request.
+		uri_builder builder(U("/device/register/register.do"));
+		builder.append_query(U("cardID"), cardno.c_str());
+		builder.append_query(U("path"), imgpath.c_str());
+		http_response response = client.request(methods::GET, builder.to_string()).get();
 
-	if (200 == response.status_code()) {
-		try
-		{
-			const web::json::value& v = response.extract_json().get();
-			if (v.has_string_field(U("code"))) {
-				const web::json::value& a = v.at(U("code"));
-				auto code = utility::conversions::to_utf8string(a.as_string());
-				return atoi(code.c_str());
+		if (200 == response.status_code()) {
+			try
+			{
+				const web::json::value& v = response.extract_json().get();
+				if (v.has_string_field(U("code"))) {
+					const web::json::value& a = v.at(U("code"));
+					auto code = utility::conversions::to_utf8string(a.as_string());
+					return atoi(code.c_str());
+				}
+				return 500;
 			}
-			return 500;
+			catch (...)
+			{
+				return 500;
+			}
 		}
-		catch (...)
-		{
-			return 500;
-		}
+		return response.status_code();
 	}
-	return response.status_code();
-
+	catch (...) {
+		return 500;
+	}
 }

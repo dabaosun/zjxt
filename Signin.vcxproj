@@ -29,6 +29,7 @@
     <ClCompile Include="SigninApp.cpp" />
     <ClCompile Include="SigninFrame.cpp" />
     <ClCompile Include="SigninMain.cpp" />
+    <ClCompile Include="statictext\CustomStaticText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera\CameraListener.h" />
@@ -44,6 +45,7 @@
     <ClInclude Include="SigninApp.h" />
     <ClInclude Include="SigninFrame.h" />
     <ClInclude Include="SigninMain.h" />
+    <ClInclude Include="statictext\CustomStaticText.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

@@ -11,35 +11,137 @@
 #include "ProgressThread.h"
 #include "./certcard/CertCard.h"
 #include "./config/Config.h"
+#include "./statictext/CustomStaticText.h"
 
 enum
 {
 	WORKER_EVENT = wxID_HIGHEST + 1, // this one gets sent from MyWorkerThread
 	GUITHREAD_EVENT                  // this one gets sent from MyGUIThread
 };
-
+void SigninMain::ReplaceStaticText(wxBitmap* background, wxStaticText** replaced, wxSizer* sizer) {
+	CustomStaticText* obj = new CustomStaticText();
+	obj->Create((*replaced)->GetParent(), wxID_ANY, (*replaced)->GetLabel(), 
+		(*replaced)->GetPosition(), (*replaced)->GetSize(),(*replaced)->GetAlignment());
+	obj->SetMinSize((*replaced)->GetMinSize());
+	obj->SetPosition((*replaced)->GetPosition());
+	obj->SetBg(background);
+	obj->Wrap(-1);
+	wxFont font = (*replaced)->GetFont();
+	obj->SetFont(wxFont(font.GetPointSize(), font.GetFamily(), font.GetStyle(), font.GetWeight(), false, wxT("Microsoft YaHei")));
+	obj->SetForegroundColour((*replaced)->GetForegroundColour());
+	obj->SetSize((*replaced)->GetSize());
+	sizer->Add(obj, 0, wxALL, 0);
+	delete *replaced;
+	*replaced = obj;
+}
 SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 {
 	if (0 != Config::GetInstance()->LoadConfig()) {
-
+		
 	}
-	//this->bSizerTop->SetMinSize(-1, this->GetSize().GetHeight()*10/100);
-	//this->bSizerButtom->SetMinSize(-1, this->GetSize().GetHeight() - this->GetSize().GetHeight() * 82 / 100);
 
 	this->Connect(WORKER_EVENT, wxEVT_THREAD, wxThreadEventHandler(SigninMain::OnWorkerEvent));
-
+	
 	m_CameraView = new CameraView(this->m_panelCamera, wxID_ANY);
-	m_CameraView->SetSize(wxSize(640, 640));
-	m_CameraView->SetMinSize(wxSize(640, 640));
-	m_CameraView->SetMaxSize(wxSize(640, 640));
+	m_CameraView->SetSize(wxSize(640, 480));
+	m_CameraView->SetMinSize(wxSize(640, 480));
+	m_CameraView->SetMaxSize(wxSize(640, 480));
 	m_CameraView->SetBackgroundColour(wxColour(wxT("#000000")));
-	//m_CameraView->SetSizer(bSizer_Camera);
 	m_CameraView->Layout();
 	bSizer_Camera->Add(m_CameraView, 1, wxALL , 0);
 
-	//this->bSizer_Camera->Add(m_CameraView, 1, wxALL, 0);
-	//this->bSizer_Camera->Fit(m_CameraView);
-	//this->m_panelCamera->Layout();
+	wxImage image;
+	do {
+		if (image.LoadFile(_T("./resource/middle.png"), wxBITMAP_TYPE_PNG)) {
+			image.SetMask(false);
+			image.Rescale(1920, 1080);
+			bg_ = new wxBitmap(image);
+			if (bg_->IsOk()){
+				break;
+			}
+		}
+	} while (1 > 0);
+
+	int top = 146;
+	int buttom = 72;
+	int middle = 1080 - top - buttom;
+
+	//image.Clear();
+	do
+	{
+		if (image.LoadFile(_T("./resource/top.png"), wxBITMAP_TYPE_PNG))
+		{
+			wxSize sz = this->m_panel4->GetClientSize();
+			image.SetMask(false);
+			image.Rescale(sz.GetWidth(), top);
+			m_Top = new wxBitmap(image);
+			if (m_Top->IsOk()) {
+				break;
+			}
+		}
+	} while (1 > 0);
+
+	do
+	{
+		if (image.LoadFile(_T("./resource/buttom.png"), wxBITMAP_TYPE_PNG))
+		{
+			wxSize sz = this->m_panel4->GetClientSize();
+			image.Rescale(sz.GetWidth(), buttom);
+			image.SetMask(false);
+			m_Buttom = new wxBitmap(image);
+			if (m_Buttom->IsOk())
+			{
+				break;
+
+			}
+		}
+	} while (1 > 0);
+
+	do
+	{
+		if (image.LoadFile(_T("./resource/middle.png"), wxBITMAP_TYPE_PNG))
+		{
+			wxSize sz = this->m_panel4->GetClientSize();
+			image.Rescale(sz.GetWidth(), middle);
+			image.SetMask(false);
+			m_Middle = new wxBitmap(image);
+			if (m_Middle->IsOk())
+			{
+				break;
+
+			}
+		}
+	} while (1 > 0);
+
+	do
+	{
+		if (image.LoadFile(_T("./resource/identify.png"), wxBITMAP_TYPE_PNG))
+		{
+			image.Rescale(132, 163);
+			image.SetMask(false);
+			m_Identify = new wxBitmap(image);
+			if (m_Identify->IsOk())
+			{
+				break;
+
+			}
+		}
+	} while (1 > 0);
+
+	ReplaceStaticText(bg_, &m_staticTextCemra, bSizer16);
+	ReplaceStaticText(bg_, &m_staticTextIdentify, bSizer40);
+	ReplaceStaticText(bg_, &m_staticTextStep, bSizer41);
+	ReplaceStaticText(bg_, &m_staticTextName, bSizer191);
+	ReplaceStaticText(bg_, &m_staticTextGender, bSizer20);
+	ReplaceStaticText(bg_, &m_staticTextBirth, bSizer21);
+	ReplaceStaticText(bg_, &m_Name, bSizer24);
+	ReplaceStaticText(bg_, &m_Gender, BoxSizer_Gender);
+	ReplaceStaticText(bg_, &m_Birth, bSizer25);
+	ReplaceStaticText(bg_, &m_staticTextIDNumber, bSizer33);
+	ReplaceStaticText(bg_, &m_staticTextAddr, bSizer34);
+	ReplaceStaticText(bg_, &m_IDNumber, bSizer27);
+	ReplaceStaticText(bg_, &m_Addr, bSizer29);
+	ReplaceStaticText(bg_, &m_staticTextProgress, bSizer42);
 
 	this->Layout();
 	this->Centre(wxBOTH);
@@ -52,7 +154,7 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 }
 
 void SigninMain::OnClose( wxCloseEvent& event )
-{
+{	
 	if (NULL != this->m_threadProgress) {
 		this->m_threadProgress->Delete();
 		if (!this->m_threadProgress->IsDetached()) {
@@ -60,14 +162,15 @@ void SigninMain::OnClose( wxCloseEvent& event )
 		}
 		this->m_threadProgress = NULL;
 	}
-	this->m_CertCard->CloseCertCardReader();
-	this->m_CameraView->CloseCamera();
 
 	this->m_CameraView->RemoveListener(this->m_CertCard);
 	this->m_CertCard->RemoveListener(this);
 
-	delete m_CertCard;
-	delete m_CameraView;
+	this->m_CertCard->CloseCertCardReader();
+	this->m_CameraView->CloseCamera();
+	
+	//delete m_CertCard;
+	//delete m_CameraView;
 
 	Destroy();
 }
@@ -85,31 +188,31 @@ void SigninMain::OnWorkerEvent(wxThreadEvent& event)
 	int n = event.GetInt();
 	wxString msg = event.GetString();
 
-	this->m_staticTextStep->SetLabelText("（"+msg+"）");
+	this->m_staticTextStep->SetLabel("��"+msg+"��");
 
-	if ("正在处理中" == msg) {
+	if ("���ڴ�����" == msg) {
 		this->m_staticTextStep->SetForegroundColour(wxColour(33, 33, 33));
 	}
 
-	if ("注册失败" == msg) {
+	if ("ע��ʧ��" == msg) {
 		this->m_staticTextStep->SetForegroundColour(wxColour(226, 62, 49));
 	}
 
-	if ("注册成功" == msg) {
+	if ("ע��ɹ�" == msg) {
 		this->m_staticTextStep->SetForegroundColour(wxColour(43, 111, 143));
 	}
 
-	if ("请刷身份证" == msg) {
+	if ("��ˢ����֤" == msg) {
 		this->m_staticTextStep->SetForegroundColour(wxColour(33, 33, 33));
 	}
 
-	if ("正在处理中" == msg) {
-		this->m_staticTextProgress->SetLabelText("Loading");
+	if ("���ڴ�����" == msg) {
+		this->m_staticTextProgress->SetLabel("Loading");
 	}
 	else {
-		this->m_staticTextProgress->SetLabelText("");
+		this->m_staticTextProgress->SetLabel("");
 	}
-
+	
 	this->m_gaugeProgress->SetValue(n);
 }
 
@@ -125,27 +228,21 @@ void SigninMain::UpdateCardAuthed(bool authed, const std::string& info)
 
 void SigninMain::UpdateCertCardInfo(const std::shared_ptr<CertCardInfo>& info)
 {
-	this->m_textCtrlName->SetLabelText(info->name.get());
-	this->m_textCtrlBirth->SetLabelText(info->birth.get());
-	this->m_textCtrlAddr->SetLabelText(info->address.get());
-	this->m_textCtrlIDNumber->SetLabelText(info->certno.get());
-	this->m_radioBtnFemale->SetValue(false);
-	this->m_radioBtnMale->SetValue(false);
-	if (wxT("asdf") == wxString(info->gendar.get())) {
-		this->m_radioBtnMale->SetValue(true);
-	}
-	else {
-		this->m_radioBtnFemale->SetValue(true);
-	}
-
+	this->m_Name->SetLabel(info->name.get());
+	this->m_Birth->SetLabel(info->birth.get());
+	this->m_Addr->SetLabel(info->address.get());
+	this->m_IDNumber->SetLabel(info->certno.get());
+	this->m_Gender->SetLabel(info->gendar.get());
+	
 	wxClientDC dc(this->StaticBitmap_IDImage);
-	dc.Clear();
+	wxBufferedDC buffDC(&dc);
+	buffDC.Clear();
 
 	wxImage img;
-	img.LoadFile(Config::GetInstance()->GetPwd() + "certcard.bmp");
+	img.LoadFile(Config::GetInstance()->GetPwd() + "certcard.bmp");	
 	img.Rescale(132, 163);
 	wxBitmap bitmap = wxBitmap(img);
-	dc.DrawBitmap(bitmap, 0, 0);
+	buffDC.DrawBitmap(bitmap, 0, 0);
 
 }
 
@@ -155,7 +252,7 @@ void SigninMain::StartProcess(const std::string& info)
 	do {
 
 	} while (NULL != m_threadProgress);
-
+	
 	m_threadProgress = new ProgressThread(this);
 	m_threadProgress->m_message = info;
 	m_threadProgress->Run();
@@ -173,27 +270,29 @@ void SigninMain::EndProcess(int result, const std::string& info)
 		this->m_threadProgress = NULL;
 	}
 
-	this->m_textCtrlName->SetLabelText("");
-	this->m_textCtrlBirth->SetLabelText("");
-	this->m_textCtrlAddr->SetLabelText("");
-	this->m_textCtrlIDNumber->SetLabelText("");
-	this->m_radioBtnFemale->SetValue(false);
-	this->m_radioBtnMale->SetValue(false);
+	this->m_Name->SetLabel("");
+	this->m_Birth->SetLabel("");
+	this->m_Addr->SetLabel("");
+	this->m_IDNumber->SetLabel("");
+	this->m_Gender->SetLabel("");
 
 	wxClientDC dc(this->StaticBitmap_IDImage);
-	dc.Clear();
+	wxBufferedDC bufferDC(&dc);
+	bufferDC.Clear();
+	bufferDC.DrawBitmap(*m_Identify, 0, 0);
 
-	wxImage img;
-	img.LoadFile(Config::GetInstance()->GetPwd() + "./resource/identify.png");
-	img.Rescale(132, 163);
-	wxBitmap bitmap = wxBitmap(img);
-	dc.DrawBitmap(bitmap, 0, 0);
+	std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+
+	this->m_staticTextStep->SetForegroundColour(wxColour(33, 33, 33));
+	this->m_staticTextStep->SetLabel("����ˢ����֤��");
 }
 
 void SigninMain::UpdateProgressInfo(int progress, const std::string& info)
 {
+	/*
 	m_threadProgress->m_count = progress;
 	m_threadProgress->m_message = info;
+	*/
 }
 
 CameraView* SigninMain::GetCameraView()
@@ -206,222 +305,17 @@ SigninMain::~SigninMain()
 
 }
 
-void SigninMain::OnEraseBackground(wxEraseEvent& event)
+void SigninMain::m_panel4OnPaint(wxPaintEvent& event)
 {
-	//wxImage image;
-	//wxBitmap m_background;
-
-	//if (image.LoadFile(_T("./resource/top.png"), wxBITMAP_TYPE_PNG))
-	//{
-	//	m_background = wxBitmap(image);
-	//}
-	//if (m_background.Ok())
-	//{
-	//	wxSize sz = GetClientSize();
-	//	m_background.SetSize(sz.GetWidth(), 100);
-	//	wxRect rect(0, 0, sz.x, 100);
-
-	//	if (event.GetDC())
-	//	{
-	//		TileBitmap(rect, *(event.GetDC()), m_background);
-	//	}
-	//	else
-	//	{
-	//		wxClientDC dc(this);
-	//		TileBitmap(rect, dc, m_background);
-	//	}
-	//}
-	//else {
-	//	event.Skip(); // The official way of doing it
-	//}
-
-	//if (image.LoadFile(_T("./resource/buttom.png"), wxBITMAP_TYPE_PNG))
-	//{
-	//	m_background = wxBitmap(image);
-	//}
-	//if (m_background.Ok())
-	//{
-	//	wxSize sz = GetClientSize();
-	//	m_background.SetSize(sz.GetWidth(),72);
-
-	//	wxRect rect(0, sz.y-72, sz.x, 72);
-
-	//	if (event.GetDC())
-	//	{
-
-	//		TileBitmap(rect, *(event.GetDC()), m_background);
-	//	}
-	//	else
-	//	{
-	//		wxClientDC dc(this);
-	//		TileBitmap(rect, dc, m_background);
-	//	}
-	//}
-	//else {
-	//	event.Skip(); // The official way of doing it
-	//}
-
-	//if (image.LoadFile(_T("./resource/middle.png"), wxBITMAP_TYPE_PNG))
-	//{
-	//	m_background = wxBitmap(image);
-	//}
-	//if (m_background.Ok())
-	//{
-	//	wxSize sz = GetClientSize();
-	//	m_background.SetSize(sz.GetWidth(), sz.y-180);
-
-	//	wxRect rect(0, 100, sz.x, sz.y - 180);
-
-	//	if (event.GetDC())
-	//	{
-	//		TileBitmap(rect, *(event.GetDC()), m_background);
-	//	}
-	//	else
-	//	{
-	//		wxClientDC dc(this);
-	//		TileBitmap(rect, dc, m_background);
-	//	}
-	//}
-	//else {
-	//	event.Skip(); // The official way of doing it
-	//}
+	wxBufferedPaintDC dc(this->m_panel4);
+	int top = 146;
+	int buttom = 72;
+	int middle = 1080 - top - buttom;
+	dc.DrawBitmap(*m_Top, 0, 0);
+	dc.DrawBitmap(*m_Middle, 0, top);
+	dc.DrawBitmap(*m_Buttom, 0, top + middle);
 }
 
-void SigninMain::OnPaint(wxPaintEvent& event)
-{
-	//wxPaintDC dc(this);
-	//PrepareDC(dc);
-
-	//wxImage image;
-	//wxBitmap logo;
-	//if (image.LoadFile(_T("./resource/logo.png"), wxBITMAP_TYPE_PNG))
-	//{
-	//	image.SetMask(false);
-	//	logo = wxBitmap(image);
-	//}
-	//int x = 30;
-	//int y = 8;
-	//dc.DrawBitmap(logo, x, y, true);
-
-	//wxPoint point_1(x + logo.GetSize().GetWidth() + 40,	y + (logo.GetSize().GetHeight() - 36) / 2);
-	//wxFont font_1(36, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("SourceHanSerifCN-Bold"));
-	//TileText(dc, "ŽóÑ§Õ¢»ú×¢²áÏµÍ³", font_1, point_1);
-
-	//wxFont font_2(18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI"));
-	//y = this->bSizerButtom->GetPosition().y;
-	//int offset = (this->bSizerButtom->GetSize().GetHeight()-18) / 2;
-	//wxPoint point_2(this->bSizerButtom->GetSize().GetWidth()*45/100, y + offset);
-	//TileText(dc, "ÁªÉîÌ©¿ÆŒŒÓÐÏÞ¹«ËŸ", font_2, point_2);
-}
-
-void SigninMain::OnEraseBackgroundPanel(wxEraseEvent& event)
-{
-	wxImage image;
-	wxBitmap m_background;
-
-	if (image.LoadFile(_T("./resource/top.png"), wxBITMAP_TYPE_PNG))
-	{
-		m_background = wxBitmap(image);
-	}
-	if (m_background.Ok())
-	{
-		wxSize sz = this->m_panel4->GetClientSize();
-		m_background.SetHeight(100);
-		m_background.SetWidth(sz.GetWidth());
-		wxRect rect(0, 0, sz.x, 100);
-
-		if (event.GetDC())
-		{
-			TileBitmap(rect, *(event.GetDC()), m_background);
-		}
-		else
-		{
-			wxClientDC dc(this->m_panel4);
-			TileBitmap(rect, dc, m_background);
-		}
-	}
-	else {
-		event.Skip(); // The official way of doing it
-	}
-
-	if (image.LoadFile(_T("./resource/buttom.png"), wxBITMAP_TYPE_PNG))
-	{
-		m_background = wxBitmap(image);
-	}
-	if (m_background.Ok())
-	{
-		wxSize sz = this->m_panel4->GetClientSize();
-		m_background.SetHeight(72);
-		m_background.SetWidth(sz.GetWidth());
-		wxRect rect(0, sz.y - 72, sz.x, 72);
-
-		if (event.GetDC())
-		{
-
-			TileBitmap(rect, *(event.GetDC()), m_background);
-		}
-		else
-		{
-			wxClientDC dc(this->m_panel4);
-			TileBitmap(rect, dc, m_background);
-		}
-	}
-	else {
-		event.Skip(); // The official way of doing it
-	}
-
-	if (image.LoadFile(_T("./resource/middle.png"), wxBITMAP_TYPE_PNG))
-	{
-		m_background = wxBitmap(image);
-	}
-	if (m_background.Ok())
-	{
-		wxSize sz = this->m_panel4->GetClientSize();
-		m_background.SetHeight(sz.y-180);
-		m_background.SetWidth(sz.GetWidth());
-		wxRect rect(0, 100, sz.x, sz.y - 180);
-
-		if (event.GetDC())
-		{
-			TileBitmap(rect, *(event.GetDC()), m_background);
-		}
-		else
-		{
-			wxClientDC dc(this->m_panel4);
-			TileBitmap(rect, dc, m_background);
-		}
-	}
-	else {
-		event.Skip(); // The official way of doing it
-	}
-}
-
-void SigninMain::OnPaintPanel(wxPaintEvent& event)
-{
-	wxPaintDC dc(this->m_panel4);
-	PrepareDC(dc);
-
-	wxImage image;
-	wxBitmap logo;
-	if (image.LoadFile(_T("./resource/logo.png"), wxBITMAP_TYPE_PNG))
-	{
-		image.SetMask(false);
-		logo = wxBitmap(image);
-	}
-	int x = 30;
-	int y = 8;
-	dc.DrawBitmap(logo, x, y, true);
-
-	wxPoint point_1(x + logo.GetSize().GetWidth() + 40, y + (logo.GetSize().GetHeight() - 36) / 2);
-	wxFont font_1(36, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("SourceHanSerifCN-Bold"));
-	TileText(dc, wxT("智慧校园人脸闸机注册系统"), font_1, point_1);
-
-	wxFont font_2(18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Microsoft YaHei UI"));
-	y = this->bSizerButtom->GetPosition().y;
-	int offset = (this->bSizerButtom->GetSize().GetHeight() - 18) / 2;
-	wxPoint point_2(this->bSizerButtom->GetSize().GetWidth() * 45 / 100, y + offset);
-	TileText(dc, wxT("锐意华安（天津）科技有限公司"), font_2, point_2);
-}
 bool SigninMain::TileBitmap(const wxRect& rect, wxDC& dc, wxBitmap& bitmap)
 {
 	int w = bitmap.GetWidth();

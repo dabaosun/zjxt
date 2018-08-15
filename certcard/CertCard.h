@@ -15,6 +15,9 @@
 #include <list>
 #include <thread>
 #include <mutex>
+#include <ostream>
+#include <fstream>
+#include <stdio.h>  
 #include "CertCardListener.h"
 #include "../camera/CameraListener.h"
 
@@ -47,8 +50,10 @@ private:
 
 	bool HandleCardInfo(const std::shared_ptr<CertCardInfo>& info);
 	void PopCapture(std::shared_ptr<cv::Mat>& capture);
+	void RecordLog(const std::string msg);
 	std::shared_ptr<cv::Mat> m_mat;
 	std::mutex m_mtxMat;
+	std::ofstream errorlog;
 
 	void * m_hSubProcess;
 	bool m_bNeedexit;
