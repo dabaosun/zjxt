@@ -38,7 +38,7 @@ CameraView::~CameraView()
 
 void CameraView::OnPaint(wxPaintEvent& event)
 {
-/*
+
     if (!m_is_display)
     {
         return;
@@ -51,7 +51,7 @@ void CameraView::OnPaint(wxPaintEvent& event)
 		size.height = m_height;
 		size.width = m_width;
 		Mat outimage;
-		cv::resize(capture, outimage,size);
+		cv::resize(capture,outimage,size);
 
 		bool ret = SetPicture(outimage);
         if (!ret)
@@ -66,7 +66,7 @@ void CameraView::OnPaint(wxPaintEvent& event)
         wxBufferedPaintDC dc(this);
         dc.DrawBitmap(current_capture, this->GetPosition(),true);
     }
-    */
+
 }
 
 void CameraView::OnTimer(wxTimerEvent & event)
@@ -89,7 +89,7 @@ void CameraView::CloseCamera()
 
 bool CameraView::OpenCamera()
 {
-/*
+
     if (m_is_display)
     {
 		return true;
@@ -116,7 +116,7 @@ bool CameraView::OpenCamera()
     m_timer->Start(1000 / 30);
 
 	return true;
-	*/
+
 }
 
 bool CameraView::SetPicture(const cv::Mat& mat)

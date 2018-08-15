@@ -13,6 +13,10 @@
 //#include <direct.h>
 //#include <io.h>
 #include <iostream>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <libgen.h>
+#include <sys/unistd.h>
 
 using json = nlohmann::json;
 namespace ns {
@@ -100,18 +104,11 @@ std::string Config::GetPwd()
 
 void Config::SaveDataToFile(const std::string& filepath)
 {
-	char drive[10];
-	char dir[256];
-	char fname[256];
-	char ext[256];
-
-	/*
-	_splitpath_s(filepath.c_str(), drive, dir, fname, ext);
-	if (_access(dir, 6) == -1)
+	if (access(dirname((char*)filepath.c_str()),6) == -1)
 	{
-		_mkdir(dir);
+		mkdir(dirname((char*)filepath.c_str()),0755);
 	}
-	*/
+
 	json j = m_data;
 	std::ofstream out(filepath);
 
