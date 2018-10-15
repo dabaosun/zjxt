@@ -7,7 +7,7 @@
 **************************************************************/
 
 #include "CertCard.h"
-#include <HD_SDTapi_x64.h>
+#include <HDstdapi.h>
 #include <fstream>
 #include <chrono>
 #include <ctime>

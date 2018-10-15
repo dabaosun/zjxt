@@ -100,13 +100,21 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>.\wxWidgets-3.0.4\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\wxwidgets\signin\hdsdk;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
     <IntDir>$(Platform)\$(Configuration)\Obj</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>.\wxWidgets-3.0.4\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\wxwidgets\signin\hdsdk;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
     <IntDir>$(Platform)\$(Configuration)\Obj</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>.\wxWidgets-3.0.4\include;$(IncludePath)</IncludePath>
+    <IntDir>$(Platform)\$(Configuration)\Obj</IntDir>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>.\wxWidgets-3.0.4\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -114,13 +122,14 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(WXWIN)\include;$(WXWIN)\include\msvc</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;__WXMSW__;_WINDOWS;wxUSE_GUI=1;WINVER=0x0500;_DEBUG;__WXDEBUG__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\opencv\build\include;.\wxWidgets-3.0.4\include\msvc;.\wxWidgets-3.0.4\include;.\fastdfs\include;.\facesdk\x86;.\hdsdk</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;__WXMSW__;_WINDOWS;wxUSE_GUI=1;WINVER=0x0500;WXUSINGDLL;wxUSE_UNICODE=1;_UNICODE;UNICODE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_DEBUG;__WXDEBUG_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\wxWidgets-3.0.4\lib\vc140_x64_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\opencv\build\x86\vc15\lib;.\wxWidgets-3.0.4\lib\vc_dll;.\sdk-64\sdk;.\hdsdk;.\fastdfs\lib;.\facesdk\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>comctl32.lib;rpcrt4.lib;winmm.lib;wsock32.lib;wxmsw30ud_core.lib;wxbase30ud.lib;wxpngd.lib;wxzlibd.lib;wxjpegd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>comctl32.lib;rpcrt4.lib;winmm.lib;wsock32.lib;FaceSDKV2.lib;wxbase30ud.lib;wxmsw30ud_core.lib;wxpngd.lib;wxjpegd.lib;opencv_world341d.lib;FastSDK.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -129,12 +138,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>.\opencv\build\include;.\wxWidgets-3.0.4\include\msvc;.\wxWidgets-3.0.4\include;.\fastdfs;.\facesdk;.\hdsdk</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\opencv\build\include;.\wxWidgets-3.0.4\include\msvc;.\wxWidgets-3.0.4\include;.\fastdfs\include;.\facesdk\x64;.\hdsdk</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;__WXMSW__;_WINDOWS;wxUSE_GUI=1;WINVER=0x0500;WXUSINGDLL;wxUSE_UNICODE=1;_UNICODE;UNICODE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_DEBUG;__WXDEBUG_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <OmitFramePointers>false</OmitFramePointers>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>.\opencv\build\x64\vc14\lib;.\wxWidgets-3.0.4\lib\vc_x64_dll;.\sdk-64\sdk;.\hdsdk;.\fastdfs;.\facesdk;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\opencv\build\x64\vc15\lib;.\wxWidgets-3.0.4\lib\vc_x64_dll;.\sdk-64\sdk;.\hdsdk;.\fastdfs\lib\x64;.\facesdk\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>comctl32.lib;rpcrt4.lib;winmm.lib;wsock32.lib;FaceSDKV2.lib;wxbase30ud.lib;wxmsw30ud_core.lib;wxpngd.lib;wxjpegd.lib;opencv_world341d.lib;FastSDK.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -147,15 +157,17 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(WXWIN)\include;$(WXWIN)\include\msvc</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;__WXMSW__;_WINDOWS;wxUSE_GUI=1;WINVER=0x0500;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\opencv\build\include;.\wxWidgets-3.0.4\include\msvc;.\wxWidgets-3.0.4\include;.\fastdfs\include;.\facesdk\x86;.\hdsdk</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;__WXMSW__;_WINDOWS;wxUSE_GUI=1;WINVER=0x0500;WXUSINGDLL;wxUSE_UNICODE=1;_UNICODE;UNICODE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(WXWIN)\lib\vc140_x64_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\opencv\build\x86\vc15\lib;.\wxWidgets-3.0.4\lib\vc_dll;.\sdk-64\sdk;.\hdsdk;.\fastdfs\lib;.\facesdk\x86;$(WXWIN)\lib\vc140_x64_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>comctl32.lib;rpcrt4.lib;winmm.lib;wsock32.lib;wxmsw30u_core.lib;wxbase31u.lib;wxpng.lib;wxzlib.lib;wxjpeg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>comctl32.lib;rpcrt4.lib;winmm.lib;wsock32.lib;FaceSDKV2.lib;wxbase30u.lib;wxmsw30u_core.lib;wxpng.lib;wxjpeg.lib;opencv_world341.lib;FastSDK.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -166,15 +178,16 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>.\opencv\build\include;.\wxWidgets-3.0.4\include\msvc;.\wxWidgets-3.0.4\include;.\fastdfs;.\facesdk;.\hdsdk</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\opencv\build\include;.\wxWidgets-3.0.4\include\msvc;.\wxWidgets-3.0.4\include;.\fastdfs\include;.\facesdk\x64;.\hdsdk</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;__WXMSW__;_WINDOWS;wxUSE_GUI=1;WINVER=0x0500;WXUSINGDLL;wxUSE_UNICODE=1;_UNICODE;UNICODE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <DebugInformationFormat>None</DebugInformationFormat>
+      <OmitFramePointers>false</OmitFramePointers>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>.\opencv\build\x64\vc14\lib;.\wxWidgets-3.0.4\lib\vc_x64_dll;.\sdk-64\sdk;.\hdsdk;.\fastdfs;.\facesdk;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>.\opencv\build\x64\vc15\lib;.\wxWidgets-3.0.4\lib\vc_x64_dll;.\sdk-64\sdk;.\hdsdk;.\fastdfs\lib\x64;.\facesdk\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>comctl32.lib;rpcrt4.lib;winmm.lib;wsock32.lib;FaceSDKV2.lib;wxbase30u.lib;wxmsw30u_core.lib;wxpng.lib;wxjpeg.lib;opencv_world341.lib;FastSDK.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>false</GenerateDebugInformation>
