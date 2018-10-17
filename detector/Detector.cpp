@@ -16,16 +16,25 @@ Detector::Garbo Detector::garbo;
 Detector::Detector()
 {
     //ctor
-    this->eyes_cascade_name="./data/haarcascades/haarcascade_eye_tree_eyeglasses.xml";
-    this->face_cascade_name="./data/haarcascades/haarcascade_frontalface_default.xml";
+    //this->eyes_cascade_name="./data/haarcascades/haarcascade_eye_tree_eyeglasses.xml";
+    //this->face_cascade_name="./data/haarcascades/haarcascade_frontalface_default.xml";
+#ifndef _WIN64 
+	bInitSDK = InitSDK_V3();
+#else
 	bInitSDK = InitSDK();
+#endif // !_WIN64
+		
 }
 
 Detector::~Detector()
 {
     //dtor
 	if (bInitSDK) {
+#ifndef _WIN64 
+		DelSDK_V3();
+#else
 		DelSDK();
+#endif // !_WIN64		
 	}	
 }
 
@@ -76,14 +85,23 @@ bool Detector::DetectAndComparseWithSDK(const std::shared_ptr<cv::Mat>& frame, c
 	FaceCheckInfo faceinfo;
 	memset(&faceinfo, 0, sizeof(FaceCheckInfo));
 	imwrite("./camera.jpg", *frame);
-	int result = DetectFaceForMat(tmp->data, tmp->cols, tmp->rows, &faceinfo);
+	int result = 0;// = DetectFaceForMat(tmp->data, tmp->cols, tmp->rows, &faceinfo);
 	if ((0 != result) && (faceinfo.nFacesize > 0)) {
 		FaceCheckInfo faceinfo2;
 		memset(&faceinfo2, 0, sizeof(faceinfo2));
+#ifndef _WIN64 
+		result = DetectFace_V3((unsigned char*)pImgBuf.get(), bufLen, &faceinfo2);
+#else
+		result = DetectFace((unsigned char*)pImgBuf.get(), bufLen, &faceinfo2);
+#endif // !_WIN64 
 
-		result=DetectFace((unsigned char*)pImgBuf.get(), bufLen, &faceinfo2);
+		
 		if ((0 != result) && (faceinfo2.nFacesize > 0)) {
+#ifndef _WIN64 
+			return CalcModel_V3(&faceinfo.faceModelInfo[0], &faceinfo2.faceModelInfo[0], &score);
+#else
 			return CalcModel(&faceinfo.faceModelInfo[0], &faceinfo2.faceModelInfo[0], &score);
+#endif // !_WIN64 
 		}
 	}
 	return false;

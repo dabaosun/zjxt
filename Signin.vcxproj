@@ -129,7 +129,7 @@
     <Link>
       <AdditionalLibraryDirectories>.\opencv\build\x86\vc15\lib;.\wxWidgets-3.0.4\lib\vc_dll;.\sdk-64\sdk;.\hdsdk;.\fastdfs\lib;.\facesdk\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>comctl32.lib;rpcrt4.lib;winmm.lib;wsock32.lib;FaceSDKV2.lib;wxbase30ud.lib;wxmsw30ud_core.lib;wxpngd.lib;wxjpegd.lib;opencv_world341d.lib;FastSDK.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>comctl32.lib;rpcrt4.lib;winmm.lib;wsock32.lib;FaceSDKV3.lib;wxbase30ud.lib;wxmsw30ud_core.lib;wxpngd.lib;wxjpegd.lib;opencv_world341d.lib;FastSDKD.lib;HDstdapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -166,7 +166,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>.\opencv\build\x86\vc15\lib;.\wxWidgets-3.0.4\lib\vc_dll;.\sdk-64\sdk;.\hdsdk;.\fastdfs\lib;.\facesdk\x86;$(WXWIN)\lib\vc140_x64_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>comctl32.lib;rpcrt4.lib;winmm.lib;wsock32.lib;FaceSDKV2.lib;wxbase30u.lib;wxmsw30u_core.lib;wxpng.lib;wxjpeg.lib;opencv_world341.lib;FastSDK.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>comctl32.lib;rpcrt4.lib;winmm.lib;wsock32.lib;FaceSDKV3.lib;wxbase30u.lib;wxmsw30u_core.lib;wxpng.lib;wxjpeg.lib;opencv_world341.lib;FastSDK.lib;HDstdapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
