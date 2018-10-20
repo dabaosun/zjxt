@@ -20,7 +20,7 @@
 #include "../imgstorage/ImgStorage.h"
 #include "../dataserver/DataServer.h"
 
-const std::map<int, std::string> errlist { { -1 ,"设备连接错" },
+const std::map<int, std::string> errlist{ { -1 ,"设备连接错" },
 { SHD_UnConnected, "设备未建立连" },
 { SHD_BadLoadDLL_Error, "(动态库)加载失败 " },
 { SHD_Parameter_Error ,"(发给动态库的)参数错 " },
@@ -44,7 +44,7 @@ CertCard::CertCard()
 	std::string errorfile(pwd);
 
 	errorfile.append("/error.log");
-	
+
 	errorlog.open(errorfile, std::ios::out);
 }
 
@@ -62,7 +62,7 @@ std::string CertCard::GetErrMsg(int errcode)
 	if (errlist.end() == found) {
 		return "未定义错误码";
 	}
-	
+
 	return found->second;
 }
 
@@ -77,7 +77,7 @@ void CertCard::RegisterListener(ICertCardListener * listener)
 
 void CertCard::RemoveListener(ICertCardListener * listener)
 {
-	if((NULL != listener) && (m_listeners.size()>0))
+	if ((NULL != listener) && (m_listeners.size() > 0))
 	{
 		std::unique_lock<std::mutex> lck(this->m_mtxListeners);
 		this->m_listeners.remove(listener);
@@ -90,7 +90,7 @@ int CertCard::OpenCertCardReader()
 #ifndef _WIN64
 	HD_CloseComm(port);
 	int result = HD_InitComm(port);
-	if (0!=result) {
+	if (0 != result) {
 		return result;
 	}
 #endif // !_WIN64
@@ -115,19 +115,19 @@ void CertCard::CloseCertCardReader()
 		WaitForSingleObject(threadid, 1000);
 		m_thread = NULL;
 	}
-	
+
 #ifndef _WIN64
 	HD_CloseComm(Config::GetInstance()->GetData().certcard.port);
 #endif // !_WIN64
-	
+
 }
 
 void CertCard::NotifyCardAuthed(int result)
 {
-	bool authed = 0 == result? true: false;
+	bool authed = 0 == result ? true : false;
 	std::string info = this->GetErrMsg(result);
 	for (auto& elem : this->m_listeners) {
-		elem->UpdateCardAuthed(authed,info);
+		elem->UpdateCardAuthed(authed, info);
 	}
 }
 
@@ -330,7 +330,53 @@ void CertCard::thread_workd(CertCard* instance)
 		std::this_thread::sleep_for(std::chrono::milliseconds(300));
 	}
 #endif // _WIN64
+	while (true) {
+		if (instance->m_bNeedexit) {
+			return;
+		}
+		int result = HD_Authenticate();
+		instance->NotifyCardAuthed(result);
 
+		if (0 == result) {
+			std::shared_ptr<char> name(new char[256], std::default_delete<char[]>());
+			std::shared_ptr<char> gendar(new char[256], std::default_delete<char[]>());
+			std::shared_ptr<char> nation(new char[256], std::default_delete<char[]>());
+			std::shared_ptr<char> birth(new char[256], std::default_delete<char[]>());
+			std::shared_ptr<char> address(new char[256], std::default_delete<char[]>());
+			std::shared_ptr<char> certno(new char[256], std::default_delete<char[]>());
+			std::shared_ptr<char> department(new char[256], std::default_delete<char[]>());
+			std::shared_ptr<char> effectdata(new char[256], std::default_delete<char[]>());
+			std::shared_ptr<char> expire(new char[256], std::default_delete<char[]>());
+			std::shared_ptr<char> bmpdata(new char[77725], std::default_delete<char[]>());
+
+			//result = HD_Read_BaseInfo(bmpdata.get(), name.get(), gendar.get(), nation.get(),
+			//	birth.get(), address.get(), certno.get(), department.get(), effectdata.get(), expire.get());
+			result = HD_Read_BaseInfo(NULL, bmpdata.get(), name.get(), gendar.get(), nation.get(), birth.get(), address.get(), certno.get(), department.get(), effectdata.get(),expire.get());
+			if (0 == result)
+			{
+				std::shared_ptr<CertCardInfo> info = std::make_shared<CertCardInfo>();
+				info->name = name;
+				info->gendar = gendar;
+				info->nation = nation;
+				info->birth = birth;
+				info->address = address;
+				info->certno = certno;
+				info->department = department;
+				info->effectdata = effectdata;
+				info->expire = expire;
+				info->bmpdata = bmpdata;
+
+				//Notify listeners
+				instance->NotifyCardInfoUpdated(info);
+
+				//Handle
+				instance->HandleCardInfo(info);
+			}
+		}
+
+
+		std::this_thread::sleep_for(std::chrono::milliseconds(300));
+	}
 }
 
 bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
@@ -388,8 +434,8 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 			else {
 				char tmp[256];
 				memset(tmp, 0, 256);
-				sprintf_s(tmp, "face compare failed, result: %d , score: %f, thredhold: %f", 
-					result, score, Config::GetInstance()->GetData().camera.threshold);				
+				sprintf_s(tmp, "face compare failed, result: %d , score: %f, thredhold: %f",
+					result, score, Config::GetInstance()->GetData().camera.threshold);
 				this->RecordLog(tmp);
 			}
 		}
@@ -397,9 +443,8 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 		end = chrono::steady_clock::now();
 		elapsed = end - start;
 
-	} 
-	while (std::chrono::duration_cast<std::chrono::seconds>(end - start).count() < Config::GetInstance()->GetData().camera.elapsed);
-		
+	} while (std::chrono::duration_cast<std::chrono::seconds>(end - start).count() < Config::GetInstance()->GetData().camera.elapsed);
+
 	this->NofityProcessEnd(100, "注册失败");
 	return false;
 }
@@ -425,7 +470,7 @@ void CertCard::RecordLog(const std::string msg)
 		time_t timep;
 		time(&timep);
 		char tmp[64];
-		strftime(tmp, sizeof(tmp), "%Y-%m-%d %H:%M:%S", localtime(&timep));		
+		strftime(tmp, sizeof(tmp), "%Y-%m-%d %H:%M:%S", localtime(&timep));
 		errorlog << tmp << "--" << msg << std::endl;
 	}
 }
