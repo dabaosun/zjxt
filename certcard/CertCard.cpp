@@ -173,46 +173,7 @@ void CertCard::thread_workd(CertCard* instance)
 		if (instance->m_bNeedexit) {
 			return;
 		}
-		/*
-		int result = HD_Authenticate(true);
-		instance->NotifyCardAuthed(result);
-
-		if (0 == result) {
-		std::shared_ptr<char> name(new char[256], std::default_delete<char[]>());
-		std::shared_ptr<char> gendar(new char[256], std::default_delete<char[]>());
-		std::shared_ptr<char> nation(new char[256], std::default_delete<char[]>());
-		std::shared_ptr<char> birth(new char[256], std::default_delete<char[]>());
-		std::shared_ptr<char> address(new char[256], std::default_delete<char[]>());
-		std::shared_ptr<char> certno(new char[256], std::default_delete<char[]>());
-		std::shared_ptr<char> department(new char[256], std::default_delete<char[]>());
-		std::shared_ptr<char> effectdata(new char[256], std::default_delete<char[]>());
-		std::shared_ptr<char> expire(new char[256], std::default_delete<char[]>());
-		std::shared_ptr<char> bmpdata(new char[77725], std::default_delete<char[]>());
-
-		result = HD_Read_BaseInfo(bmpdata.get(), name.get(), gendar.get(), nation.get(),
-		birth.get(), address.get(), certno.get(), department.get(), effectdata.get(), expire.get());
-		if (0 == result)
-		{
-		std::shared_ptr<CertCardInfo> info = std::make_shared<CertCardInfo>();
-		info->name = name;
-		info->gendar = gendar;
-		info->nation = nation;
-		info->birth = birth;
-		info->address = address;
-		info->certno = certno;
-		info->department = department;
-		info->effectdata = effectdata;
-		info->expire = expire;
-		info->bmpdata = bmpdata;
-
-		//Notify listeners
-		instance->NotifyCardInfoUpdated(info);
-
-		//Handle
-		instance->HandleCardInfo(info);
-		}
-		}
-		*/
+		
 		PROCESS_INFORMATION pi;
 		STARTUPINFO si;
 		si.cb = sizeof(STARTUPINFO);
@@ -329,7 +290,7 @@ void CertCard::thread_workd(CertCard* instance)
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(300));
 	}
-#endif // _WIN64
+#else
 	while (true) {
 		if (instance->m_bNeedexit) {
 			return;
@@ -351,7 +312,7 @@ void CertCard::thread_workd(CertCard* instance)
 
 			//result = HD_Read_BaseInfo(bmpdata.get(), name.get(), gendar.get(), nation.get(),
 			//	birth.get(), address.get(), certno.get(), department.get(), effectdata.get(), expire.get());
-			result = HD_Read_BaseInfo(NULL, bmpdata.get(), name.get(), gendar.get(), nation.get(), birth.get(), address.get(), certno.get(), department.get(), effectdata.get(),expire.get());
+			result = HD_Read_BaseInfo(NULL, bmpdata.get(), name.get(), gendar.get(), nation.get(), birth.get(), address.get(), certno.get(), department.get(), effectdata.get(), expire.get());
 			if (0 == result)
 			{
 				std::shared_ptr<CertCardInfo> info = std::make_shared<CertCardInfo>();
@@ -373,10 +334,10 @@ void CertCard::thread_workd(CertCard* instance)
 				instance->HandleCardInfo(info);
 			}
 		}
-
-
 		std::this_thread::sleep_for(std::chrono::milliseconds(300));
 	}
+#endif // _WIN64
+
 }
 
 bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
