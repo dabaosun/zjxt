@@ -312,7 +312,9 @@ void CertCard::thread_workd(CertCard* instance)
 
 			//result = HD_Read_BaseInfo(bmpdata.get(), name.get(), gendar.get(), nation.get(),
 			//	birth.get(), address.get(), certno.get(), department.get(), effectdata.get(), expire.get());
-			result = HD_Read_BaseInfo(NULL, bmpdata.get(), name.get(), gendar.get(), nation.get(), birth.get(), address.get(), certno.get(), department.get(), effectdata.get(), expire.get());
+			std::string pwd = Config::GetInstance()->GetPwd();
+			std::string bmpfile(pwd + "/certcard.bmp");
+			result = HD_Read_BaseInfo(bmpfile.c_str(), bmpdata.get(), name.get(), gendar.get(), nation.get(), birth.get(), address.get(), certno.get(), department.get(), effectdata.get(), expire.get());
 			if (0 == result)
 			{
 				std::shared_ptr<CertCardInfo> info = std::make_shared<CertCardInfo>();
