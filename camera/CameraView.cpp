@@ -14,6 +14,7 @@
 #include <opencv2/imgproc.hpp>
 #include "../config/Config.h"
 #include "../certcard/CertCard.h"
+#include "../detector/Detector.h"
 
 using namespace cv;
 
@@ -57,8 +58,10 @@ void CameraView::OnPaint(wxPaintEvent& event)
         {
             return;
         }
-		std::shared_ptr<cv::Mat> updated = std::make_shared<cv::Mat>(outimage.clone());
-		this->NotifyCapture(updated);
+		if (Detector::GetInstance()->DetectAndDisplay(&outimage)) {
+			std::shared_ptr<cv::Mat> updated = std::make_shared<cv::Mat>(outimage.clone());
+			this->NotifyCapture(updated);
+		}
         wxImage image(m_width, m_height, m_p_picture.get(), true);
         wxBitmap current_capture(image);
 
