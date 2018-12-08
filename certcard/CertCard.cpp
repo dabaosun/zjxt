@@ -350,22 +350,22 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 	auto elapsed = end - start;
 	do
 	{
-		cv::Mat capture;
+		std::shared_ptr<cv::Mat> capture;
 		this->PopCapture(capture);
-		if (!capture.empty())
+		if (NULL != capture)
 		{
 			float score;
 			bool result;
 
 			this->RecordLog("detect and compare.");
-			result = Detector::GetInstance()->RecognizeFace(capture, info->bmpdata, 77725, score);
+			result = Detector::GetInstance()->DetectAndComparseWithSDK(capture, info->bmpdata, 77725, score);
 
 			if (result && score >= Config::GetInstance()->GetData().camera.threshold)
 			{
 				//passed
 				//save mat to local image
 				std::string localImg = Config::GetInstance()->GetPwd() + info->certno.get() + ".jpg";
-				if (imwrite(localImg, capture)) {
+				if (imwrite(localImg, *capture)) {
 					//upload image to remote file sever
 					std::string remoteurl;
 					this->RecordLog("upload file.");
@@ -412,17 +412,19 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 	return false;
 }
 
-void CertCard::UpdateCapture(const cv::Mat& capture)
+void CertCard::UpdateCapture(const std::shared_ptr<cv::Mat> & capture)
 {
 	std::lock_guard<std::mutex> lck(this->m_mtxMat);
-	this->m_mat = capture;
+	std::shared_ptr<cv::Mat> mat = capture;
+	this->m_mat = mat;
 }
 
-void CertCard::PopCapture(cv::Mat& capture)
+void CertCard::PopCapture(std::shared_ptr<cv::Mat>& capture)
 {
 	std::lock_guard<std::mutex> lck(this->m_mtxMat);
-	capture = this->m_mat.clone();	
-	m_mat.release();
+	capture = this->m_mat;
+	this->m_mat.reset();
+
 }
 
 void CertCard::RecordLog(const std::string msg)
