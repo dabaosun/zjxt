@@ -26,16 +26,10 @@ class Detector : public IFaceRecognizerObserver
 			return m_pInstance;
 		};
 
-        bool LoadCascadeClassifier();
-        bool DetectAndDisplay(Mat* frame, Mat& face);
-		bool DetectAndComparseWithSDK(const std::shared_ptr<cv::Mat>& frame, const std::shared_ptr<char>& pImgBuf, long bufLen, float& score);
-
-		bool CalcFeatureMatch(Mat* srcFame, Mat* dstFrame);
-
-    protected:
-
-    private:
-        string face_cascade_name,eyes_cascade_name;
+        bool DetectFace(Mat* frame, Mat& face);
+		bool ComparseFace(const std::shared_ptr<cv::Mat>& frame, const std::shared_ptr<char>& pImgBuf, long bufLen, float& score);
+    
+	private:
         CascadeClassifier face_cascade;
         CascadeClassifier eyes_cascade;
 
@@ -60,10 +54,8 @@ class Detector : public IFaceRecognizerObserver
 		bool bInitSDK;
 
 		std::shared_ptr<FaceRecognizer> m_Recognizer;
+		bool LoadCascadeClassifier();
 		void HandleMessage(TFaceRecognizerEvent type, void* data = NULL);
-
-		int DetectFace(cv::Mat srcMat, std::shared_ptr<int> points);
-		float CompareFace(cv::Mat srcMat, cv::Mat dstMat);
 };
 
 #endif // DETECTOR_H

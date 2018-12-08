@@ -54,7 +54,7 @@ void CameraView::OnPaint(wxPaintEvent& event)
 		cv::resize(capture, outimage,size);
 	
 		Mat face;
-		if (Detector::GetInstance()->DetectAndDisplay(&outimage,face)) {
+		if (Detector::GetInstance()->DetectFace(&outimage,face)) {
 			std::shared_ptr<cv::Mat> updated = std::make_shared<cv::Mat>(face);
 			this->NotifyCapture(updated);
 		}

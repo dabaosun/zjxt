@@ -36,7 +36,7 @@ bool Detector::LoadCascadeClassifier()
 		&& this->eyes_cascade.load("./data/haarcascades/haarcascade_eye_tree_eyeglasses.xml");
 }
 
-bool Detector::DetectAndDisplay(Mat* frame, Mat& face)
+bool Detector::DetectFace(Mat* frame, Mat& face)
 {
 	std::vector<cv::Rect> faces;
 	Mat frame_gray;
@@ -76,36 +76,19 @@ bool Detector::DetectAndDisplay(Mat* frame, Mat& face)
 
 }
 
-bool Detector::DetectAndComparseWithSDK(const std::shared_ptr<cv::Mat>& frame, const std::shared_ptr<char>& pImgBuf, long bufLen, float& score)
+bool Detector::ComparseFace(const std::shared_ptr<cv::Mat>& frame, const std::shared_ptr<char>& pImgBuf, long bufLen, float& score)
 {
 	std::string pwd = Config::GetInstance()->GetPwd();
 	std::string bmpfile(pwd + "/certcard.bmp");
 	cv::Mat  certcardMat = cv::imread(bmpfile);
-	score = this->CompareFace(*frame, certcardMat);
-	return true;
 
+	seeta::ImageData src_imgdata(frame->cols, frame->rows, frame->channels(), frame->data);
+	seeta::ImageData dest_imgdata(certcardMat.cols, certcardMat.rows, certcardMat.channels(), certcardMat.data);
+	score = this->m_Recognizer->CalcSimilarity(src_imgdata, dest_imgdata);
+	return true;
 }
 
 void Detector::HandleMessage(TFaceRecognizerEvent type, void* data)
 {
 
-}
-
-int Detector::DetectFace(cv::Mat srcMat, std::shared_ptr<int> points)
-{
-	seeta::ImageData imgdata(srcMat.cols, srcMat.rows, srcMat.channels());
-	imgdata.data = srcMat.data;
-
-	int* tmp = NULL;	
-	int count = this->m_Recognizer->DetectFaces(imgdata, tmp);
-	points.reset(tmp);
-	return count;
-}
-
-float Detector::CompareFace(cv::Mat srcMat, cv::Mat dstMat)
-{
-	seeta::ImageData src_imgdata(srcMat.cols, srcMat.rows, srcMat.channels(),srcMat.data);
-	seeta::ImageData dest_imgdata(dstMat.cols, dstMat.rows, dstMat.channels(), dstMat.data);
-
-	return this->m_Recognizer->CalcSimilarity(src_imgdata, dest_imgdata);
 }
