@@ -52,11 +52,9 @@ void CameraView::OnPaint(wxPaintEvent& event)
 		size.width = m_width;
 		Mat outimage;
 		cv::resize(capture, outimage,size);
-	
 		Mat face;
-		if (Detector::GetInstance()->DetectFace(&outimage,face)) {
-			std::shared_ptr<cv::Mat> updated = std::make_shared<cv::Mat>(face);
-			this->NotifyCapture(updated);
+		if (Detector::GetInstance()->DetectFace(outimage,face)) {
+			this->NotifyCapture(face);
 		}
 		bool ret = SetPicture(outimage);
 		if (!ret)
@@ -184,7 +182,7 @@ void CameraView::RemoveListener(ICameraListener * listener)
 	}
 }
 
-void CameraView::NotifyCapture(const std::shared_ptr<cv::Mat>& capture)
+void CameraView::NotifyCapture(const cv::Mat& capture)
 {
 	for (auto& elem : this->m_listeners) {
 		elem->UpdateCapture(capture);

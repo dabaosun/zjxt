@@ -350,9 +350,9 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 	auto elapsed = end - start;
 	do
 	{
-		std::shared_ptr<cv::Mat> capture;
+		cv::Mat capture;
 		this->PopCapture(capture);
-		if (NULL != capture)
+		if (!capture.empty())
 		{
 			float score;
 			bool result;
@@ -366,7 +366,7 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 				//passed
 				//save mat to local image
 				std::string localImg = Config::GetInstance()->GetPwd() + info->certno.get() + ".jpg";
-				if (imwrite(localImg, *capture)) {
+				if (imwrite(localImg, capture)) {
 					//upload image to remote file sever
 					std::string remoteurl;
 					this->RecordLog("upload file.");
@@ -413,18 +413,17 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 	return false;
 }
 
-void CertCard::UpdateCapture(const std::shared_ptr<cv::Mat> & capture)
+void CertCard::UpdateCapture(const cv::Mat& capture)
 {
 	std::lock_guard<std::mutex> lck(this->m_mtxMat);
-	std::shared_ptr<cv::Mat> mat = capture;
-	this->m_mat = mat;
+	this->m_mat = capture;
 }
 
-void CertCard::PopCapture(std::shared_ptr<cv::Mat>& capture)
+void CertCard::PopCapture(cv::Mat& capture)
 {
 	std::lock_guard<std::mutex> lck(this->m_mtxMat);
-	capture = this->m_mat;
-	this->m_mat.reset();
+	capture = this->m_mat.clone();
+	this->m_mat.release();
 
 }
 

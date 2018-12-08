@@ -26,8 +26,8 @@ class Detector : public IFaceRecognizerObserver
 			return m_pInstance;
 		};
 
-        bool DetectFace(Mat* frame, Mat& face);
-		bool ComparseFace(const std::shared_ptr<cv::Mat>& frame, const std::shared_ptr<char>& pImgBuf, long bufLen, float& score);
+        bool DetectFace(Mat& frame, Mat& face);
+		bool ComparseFace(const cv::Mat& face, const std::shared_ptr<char>& pImgBuf, long bufLen, float& score);
     
 	private:
         CascadeClassifier face_cascade;

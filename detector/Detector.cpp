@@ -36,12 +36,12 @@ bool Detector::LoadCascadeClassifier()
 		&& this->eyes_cascade.load("./data/haarcascades/haarcascade_eye_tree_eyeglasses.xml");
 }
 
-bool Detector::DetectFace(Mat* frame, Mat& face)
+bool Detector::DetectFace(Mat& frame, Mat& face)
 {
 	std::vector<cv::Rect> faces;
 	Mat frame_gray;
 
-	cvtColor(*frame, frame_gray, COLOR_BGR2GRAY);
+	cvtColor(frame, frame_gray, COLOR_BGR2GRAY);
 	equalizeHist(frame_gray, frame_gray);
 
 	//-- Detect faces
@@ -50,9 +50,9 @@ bool Detector::DetectFace(Mat* frame, Mat& face)
 	if (faces.size() > 0) {
 		double fScale = 0.5;//缩放系数
 		//计算目标图像的大小
-		Size dsize = Size(frame->cols*fScale, frame->rows*fScale);
+		Size dsize = Size(frame.cols*fScale, frame.rows*fScale);
 		Mat imagedst = Mat(dsize, CV_32S);
-		resize(*frame, face, dsize);
+		resize(frame, face, dsize);
 	}
 
 	//for (size_t i = 0; i < faces.size(); i++)
@@ -76,13 +76,13 @@ bool Detector::DetectFace(Mat* frame, Mat& face)
 
 }
 
-bool Detector::ComparseFace(const std::shared_ptr<cv::Mat>& frame, const std::shared_ptr<char>& pImgBuf, long bufLen, float& score)
+bool Detector::ComparseFace(const cv::Mat& face, const std::shared_ptr<char>& pImgBuf, long bufLen, float& score)
 {
 	std::string pwd = Config::GetInstance()->GetPwd();
 	std::string bmpfile(pwd + "/certcard.bmp");
 	cv::Mat  certcardMat = cv::imread(bmpfile);
 
-	seeta::ImageData src_imgdata(frame->cols, frame->rows, frame->channels(), frame->data);
+	seeta::ImageData src_imgdata(face.cols, face.rows, face.channels(), face.data);
 	seeta::ImageData dest_imgdata(certcardMat.cols, certcardMat.rows, certcardMat.channels(), certcardMat.data);
 	score = this->m_Recognizer->CalcSimilarity(src_imgdata, dest_imgdata);
 	return true;

@@ -30,7 +30,7 @@ public:
 	void RegisterListener(ICertCardListener * listener);
 	void RemoveListener(ICertCardListener * listener);
 
-	void UpdateCapture(const std::shared_ptr<cv::Mat> & capture);
+	void UpdateCapture(const cv::Mat& capture);
 	static std::string GetErrMsg(int errcode);
 
 	int OpenCertCardReader();
@@ -49,9 +49,9 @@ private:
 	void NotifyProgressUpdate(int progress, const std::string& info);
 
 	bool HandleCardInfo(const std::shared_ptr<CertCardInfo>& info);
-	void PopCapture(std::shared_ptr<cv::Mat>& capture);
+	void PopCapture(cv::Mat& capture);
 	void RecordLog(const std::string msg);
-	std::shared_ptr<cv::Mat> m_mat;
+	cv::Mat m_mat;
 	std::mutex m_mtxMat;
 	std::ofstream errorlog;
 
