@@ -2,7 +2,6 @@
  * Name:      SigninApp.h
  * Purpose:   Defines Application Class
  * Author:    sunzhenbao (suzhenbao@live.com)
- * Created:   2018-04-19
  * Copyright: sunzhenbao ()
  * License:
  **************************************************************/
@@ -11,9 +10,12 @@
 #define SIGNINAPP_H
 
 #include <wx/app.h>
+#include <wx/snglinst.h>
 
 class SigninApp : public wxApp
 {
+	private:
+		wxSingleInstanceChecker * m_checker;
     public:
         virtual bool OnInit();
 };

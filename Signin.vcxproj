@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="camera\CameraView.cpp" />
+    <ClCompile Include="certcard\CertCard.cpp" />
+    <ClCompile Include="config\Config.cpp" />
+    <ClCompile Include="dataserver\DataServer.cpp" />
+    <ClCompile Include="detector\Detector.cpp" />
+    <ClCompile Include="imgstorage\ImgStorage.cpp" />
+    <ClCompile Include="ProgressThread.cpp" />
+    <ClCompile Include="SigninApp.cpp" />
+    <ClCompile Include="SigninFrame.cpp" />
+    <ClCompile Include="SigninMain.cpp" />
+    <ClCompile Include="statictext\CustomStaticText.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="camera\CameraListener.h" />
+    <ClInclude Include="camera\CameraView.h" />
+    <ClInclude Include="certcard\CertCard.h" />
+    <ClInclude Include="certcard\CertCardListener.h" />
+    <ClInclude Include="config\Config.h" />
+    <ClInclude Include="config\json.hpp" />
+    <ClInclude Include="dataserver\DataServer.h" />
+    <ClInclude Include="detector\Detector.h" />
+    <ClInclude Include="imgstorage\ImgStorage.h" />
+    <ClInclude Include="ProgressThread.h" />
+    <ClInclude Include="SigninApp.h" />
+    <ClInclude Include="SigninFrame.h" />
+    <ClInclude Include="SigninMain.h" />
+    <ClInclude Include="statictext\CustomStaticText.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{D72E6C59-E960-49F2-9CF7-194C41DDFEC7}</ProjectGuid>
+    <RootNamespace>Signin</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IntDir>$(Platform)\$(Configuration)\Obj</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IntDir>$(Platform)\$(Configuration)\Obj</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(IncludePath)</IncludePath>
+    <IntDir>$(Platform)\$(Configuration)\Obj</IntDir>
+    <OutDir>$(SolutionDir)$(PlatformTarget)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)$(PlatformTarget)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)cpprest\include;$(SolutionDir)opencv\include;$(SolutionDir)wxWidgets-3.0.4\include\msvc;$(SolutionDir)wxWidgets-3.0.4\include;$(SolutionDir)fastdfs\include;$(SolutionDir)detection\include;$(SolutionDir)hdsdk;$(SolutionDir)detection\FaceDetection\include;$(SolutionDir)detection\FaceIdentification\include;$(SolutionDir)detection\FaceAlignment\include;$(SolutionDir)detection\FaceRecognizer</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;__WXMSW__;_WINDOWS;wxUSE_GUI=1;WINVER=0x0500;WXUSINGDLL;wxUSE_UNICODE=1;_UNICODE;UNICODE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;wxNEEDS_DECL_BEFORE_TEMPLATE;_DEBUG;__WXDEBUG_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)cpprest\x86-windows\lib;$(SolutionDir)opencv\x86\vc15\lib;$(SolutionDir)wxWidgets-3.0.4\lib\vc_dll;$(SolutionDir)sdk-64\sdk;$(SolutionDir)hdsdk;$(SolutionDir)fastdfs\lib;$(SolutionDir)detection\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>comctl32.lib;rpcrt4.lib;winmm.lib;wsock32.lib;FaceRecognizerd.lib;wxbase30ud.lib;wxmsw30ud_core.lib;wxpngd.lib;wxjpegd.lib;opencv_world341d.lib;cpprest_2_10d.lib;FastSDKD.lib;HDstdapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)opencv\include;$(SolutionDir)wxWidgets-3.0.4\include\msvc;$(SolutionDir)wxWidgets-3.0.4\include;$(SolutionDir)cpprest\include;$(SolutionDir)fastdfs\include;$(SolutionDir)facesdk\x64;$(SolutionDir)hdsdk;$(SolutionDir)detection\FaceDetection\include;$(SolutionDir)detection\FaceIdentification\include;$(SolutionDir)detection\FaceAlignment\include;$(SolutionDir)detection\FaceRecognizer</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;__WXMSW__;_WINDOWS;wxUSE_GUI=1;WINVER=0x0500;WXUSINGDLL;wxUSE_UNICODE=1;_UNICODE;UNICODE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;wxNEEDS_DECL_BEFORE_TEMPLATE;_WIN64;_DEBUG;__WXDEBUG_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <OmitFramePointers>false</OmitFramePointers>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)opencv\x64\vc15\lib;$(SolutionDir)wxWidgets-3.0.4\lib\vc_x64_dll;$(SolutionDir)cpprest\x64-windows\lib;$(SolutionDir)sdk-64\sdk;$(SolutionDir)hdsdk;$(SolutionDir)fastdfs\lib\x64;$(SolutionDir)detection\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>comctl32.lib;rpcrt4.lib;winmm.lib;wsock32.lib;FaceRecognizerd.lib;wxbase30ud.lib;wxmsw30ud_core.lib;wxpngd.lib;wxjpegd.lib;opencv_world341d.lib;cpprest_2_10d.lib;FastSDKD.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)cpprest\include;$(SolutionDir)opencv\include;$(SolutionDir)wxWidgets-3.0.4\include\msvc;$(SolutionDir)wxWidgets-3.0.4\include;$(SolutionDir)fastdfs\include;$(SolutionDir)hdsdk;$(SolutionDir)detection\FaceDetection\include;$(SolutionDir)detection\FaceIdentification\include;$(SolutionDir)detection\FaceAlignment\include;$(SolutionDir)detection\FaceRecognizer</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;__WXMSW__;_WINDOWS;wxUSE_GUI=1;WINVER=0x0500;WXUSINGDLL;wxUSE_UNICODE=1;_UNICODE;UNICODE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;wxNEEDS_DECL_BEFORE_TEMPLATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)cpprest\x86-windows\lib;$(SolutionDir)opencv\x86\vc15\lib;$(SolutionDir)wxWidgets-3.0.4\lib\vc_dll;$(SolutionDir)sdk-64\sdk;$(SolutionDir)hdsdk;$(SolutionDir)fastdfs\lib;$(SolutionDir)detection\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>comctl32.lib;rpcrt4.lib;winmm.lib;wsock32.lib;FaceRecognizer.lib;wxbase30u.lib;wxmsw30u_core.lib;wxpng.lib;wxjpeg.lib;FastSDK.lib;HDstdapi.lib;opencv_world341.lib;opencv_img_hash341.lib;zlib.lib;cpprest_2_10.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)opencv\include;$(SolutionDir)wxWidgets-3.0.4\include\msvc;$(SolutionDir)wxWidgets-3.0.4\include;$(SolutionDir)cpprest\include;$(SolutionDir)fastdfs\include;$(SolutionDir)facesdk\x64;$(SolutionDir)hdsdk;$(SolutionDir)detection\FaceDetection\include;$(SolutionDir)detection\FaceIdentification\include;$(SolutionDir)detection\FaceAlignment\include;$(SolutionDir)detection\FaceRecognizer</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;__WXMSW__;_WINDOWS;wxUSE_GUI=1;WINVER=0x0400;WXUSINGDLL;wxUSE_UNICODE=1;_UNICODE;UNICODE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;wxNEEDS_DECL_BEFORE_TEMPLATE;_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <OmitFramePointers>false</OmitFramePointers>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)cpprest\x64-windows\lib;$(SolutionDir)opencv\x64\vc15\lib;$(SolutionDir)wxWidgets-3.0.4\lib\vc_x64_dll;$(SolutionDir)sdk-64\sdk;$(SolutionDir)hdsdk;$(SolutionDir)fastdfs\lib\x64;$(SolutionDir)detection\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>comctl32.lib;rpcrt4.lib;winmm.lib;wsock32.lib;FaceRecognizer.lib;wxbase30u.lib;wxmsw30u_core.lib;wxpng.lib;wxjpeg.lib;opencv_world341.lib;FastSDK.lib;cpprest_2_10.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -13,23 +13,32 @@
 #include "SigninMain.h"
 #include <wx/image.h>
 //*)
+#include "./certcard/CertCard.h"
+#include "./config/Config.h"
 
 IMPLEMENT_APP(SigninApp);
 
 bool SigninApp::OnInit()
 {
-    //(*AppInitialize
+	const wxString name = wxString::Format(wxT("Signin-%s"), wxGetUserId().c_str());
+	m_checker = new wxSingleInstanceChecker(name);
+	if (m_checker->IsAnotherRunning())
+	{
+		wxLogError(wxT("Program already running, aborting."));
+		return false;
+	}
+
+	//(*AppInitialize
     bool wxsOK = true;
     wxInitAllImageHandlers();
     if ( wxsOK )
     {
-    	SigninFrame* Frame = new SigninFrame(0);
-    	Frame->Show();
-    	//Frame->ShowFullScreen(true);
-
+		SigninMain* Frame = new SigninMain(0);
+    	//Frame->Show();
+    	Frame->ShowFullScreen(true);
     	SetTopWindow(Frame);
     }
-    //*)
+    //*)	
     return wxsOK;
 
 }
