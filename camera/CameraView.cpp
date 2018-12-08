@@ -58,9 +58,9 @@ void CameraView::OnPaint(wxPaintEvent& event)
         {
             return;
         }
-		if (Detector::GetInstance()->DetectAndDisplay(&outimage)) {
-			std::shared_ptr<cv::Mat> updated = std::make_shared<cv::Mat>(outimage.clone());
-			this->NotifyCapture(updated);
+		cv::Mat face;
+		if (Detector::GetInstance()->DetectFace(outimage, face)) {			
+			this->NotifyCapture(face);
 		}
         wxImage image(m_width, m_height, m_p_picture.get(), true);
         wxBitmap current_capture(image);
@@ -183,7 +183,7 @@ void CameraView::RemoveListener(ICameraListener * listener)
 	}
 }
 
-void CameraView::NotifyCapture(const std::shared_ptr<cv::Mat>& capture)
+void CameraView::NotifyCapture(const cv::Mat& capture)
 {
 	for (auto& elem : this->m_listeners) {
 		elem->UpdateCapture(capture);
