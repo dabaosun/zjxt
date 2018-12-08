@@ -52,15 +52,16 @@ void CameraView::OnPaint(wxPaintEvent& event)
 		size.width = m_width;
 		Mat outimage;
 		cv::resize(capture, outimage,size);
-
-		bool ret = SetPicture(outimage);
-        if (!ret)
-        {
-            return;
-        }
-		if (Detector::GetInstance()->DetectAndDisplay(&outimage)) {
-			std::shared_ptr<cv::Mat> updated = std::make_shared<cv::Mat>(outimage.clone());
+	
+		Mat face;
+		if (Detector::GetInstance()->DetectAndDisplay(&outimage,face)) {
+			std::shared_ptr<cv::Mat> updated = std::make_shared<cv::Mat>(face);
 			this->NotifyCapture(updated);
+		}
+		bool ret = SetPicture(outimage);
+		if (!ret)
+		{
+			return;
 		}
         wxImage image(m_width, m_height, m_p_picture.get(), true);
         wxBitmap current_capture(image);

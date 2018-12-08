@@ -357,8 +357,9 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 			float score;
 			bool result;
 
-			this->RecordLog("detect and compare.");
+			this->RecordLog("start to detect and compare.");
 			result = Detector::GetInstance()->DetectAndComparseWithSDK(capture, info->bmpdata, 77725, score);
+			this->RecordLog("finish to detect and compare.");
 
 			if (result && score >= Config::GetInstance()->GetData().camera.threshold)
 			{
