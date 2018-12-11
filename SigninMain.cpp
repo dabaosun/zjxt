@@ -20,8 +20,8 @@ enum
 };
 void SigninMain::ReplaceStaticText(wxBitmap* background, wxStaticText** replaced, wxSizer* sizer) {
 	CustomStaticText* obj = new CustomStaticText();
-	obj->Create((*replaced)->GetParent(), wxID_ANY, (*replaced)->GetLabel(), 
-		(*replaced)->GetPosition(), (*replaced)->GetSize(),(*replaced)->GetAlignment());
+	obj->Create((*replaced)->GetParent(), wxID_ANY, (*replaced)->GetLabel(),
+		(*replaced)->GetPosition(), (*replaced)->GetSize(), (*replaced)->GetAlignment());
 	obj->SetMinSize((*replaced)->GetMinSize());
 	obj->SetPosition((*replaced)->GetPosition());
 	obj->SetBg(background);
@@ -34,29 +34,31 @@ void SigninMain::ReplaceStaticText(wxBitmap* background, wxStaticText** replaced
 	delete *replaced;
 	*replaced = obj;
 }
-SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
+SigninMain::SigninMain(wxWindow* parent) : SigninFrame(parent)
 {
 	if (0 != Config::GetInstance()->LoadConfig()) {
-		
+
 	}
 
+	LOG_DEBUG("Lanch program.");
 	this->Connect(WORKER_EVENT, wxEVT_THREAD, wxThreadEventHandler(SigninMain::OnWorkerEvent));
-	
+
 	m_CameraView = new CameraView(this->m_panelCamera, wxID_ANY);
 	m_CameraView->SetSize(wxSize(640, 480));
 	m_CameraView->SetMinSize(wxSize(640, 480));
 	m_CameraView->SetMaxSize(wxSize(640, 480));
 	m_CameraView->SetBackgroundColour(wxColour(wxT("#000000")));
 	m_CameraView->Layout();
-	bSizer_Camera->Add(m_CameraView, 1, wxALL , 0);
+	bSizer_Camera->Add(m_CameraView, 1, wxALL, 0);
 
+	LOG_DEBUG("Load resource files.");
 	wxImage image;
 	do {
 		if (image.LoadFile(_T("./resource/middle.png"), wxBITMAP_TYPE_PNG)) {
 			image.SetMask(false);
 			image.Rescale(1920, 1080);
 			bg_ = new wxBitmap(image);
-			if (bg_->IsOk()){
+			if (bg_->IsOk()) {
 				break;
 			}
 		}
@@ -128,6 +130,7 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 		}
 	} while (1 > 0);
 
+	LOG_DEBUG("Replace statictext control.");
 	ReplaceStaticText(bg_, &m_staticTextCemra, bSizer16);
 	ReplaceStaticText(bg_, &m_staticTextIdentify, bSizer40);
 	ReplaceStaticText(bg_, &m_staticTextStep, bSizer41);
@@ -153,8 +156,8 @@ SigninMain::SigninMain( wxWindow* parent ) : SigninFrame( parent )
 	this->m_CertCard->OpenCertCardReader();
 }
 
-void SigninMain::OnClose( wxCloseEvent& event )
-{	
+void SigninMain::OnClose(wxCloseEvent& event)
+{
 	if (NULL != this->m_threadProgress) {
 		this->m_threadProgress->Delete();
 		if (!this->m_threadProgress->IsDetached()) {
@@ -168,7 +171,7 @@ void SigninMain::OnClose( wxCloseEvent& event )
 
 	this->m_CertCard->CloseCertCardReader();
 	this->m_CameraView->CloseCamera();
-	
+
 	//delete m_CertCard;
 	//delete m_CameraView;
 
@@ -188,7 +191,7 @@ void SigninMain::OnWorkerEvent(wxThreadEvent& event)
 	int n = event.GetInt();
 	wxString msg = event.GetString();
 
-	this->m_staticTextStep->SetLabel("（"+msg+"）");
+	this->m_staticTextStep->SetLabel("（" + msg + "）");
 
 	if ("正在处理中" == msg) {
 		this->m_staticTextStep->SetForegroundColour(wxColour(33, 33, 33));
@@ -212,7 +215,7 @@ void SigninMain::OnWorkerEvent(wxThreadEvent& event)
 	else {
 		this->m_staticTextProgress->SetLabel("");
 	}
-	
+
 	this->m_gaugeProgress->SetValue(n);
 }
 
@@ -233,13 +236,13 @@ void SigninMain::UpdateCertCardInfo(const std::shared_ptr<CertCardInfo>& info)
 	this->m_Addr->SetLabel(info->address.get());
 	this->m_IDNumber->SetLabel(info->certno.get());
 	this->m_Gender->SetLabel(info->gendar.get());
-	
+
 	wxClientDC dc(this->StaticBitmap_IDImage);
 	wxBufferedDC buffDC(&dc);
 	buffDC.Clear();
 
 	wxImage img;
-	img.LoadFile(Config::GetInstance()->GetPwd() + "certcard.bmp");	
+	img.LoadFile(Config::GetInstance()->GetPwd() + "certcard.bmp");
 	img.Rescale(132, 163);
 	wxBitmap bitmap = wxBitmap(img);
 	buffDC.DrawBitmap(bitmap, 0, 0);
@@ -252,7 +255,7 @@ void SigninMain::StartProcess(const std::string& info)
 	do {
 
 	} while (NULL != m_threadProgress);
-	
+
 	m_threadProgress = new ProgressThread(this);
 	m_threadProgress->m_message = info;
 	m_threadProgress->Run();
@@ -330,7 +333,7 @@ bool SigninMain::TileBitmap(const wxRect& rect, wxDC& dc, wxBitmap& bitmap)
 
 	return true;
 }
-bool SigninMain::TileText( wxDC& dc, const wxString& text, wxFont& font, wxPoint& point)
+bool SigninMain::TileText(wxDC& dc, const wxString& text, wxFont& font, wxPoint& point)
 {
 	dc.SetFont(font);
 	dc.SetTextForeground(wxColour(255, 255, 255));

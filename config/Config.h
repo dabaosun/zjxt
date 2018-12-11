@@ -10,6 +10,20 @@
 #define __CONFIG__
 #include <string>
 #include "json.hpp"
+#define MSG(fmt,...) char msg[256];\
+	sprintf_s(msg, 256, fmt, ##__VA_ARGS__);
+
+#define LOG_DEBUG(fmt,...) {\
+	MSG(fmt)\
+	Config::GetInstance()->log_debug(msg);}
+
+#define LOG_INFO(fmt,...)  {\
+	MSG(fmt)\
+	Config::GetInstance()->log_info(msg);}
+
+#define LOG_ERROR(fmt,...)  {\
+	MSG(fmt)\
+	Config::GetInstance()->log_error(msg);}
 
 namespace ns {
 	struct camera
@@ -55,6 +69,9 @@ public:
 	int LoadConfig();
 	ns::configdata GetData();
 	std::string GetPwd();
+	void log_error(const std::string& error);
+	void log_info(const std::string& info);
+	void log_debug(const std::string& debug);
 
 private:
 	Config();

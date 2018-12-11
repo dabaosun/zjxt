@@ -39,21 +39,11 @@ CertCard::CertCard()
 {
 	m_hSubProcess = NULL;
 	m_bNeedexit = false;
-
-	const std::string& pwd = Config::GetInstance()->GetPwd();
-	std::string errorfile(pwd);
-
-	errorfile.append("/error.log");
-
-	errorlog.open(errorfile, std::ios::out);
 }
 
 CertCard::~CertCard()
 {
-	if (errorlog.is_open()) {
-		errorlog.flush();
-		errorlog.close();
-	}
+
 }
 
 std::string CertCard::GetErrMsg(int errcode)
@@ -86,11 +76,13 @@ void CertCard::RemoveListener(ICertCardListener * listener)
 
 int CertCard::OpenCertCardReader()
 {
+	LOG_INFO("Open certcard reader.");
 	int port = Config::GetInstance()->GetData().certcard.port;
 #ifndef _WIN64
 	HD_CloseComm(port);
 	int result = HD_InitComm(port);
 	if (0 != result) {
+		LOG_ERROR("Failed to open certcard reader : %d", result);
 		return result;
 	}
 #endif // !_WIN64
@@ -357,10 +349,7 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 			float score;
 			bool result;
 
-			this->RecordLog("start to detect and compare.");
 			result = Detector::GetInstance()->ComparseFace(capture, info->bmpdata, 77725, score);
-			this->RecordLog("finish to detect and compare.");
-
 			if (result && score >= Config::GetInstance()->GetData().camera.threshold)
 			{
 				//passed
@@ -369,38 +358,21 @@ bool CertCard::HandleCardInfo(const std::shared_ptr<CertCardInfo>& info)
 				if (imwrite(localImg, capture)) {
 					//upload image to remote file sever
 					std::string remoteurl;
-					this->RecordLog("upload file.");
 					int code = ImgStorage::GetInstance()->UploadFile(localImg, remoteurl);
 					if (0 == code)
 					{
 						//update data info to remote server by http request.
-						this->RecordLog("upload data.");
 						code = DataServer::GetInstance()->UploadData(info->certno.get(), remoteurl);
 						if (0 == code) {
 							this->NofityProcessEnd(100, "×¢²á³É¹¦");
 							return true;
 						}
-						else {
-							char tmp[256];
-							memset(tmp, 0, 256);
-							sprintf_s(tmp, "transfer data failed : %d ", code);
-							this->RecordLog(tmp);
-						}
-					}
-					else {
-						char tmp[256];
-						memset(tmp, 0, 256);
-						sprintf_s(tmp, "upload file failed : %d ", code);
-						this->RecordLog(tmp);
 					}
 				}
 			}
 			else {
-				char tmp[256];
-				memset(tmp, 0, 256);
-				sprintf_s(tmp, "face compare failed, result: %d , score: %f, thredhold: %f",
+				LOG_ERROR("Face compare failed, result: %d , score: %f, thredhold: %f",
 					result, score, Config::GetInstance()->GetData().camera.threshold);
-				this->RecordLog(tmp);
 			}
 		}
 		std::this_thread::sleep_for(std::chrono::milliseconds(300));
@@ -425,15 +397,4 @@ void CertCard::PopCapture(cv::Mat& capture)
 	capture = this->m_mat.clone();
 	this->m_mat.release();
 
-}
-
-void CertCard::RecordLog(const std::string msg)
-{
-	if (errorlog.is_open()) {
-		time_t timep;
-		time(&timep);
-		char tmp[64];
-		strftime(tmp, sizeof(tmp), "%Y-%m-%d %H:%M:%S", localtime(&timep));
-		errorlog << tmp << "--" << msg << std::endl;
-	}
 }

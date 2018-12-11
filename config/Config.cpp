@@ -12,7 +12,14 @@
 #include <iostream>
 #include <direct.h>
 #include <io.h>
-#include <iostream>  
+#include <iostream>
+#include <Poco/Logger.h>
+#include <Poco/AutoPtr.h>
+#include <Poco/FileChannel.h>
+#include <Poco/PatternFormatter.h>
+#include <Poco/FormattingChannel.h>
+#include "Poco/Util/PropertyFileConfiguration.h"
+#include "Poco/Util/LoggingConfigurator.h"
 
 using json = nlohmann::json;
 namespace ns {
@@ -67,10 +74,9 @@ namespace ns {
 	}
 };
 
-const std::string confile =  "etc/config.json";
+const std::string confile = "etc/config.json";
 
 Config* Config::m_pInstance = new Config();
-
 Config::Garbo Config::garbo;
 
 Config::Config()
@@ -106,11 +112,11 @@ void Config::SaveDataToFile(const std::string& filepath)
 	_splitpath_s(filepath.c_str(), drive, dir, fname, ext);
 	if (_access(dir, 6) == -1)
 	{
-		_mkdir(dir);  
+		_mkdir(dir);
 	}
 	json j = m_data;
 	std::ofstream out(filepath);
-	
+
 	out << j << std::endl;
 }
 
@@ -140,5 +146,40 @@ int Config::LoadConfig()
 		this->m_data = j;
 		in.close();
 	}
+
+	auto &logger = Poco::Logger::root();
+	Poco::AutoPtr<Poco::FileChannel> fileChannel(new Poco::FileChannel("./signin.log"));
+	Poco::AutoPtr<Poco::PatternFormatter> patternFormatter(new Poco::PatternFormatter("%Y-%m-%d %H:%M:%S.%c %I %p: %t"));
+	patternFormatter->setProperty("times", "local");
+	Poco::AutoPtr<Poco::FormattingChannel> formattingChannel(
+		new Poco::FormattingChannel(patternFormatter, fileChannel));
+	logger.setChannel(formattingChannel);
+
+	try {
+		Poco::AutoPtr<Poco::Util::PropertyFileConfiguration> propertyFileConfiguration(new Poco::Util::PropertyFileConfiguration("log.properties"));
+		Poco::Util::LoggingConfigurator().configure(propertyFileConfiguration);
+	}
+	catch (Poco::Exception &e)
+	{
+		std::cerr << e.displayText() << std::endl;
+		return -1;
+	}
+
 	return 0;
+}
+
+void Config::log_error(const std::string& error)
+{
+	auto &logger = Poco::Logger::root();
+	poco_error(logger, error);
+}
+void Config::log_info(const std::string& info)
+{
+	auto &logger = Poco::Logger::root();
+	poco_information(logger, info);
+}
+void Config::log_debug(const std::string& debug)
+{
+	auto &logger = Poco::Logger::root();
+	poco_debug(logger, debug);
 }

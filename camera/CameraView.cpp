@@ -117,6 +117,7 @@ byte * matToBytes(Mat image)
 
 bool CameraView::OpenCamera()
 {
+	LOG_INFO("Open camera.");
     if (m_is_display)
     {
 		return true;
@@ -134,6 +135,7 @@ bool CameraView::OpenCamera()
 
 	if (!m_p_cap->isOpened())
 	{
+		LOG_ERROR("Failed to open camera.");
 		return false;
 	}
     m_p_picture.reset(new unsigned char[m_width * m_height * 3]);

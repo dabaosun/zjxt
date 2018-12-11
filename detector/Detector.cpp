@@ -78,6 +78,7 @@ bool Detector::DetectFace(Mat& frame, Mat& face)
 
 bool Detector::ComparseFace(const cv::Mat& face, const std::shared_ptr<char>& pImgBuf, long bufLen, float& score)
 {
+	LOG_INFO("Start to detect and compare.");
 	std::string pwd = Config::GetInstance()->GetPwd();
 	std::string bmpfile(pwd + "/certcard.bmp");
 	cv::Mat  certcardMat = cv::imread(bmpfile);
@@ -85,6 +86,7 @@ bool Detector::ComparseFace(const cv::Mat& face, const std::shared_ptr<char>& pI
 	seeta::ImageData src_imgdata(face.cols, face.rows, face.channels(), face.data);
 	seeta::ImageData dest_imgdata(certcardMat.cols, certcardMat.rows, certcardMat.channels(), certcardMat.data);
 	score = this->m_Recognizer->CalcSimilarity(src_imgdata, dest_imgdata);
+	LOG_INFO("End to detect and compare : %f", score);
 	return true;
 }
 

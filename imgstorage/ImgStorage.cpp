@@ -26,6 +26,7 @@ ImgStorage::~ImgStorage()
 
 int ImgStorage::UploadFile(const std::string& filename,std::string& remoteurl)
 {
+	LOG_INFO("Start to upload file : %s",filename);
 	try
 	{
 		std::string ip = Config::GetInstance()->GetData().storage.ip;
@@ -40,8 +41,10 @@ int ImgStorage::UploadFile(const std::string& filename,std::string& remoteurl)
 		return code;
 	}
 	catch (...) {
+		LOG_INFO("Failed to upload file");
 		return -1;
 	}
+	LOG_INFO("End to upload file : %s", remoteurl);
 }
 
 

@@ -50,11 +50,8 @@ private:
 
 	bool HandleCardInfo(const std::shared_ptr<CertCardInfo>& info);
 	void PopCapture(cv::Mat& capture);
-	void RecordLog(const std::string msg);
 	cv::Mat m_mat;
 	std::mutex m_mtxMat;
-	std::ofstream errorlog;
-
 	void * m_hSubProcess;
 	bool m_bNeedexit;
 };

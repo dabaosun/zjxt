@@ -32,6 +32,7 @@ DataServer::~DataServer()
 
 int DataServer::UploadData(const std::string& cardno, const std::string& imgpath)
 {
+	LOG_INFO("Start to upload data : %s , %s", cardno, imgpath);
 	const string_t host = utility::conversions::to_string_t(Config::GetInstance()->GetData().server.ip);
 	web::uri_builder clientbuilder;
 	clientbuilder.set_scheme(U("http"));
@@ -58,16 +59,20 @@ int DataServer::UploadData(const std::string& cardno, const std::string& imgpath
 					auto code = utility::conversions::to_utf8string(a.as_string());
 					return atoi(code.c_str());
 				}
+				LOG_ERROR("Failed to upload data : %s", "not found code field.");
 				return 500;
 			}
 			catch (...)
 			{
+				LOG_ERROR("Failed to upload data : %s", "caught exception.");
 				return 500;
 			}
 		}
 		return response.status_code();
 	}
 	catch (...) {
+		LOG_ERROR("Failed to upload data : %s", "caught exception.");
 		return 500;
 	}
+	LOG_INFO("End to upload data.");
 }
